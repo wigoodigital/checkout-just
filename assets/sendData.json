@@ -1,0 +1,82 @@
+{
+    "customer":{
+       "companyBranchId":15956,
+       "name":"Gabriel Dos Santos",
+       "birthDate":"1996-09-21",
+       "sex":"M",
+       "email":"gabriel@pamajhon.com.br",
+       "document":"46910577817",
+       "isForeigner":false,
+       "phones":[
+          {
+             "type":"cellphone",
+             "number":"(11) 98267-7393"
+          }
+       ],
+       "address":{
+          "address":"Avenida Sagitário",
+          "number":"278",
+          "complement":"",
+          "district":"Sítio Tamboré Alphaville",
+          "city":"Barueri",
+          "state":"SP",
+          "postalCode":"06473-073"
+       },
+       "financeResponsible":{
+          "name":"Gabriel Dos Santos",
+          "document":"469.105.778-17",
+          "email":"gabriel@pamajhon.com.br",
+          "phone":"(11) 98267-7393",
+          "active":true
+       },
+       "planData":{
+          "companyBranchId":15956,
+          "planId":344912,
+          "consultantId":10044113,
+          "promotionId":0,
+          "startDate":"2020-07-31",
+          "dueDate":"2020-07-31"
+       },
+       "paymentMethod":"creditCard",
+       "card":{
+          "number":"4564564564564564",
+          "name":"Teste Cartao",
+          "valid":"09/21",
+          "cvv":"123"
+       },
+       "anamnese":{
+          "idade":"23",
+          "altura":"1,75",
+          "objetivo":"Aumentar a Massa Magra",
+          "habitoTreino":"sim",
+          "frequenciaTreino":"1 a 2 vezes",
+          "fazMusculacao":"sim",
+          "fazAulas":"nao",
+          "sedentario":"sim",
+          "sedentarioTempo":"6 meses",
+          "reclusaoTreino":"sim",
+          "tempoPorDia":"10 a 30 minutos",
+          "periodo":"Manhã",
+          "peso":"65",
+          "patologia":"outro",
+          "outroPatologia":"teste",
+          "osseoArticular":"",
+          "qualOsseoArticular":"teste",
+          "cirurgia":"sim",
+          "qualCirurgia":"teste",
+          "internacao":"sim",
+          "qualInternacao":"teste",
+          "medicamento":"sim",
+          "qualMedicamento":"teste",
+          "fuma":"nao",
+          "nutricionista":"nao",
+          "personalTrainer":"nao",
+          "equipamentos":"teste",
+          "status":"",
+          "unidade":"",
+          "aluno":"",
+          "sexo":"M",
+          "osseoarticular":"sim"
+       }
+    }
+ }
