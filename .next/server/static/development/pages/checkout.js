@@ -4465,6 +4465,10 @@ const style = _objectSpread({}, assets_jss_nextjs_material_kit_pro_imagesStyles_
       fontSize: '13px',
       marginTop: '10px',
       marginBottom: '1px'
+    },
+    "& span": {
+      color: '#c85a5f',
+      fontSize: '13px'
     }
   },
   btnFacebook: {
@@ -4752,6 +4756,7 @@ const style = _objectSpread({}, assets_jss_nextjs_material_kit_pro_imagesStyles_
       fontWeight: 600
     }
   },
+  FormGroup: {},
   '@media (max-wdith: 747px)': {
     complementValue: {
       marginLeft: '0px !important',
@@ -10993,7 +10998,14 @@ function SectionForm() {
       lineNumber: 89,
       columnNumber: 19
     }
-  })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }), __jsx("span", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 90,
+      columnNumber: 19
+    }
+  }, "Por favor, insira o seu nome")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
     xs: 12,
     sm: 12,
     md: 6,
@@ -11001,21 +11013,21 @@ function SectionForm() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 91,
+      lineNumber: 92,
       columnNumber: 19
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 92,
+      lineNumber: 93,
       columnNumber: 19
     }
   }, "Sobrenome"), __jsx("input", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 93,
+      lineNumber: 94,
       columnNumber: 19
     }
   })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
@@ -11026,96 +11038,96 @@ function SectionForm() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 95,
-      columnNumber: 19
-    }
-  }, __jsx("h2", {
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
       lineNumber: 96,
       columnNumber: 19
     }
-  }, "E-mail"), __jsx("input", {
+  }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 97,
       columnNumber: 19
     }
+  }, "E-mail"), __jsx("input", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 98,
+      columnNumber: 19
+    }
   })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
     xs: 12,
     sm: 12,
     md: 6,
     className: classes.formInputItem,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 99,
-      columnNumber: 19
-    }
-  }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 100,
       columnNumber: 19
     }
-  }, "CPF"), __jsx("input", {
+  }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 101,
       columnNumber: 19
     }
+  }, "CPF"), __jsx("input", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 102,
+      columnNumber: 19
+    }
   })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
     xs: 12,
     sm: 12,
     md: 6,
     className: classes.formInputItem,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 103,
-      columnNumber: 19
-    }
-  }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 104,
       columnNumber: 19
     }
-  }, "Sexo"), __jsx("input", {
+  }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 105,
       columnNumber: 19
     }
+  }, "Sexo"), __jsx("input", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 106,
+      columnNumber: 19
+    }
   })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
     xs: 12,
     sm: 12,
     md: 6,
     className: classes.formInputItem,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 107,
-      columnNumber: 19
-    }
-  }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 108,
       columnNumber: 19
     }
-  }, "Data de nascimento"), __jsx("input", {
+  }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 109,
+      columnNumber: 19
+    }
+  }, "Data de nascimento"), __jsx("input", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 110,
       columnNumber: 19
     }
   })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
@@ -11126,21 +11138,21 @@ function SectionForm() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 111,
+      lineNumber: 112,
       columnNumber: 19
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 112,
+      lineNumber: 113,
       columnNumber: 19
     }
   }, "Celular"), __jsx("input", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 113,
+      lineNumber: 114,
       columnNumber: 19
     }
   }))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
@@ -11154,7 +11166,7 @@ function SectionForm() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 116,
+      lineNumber: 117,
       columnNumber: 19
     }
   }, __jsx("div", {
@@ -11168,7 +11180,7 @@ function SectionForm() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 117,
+      lineNumber: 118,
       columnNumber: 21
     }
   }, __jsx("input", {
@@ -11179,14 +11191,14 @@ function SectionForm() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 118,
+      lineNumber: 119,
       columnNumber: 21
     }
   }), __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 119,
+      lineNumber: 120,
       columnNumber: 21
     }
   }, "Aceito receber not\xEDcias e comunicados da JustFit por SMS e Whatsapp."))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
@@ -11197,7 +11209,7 @@ function SectionForm() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 122,
+      lineNumber: 123,
       columnNumber: 19
     }
   }, __jsx("div", {
@@ -11211,7 +11223,7 @@ function SectionForm() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 123,
+      lineNumber: 124,
       columnNumber: 21
     }
   }, __jsx("input", {
@@ -11222,14 +11234,14 @@ function SectionForm() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 124,
+      lineNumber: 125,
       columnNumber: 21
     }
   }), __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 125,
+      lineNumber: 126,
       columnNumber: 21
     }
   }, "Aceito receber not\xEDcias e comunicados da JustFit por Newsletter.")))))))));

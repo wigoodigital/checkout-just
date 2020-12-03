@@ -87,6 +87,7 @@ export default function SectionForm() {
                   <GridItem xs={12} sm={12} md={6} className={classes.formInputItem}>
                   <h2 >Nome</h2>
                   <input></input>
+                  <span>Por favor, insira o seu nome</span>
                   </GridItem>
                   <GridItem xs={12} sm={12} md={6} className={classes.formInputItem}>
                   <h2>Sobrenome</h2>

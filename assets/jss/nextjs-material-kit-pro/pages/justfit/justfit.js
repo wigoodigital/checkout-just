@@ -265,6 +265,10 @@ import {
        fontSize: '13px',
        marginTop:'10px',
        marginBottom:'1px',
+     },
+     "& span": {
+       color: '#c85a5f',
+       fontSize: '13px',
      }
    },
 
@@ -581,6 +585,15 @@ TextContentBenefit:{
    fontWeight:600,
   },
 },
+
+
+FormGroup: {
+
+
+},
+
+
+
 
    '@media (max-wdith: 747px)': {
     complementValue: {
