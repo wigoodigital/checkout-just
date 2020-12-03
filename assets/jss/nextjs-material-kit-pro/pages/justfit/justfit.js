@@ -270,6 +270,36 @@ const style = {
 
   btnFacebook: {
     color: whiteColor,
+    fontSize: '18px'    
+   },
+
+   formInputItem: {
+     "& input": {
+       width:'100%',
+       color: '#484848',
+       background: '#FEFEFE',
+       borderRadius: '5px',
+       fontSize: '20px',
+       textTransform: 'capitalize !important',
+       padding: '10px',
+       border: '1.25px solid #D1D1D1',
+     },
+     "& h2": {
+       color: '#8E8E8E',
+       fontWeight: 600,
+       letterSpacing: '10%',
+       fontSize: '13px',
+       marginTop:'10px',
+       marginBottom:'1px',
+     },
+     "& span": {
+       color: '#c85a5f',
+       fontSize: '13px',
+     }
+   },
+
+   btnFacebook: {
+    color:whiteColor,
     background: facebookColor,
     width: '100%',
     height: '52px',
@@ -716,6 +746,60 @@ const style = {
   },
 
   '@media (max-wdith: 747px)': {
+   textAlign:'center',
+   backgroundColor:'#484848',
+   fontWeight:600,
+   color:'white',
+   border:0,
+   padding:15,
+   width:'150px',
+   borderRadius:'8px'
+  },
+  
+  btnEscolherWhite:{
+    textAlign:'center',
+    backgroundColor:'white',
+    fontWeight:600,
+    color:'#484848',
+    border:0,
+    padding:15,
+    width:'150px',
+    borderRadius:'8px'
+  },
+
+  beneficiosArea:{
+  flex:1,
+  display:'flex',
+  backgroundColor:'#F2F2F2',
+  color:'#484848',
+  borderRadius:'20px',
+  width:'100%',
+},
+  
+TextContentBenefit:{
+  textAlign:'left',
+  "& h1":{
+    fontSize:'25px',
+    
+  },
+  "& h5":{
+   margin:0,
+   padding:0,
+   fontSize:'15px',
+   fontWeight:600,
+  },
+},
+
+
+FormGroup: {
+
+
+},
+
+
+
+
+   '@media (max-wdith: 747px)': {
     complementValue: {
       marginLeft: '0px !important',
       marginTop: '0px !important',

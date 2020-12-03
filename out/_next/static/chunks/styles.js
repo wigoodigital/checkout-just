@@ -29,7 +29,11 @@
           .querySelectorAll("link[href][rel=stylesheet]")
           .forEach(function(link) {
             if (!link.href.match(prefix) || link.stale) return;
+<<<<<<< HEAD:out/_next/static/chunks/styles.js
             injectCss(link, link.href.split("?")[0] + "?unix=1604682552518");
+=======
+            injectCss(link, link.href.split("?")[0] + "?unix=1606997815740");
+>>>>>>> feedback input:.next/static/chunks/styles.js
           });
       }
     }
@@ -66,7 +70,11 @@
           .querySelectorAll("link[href][rel=stylesheet]")
           .forEach(function(link) {
             if (!link.href.match(prefix) || link.stale) return;
+<<<<<<< HEAD:out/_next/static/chunks/styles.js
             injectCss(link, link.href.split("?")[0] + "?unix=1604682553446");
+=======
+            injectCss(link, link.href.split("?")[0] + "?unix=1606997816369");
+>>>>>>> feedback input:.next/static/chunks/styles.js
           });
       }
     }
@@ -103,7 +111,11 @@
           .querySelectorAll("link[href][rel=stylesheet]")
           .forEach(function(link) {
             if (!link.href.match(prefix) || link.stale) return;
+<<<<<<< HEAD:out/_next/static/chunks/styles.js
             injectCss(link, link.href.split("?")[0] + "?unix=1604682552513");
+=======
+            injectCss(link, link.href.split("?")[0] + "?unix=1606997815737");
+>>>>>>> feedback input:.next/static/chunks/styles.js
           });
       }
     }

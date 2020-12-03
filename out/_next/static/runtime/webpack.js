@@ -113,7 +113,11 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
+<<<<<<< HEAD:out/_next/static/runtime/webpack.js
 /******/ 	var hotCurrentHash = "51847b1025d4a6f4c8a1";
+=======
+/******/ 	var hotCurrentHash = "3726054a0fc6759f567e";
+>>>>>>> feedback input:.next/static/runtime/webpack.js
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
