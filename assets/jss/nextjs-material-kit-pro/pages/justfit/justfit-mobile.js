@@ -215,6 +215,139 @@ import {
     },
 
 
+    
+  containerCheckbox: {
+    display: "block",
+    position: "relative",
+    paddingLeft: "35px",
+    marginBottom: "25px",
+    cursor: "pointer",
+    fontSize: "22px",
+    userSelect: "none",
+    "& input": {
+      /*  Hide the browser's default checkbox  */
+      position: "absolute",
+      opacity: 0,
+      cursor: "pointer",
+      borderRadius:"5px",
+      height: 0,
+      width: 0,
+      /* Show the checkmark when checked */
+      "&:checked": {
+        "& ~ $checkmark": {
+          /* When the checkbox is checked, add a blue background */
+          backgroundColor: "#CCDA01",
+          "&:after": {
+            display: "block"
+          }
+        }
+      }
+    },
+
+    "& $checkmark": {
+      "&:after": {
+        left: "9px",
+        top: "3px",
+        width: "10px",
+        height: "15px",
+        border: "solid #484848",
+        borderWidth: "0 3px 3px 0",
+        transform: "rotate(45deg)"
+      }
+    },
+
+    /* On mouse-over, add a grey background color */
+    // "&:hover": {
+    //   "& input": {
+    //     "& ~ $checkmark": {
+    //       backgroundColor: "#ccc"
+    //     }
+    //   }
+    // }
+  },
+
+  checkmark: {
+    position: "absolute",
+    top: 0,
+    borderRadius:"5px",
+    left: 0,
+    height: "25px",
+    width: "25px",
+    backgroundColor: "#D8D8D8",
+    "&:after": {
+      content: '""',
+      position: "absolute",
+      display: "none"
+    }
+  },
+
+
+  containerCheckboxT: {
+    display: "block",
+    position: "relative",
+    paddingLeft: "35px",
+    marginBottom: "25px",
+    cursor: "pointer",
+    fontSize: "22px",
+    userSelect: "none",
+    "& input": {
+      /*  Hide the browser's default checkbox  */
+      position: "absolute",
+      opacity: 0,
+      cursor: "pointer",
+      borderRadius:"5px",
+      height: 0,
+      width: 0,
+      /* Show the checkmark when checked */
+      "&:checked": {
+        "& ~ $checkmarkT": {
+          /* When the checkbox is checked, add a blue background */
+          backgroundColor: "#CCDA01",
+          "&:after": {
+            display: "block"
+          }
+        }
+      }
+    },
+
+    "& $checkmarkT": {
+      "&:after": {
+        left: "5px",
+        top: "0px",
+        width: "5px",
+        height: "10px",
+        border: "solid #484848",
+        borderWidth: "0 3px 3px 0",
+        transform: "rotate(45deg)"
+      }
+    },
+
+    /* On mouse-over, add a grey background color */
+    // "&:hover": {
+    //   "& input": {
+    //     "& ~ $checkmark": {
+    //       backgroundColor: "#ccc"
+    //     }
+    //   }
+    // }
+  },
+
+  checkmarkT: {
+    position: "absolute",
+    top: 0,
+    borderRadius:"2px",
+    left: 0,
+    height: "15px",
+    width: "15px",
+    backgroundColor: "#D8D8D8",
+    "&:after": {
+      content: '""',
+      position: "absolute",
+      display: "none"
+    }
+  },
+
+
     textDefault: {
       fontSize:'15px',
       fontWeight:'400',
@@ -247,27 +380,28 @@ import {
     },
 
    },
-
+   
    formInputItem: {
-     "& input": {
-       width:'100%',
-       color: '#484848',
-       background: '#FEFEFE',
-       borderRadius: '5px',
-       fontSize: '20px',
-       textTransform: 'capitalize !important',
-       padding: '10px',
-       border: '1.25px solid #D1D1D1',
-     },
-     "& h2": {
-       color: '#8E8E8E',
-       fontWeight: 600,
-       letterSpacing: '10%',
-       fontSize: '13px',
-       marginTop:'10px',
-       marginBottom:'1px',
-     }
-   },
+    "& input": {
+      width: '100%',
+      color: '#484848',
+      background: '#FEFEFE',
+      borderRadius: '5px',
+      fontSize: '15px',
+      textTransform: 'capitalize !important',
+      padding: '10px',
+      border: '2px solid #D1D1D170',
+    },
+    "& h2": {
+      color: '#8E8E8E',
+      fontWeight: 600,
+      letterSpacing: '10%',
+      fontSize: '14px',
+      marginTop: '10px',
+      marginBottom: '1px',
+    }
+  },
+   
 
    btnFacebook: {
     color:whiteColor,

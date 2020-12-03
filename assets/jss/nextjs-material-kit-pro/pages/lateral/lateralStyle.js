@@ -27,13 +27,13 @@ const style = {
   content: {
     position: 'relative',
     width: "500px",
-    height:'100%',
-    top:0,
-    left:0,
+    height: '100%',
+    top: 0,
+    left: 0,
     zIndex: '9999',
     margin: 0,
     backgroundColor: '#F2F2F2',
-    "& h1, & h2, & h3, & h4, & h5, & h6":{
+    "& h1, & h2, & h3, & h4, & h5, & h6": {
       color: '#484848',
     },
 
@@ -41,23 +41,63 @@ const style = {
 
   contentMobile: {
     position: 'relative',
-    width: "100%",
-    height:'100%',
-    top:0,
-    left:0,
+    height: '100%',
+    top: 0,
+    left: 0,
     zIndex: '9999',
     margin: 0,
-    backgroundColor: '#FFF',
-    "& h1, & h2, & h3, & h4, & h5, & h6":{
+    backgroundColor: '#F2F2F2',
+    "& h1, & h2, & h3, & h4, & h5, & h6": {
       color: '#484848',
     },
 
   },
+  MuiAccordionroot: {
+    "&.MuiAccordion-root:before": {
+      backgroundColor: "white",
+      height: 0,
+      display: 'none',
+    }
+  },
+  heading: {
+    fontWeight: 800,
+    fontSize: 12,
+    color: '#484848 !important',
+    flex: 1,
+    textAlign:'left',
+    display: 'flex',
+  },
+  secondaryHeading: {
+    display: 'flex',
+    textAlign: 'right',
+    justifyContent: 'flex-end',
+    fontWeight: 700,
+    fontSize: 12,
+    color: '#484848 !important',
 
+  },
+  heading2: {
+    fontWeight: 600,
+    fontSize: 12,
+    color: '#B0B0B0!important',
+    flex: 1,
+    textAlign:'left',
+    display: 'flex',
+  },
+  secondaryHeading2: {
+    display: 'flex',
+    flex: 1,
+    textAlign: 'right',
+    justifyContent: 'flex-end',
+    fontWeight: 600,
+    fontSize: 12,
+    color: '#B0B0B0 !important',
+
+  },
 
   '@media (max-width: 747px)': {
     content: {
-     display: 'none',
+      display: 'none',
     }
   },
 
@@ -160,7 +200,7 @@ const style = {
       }
     }
   },
-   lateral: {
+  lateral: {
 
     position: "relative",
     width: "100%",
@@ -247,8 +287,8 @@ const style = {
     ...defaultFont
   },
 
-  lateralForm: {display: 'block'},
-  
+  lateralForm: { display: 'block' },
+
   '@media (max-width: 747px)': {
     centerPhone: {
       marginTop: "15px",
@@ -258,7 +298,7 @@ const style = {
       display: 'none',
     },
   }
-  
+
 };
 
 export default style;

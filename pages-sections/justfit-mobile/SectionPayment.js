@@ -147,8 +147,11 @@ const [displayDebit,setDisplayDebit]=useState('none');
                  </GridItem>
                  <GridItem xs={12} sm={12} md={10} className={classes.checkboxItemPayment} style={{marginTop:20}}>
                  <div style={{display: 'flex', flexDirection: 'row', alignItems:'center',}}>
-                      <input type='checkbox' style={{marginRight:'10px'}} />
-                      <h2>Li e aceito o contrato, o <a>termo de adesão</a> e o <a>regulamento interno</a>.</h2>
+                 <label className={classes.containerCheckbox}>
+                      <input type='checkbox'></input>
+                      <span className={classes.checkmark}  ></span>
+                    </label>
+                     <h2>Li e aceito o contrato, o <a>termo de adesão</a> e o <a>regulamento interno</a>.</h2>
                       </div>
                  </GridItem>
                  </GridContainer>
@@ -185,8 +188,11 @@ const [displayDebit,setDisplayDebit]=useState('none');
                  </GridItem>
                  <GridItem xs={12} sm={12} md={10} className={classes.checkboxItemPayment} style={{marginTop:20}}>
                  <div style={{display: 'flex', flexDirection: 'row', alignItems:'center',}}>
-                      <input type='checkbox' style={{marginRight:'10px'}} />
-                      <h2>Li e aceito o contrato, o <a>termo de adesão</a> e o <a>regulamento interno</a>.</h2>
+                 <label className={classes.containerCheckbox}>
+                      <input type='checkbox'></input>
+                      <span className={classes.checkmark}  ></span>
+                    </label>
+                    <h2>Li e aceito o contrato, o <a>termo de adesão</a> e o <a>regulamento interno</a>.</h2>
                       </div>
                  </GridItem>
                  </GridContainer>

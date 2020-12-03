@@ -49,7 +49,7 @@ export default function SectionSummary() {
                </GridItem>
                <GridItem  xs={12} sm={12} md={6} >
                   <GridContainer justify="center">
-                    <GridItem xs={12} sm={12} md={12} style={{marginBottom:40}}>
+                    <GridItem xs={12} sm={12} md={12} style={{marginBottom:33}}>
                       <JustfitSummary theme='summary'>
                         <GridContainer style={{height:'100%'}}>
                           <GridItem xs={12} sm={12} md={4} style={{marginLeft:'30px',padding:0,}}>
@@ -81,7 +81,7 @@ export default function SectionSummary() {
                         </GridContainer>
                       </JustfitSummary>
                     </GridItem>
-                    <GridItem xs={12} sm={12} md={12} style={{marginBottom:40}}>
+                    <GridItem xs={12} sm={12} md={12} style={{marginBottom:33}}>
                       <JustfitSummary  theme='summary'>
                         <GridContainer style={{height:'100%'}}>
                           <GridItem xs={12} sm={12} md={4} style={{marginLeft:'30px',padding:0,}}>

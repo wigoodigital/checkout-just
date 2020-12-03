@@ -38,21 +38,21 @@ export default function SectionForm() {
   const classes = useStyles();
   return (
       
-      <GridContainer className={classes.content} justify="center" >        
-        <GridItem xs={12} sm={12} md={10}>
+      <GridContainer className={classes.content} justify="center" align='center' >        
+        <GridItem xs={8} sm={8} md={8} >
           <Justfit
             theme="white"
             className={classes.jusfit}
           >
-          <GridContainer justify='left'>
-            <GridItem xs={12} sm={12} md={12} style={{marginBottom:'40px'}}>
+          <GridContainer justify='center' align='left'>
+            <GridItem xs={10} sm={10} md={10} style={{marginBottom:'40px'}}>
             <h1 style={{fontSize:'40px',fontWeight:600,color:"#484848",maxWidth:'500px'}}>FAÇA LOGIN PARA CONTINUAR</h1>
             </GridItem>
 
-            <GridItem xs={12} sm={12} md={12}>              
+            <GridItem xs={11} sm={11} md={11}>              
 
-              <GridContainer justify='center'>
-                <GridItem xs={12} sm={12} md={12} style={{maxWidth: "800px"}}>
+              <GridContainer justify='left' align='left'>
+                <GridItem xs={12} sm={12} md={12} >
                   <GridContainer justify='center'>
                     <GridItem xs={12} sm={12} md={5} >
                       <button className={classes.btnFacebook}>
@@ -80,10 +80,10 @@ export default function SectionForm() {
 
             <GridItem xs={12} sm={12} md={12} style={{marginBottom:'20px'}}>
             <GridContainer justify='center'>
-              <GridItem xs={12} sm={12} md={10}> 
+              <GridItem xs={10} sm={10} md={10}> 
                   <h5 style={{color:"#484848",fontSize:'15px',fontWeight:600,paddingTop:'50px',}}>Preencha os campos abaixo para se cadastrar</h5>
               </GridItem>
-              <GridContainer justify='left' style={{marginLeft:'0.1%'}} xs={12} sm={12} md={10} >
+              <GridContainer justify='left' xs={10} sm={10} md={10} >
                   <GridItem xs={12} sm={12} md={6} className={classes.formInputItem}>
                   <h2 >Nome</h2>
                   <input></input>
@@ -115,13 +115,19 @@ export default function SectionForm() {
               </GridContainer>
                   <GridItem xs={12} sm={12} md={10} className={classes.checkboxItem} style={{ marginTop: "25px" }}>
                     <div style={{display: 'flex', flexDirection: 'row', alignItems:'center',margin:0,padding:0}}>
-                    <input type='checkbox' style={{marginRight:'10px'}} />
+                    <label className={classes.containerCheckboxT}>
+                        <input type='checkbox' ></input>
+                        <span className={classes.checkmarkT}  ></span>
+                      </label>
                     <h2>Aceito receber notícias e comunicados da JustFit por SMS e Whatsapp.</h2>
                     </div>
                   </GridItem>
                   <GridItem xs={12} sm={12} md={10} className={classes.checkboxItem}>
                     <div style={{display: 'flex', flexDirection: 'row', alignItems:'center',margin:0,padding:0}}>
-                    <input type='checkbox' style={{marginRight:'10px'}} />
+                            <label className={classes.containerCheckboxT}>
+                        <input type='checkbox' ></input>
+                        <span className={classes.checkmarkT}  ></span>
+                      </label>
                     <h2>Aceito receber notícias e comunicados da JustFit por Newsletter.</h2>
                     </div>
                   </GridItem>              

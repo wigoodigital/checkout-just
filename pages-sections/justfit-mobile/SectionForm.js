@@ -96,13 +96,19 @@ export default function SectionFormMobile() {
                  </GridContainer>
                  <GridItem xs={12} sm={10} md={10} className={classes.checkboxItem} style={{marginTop:15}}>
                     <div style={{display: 'flex', flexDirection: 'row', alignItems:'center',margin:0,padding:0}}>
-                      <input type='checkbox' style={{marginRight:'10px'}} />
+                    <label className={classes.containerCheckboxT}>
+                        <input type='checkbox' ></input>
+                        <span className={classes.checkmarkT}  ></span>
+                      </label>
                       <h2>Aceito receber notícias e comunicados da JustFit por SMS e Whatsapp.</h2>
                       </div>
                  </GridItem>
                  <GridItem xs={12} sm={10} md={10} className={classes.checkboxItem}>
                  <div style={{display: 'flex', flexDirection: 'row', alignItems:'center',margin:0,padding:0}}>
-                      <input type='checkbox' style={{marginRight:'10px'}} />
+                 <label className={classes.containerCheckboxT}>
+                        <input type='checkbox' ></input>
+                        <span className={classes.checkmarkT}  ></span>
+                      </label>
                       <h2>Aceito receber notícias e comunicados da JustFit por Newsletter.</h2>
                       </div>
                  </GridItem>
