@@ -10,7 +10,7 @@
     "static/development/_ssgManifest.js"
   ],
   "pages": {
-    "/": [
+    "/404": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
@@ -29,10 +29,6 @@
       "static/runtime/polyfills.js.map"
     ],
     "/checkout": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/index": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]
