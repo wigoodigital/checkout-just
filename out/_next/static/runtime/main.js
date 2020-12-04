@@ -503,7 +503,7 @@ function connect(options) {
       error.name = err.name;
       error.stack = err.stack; // __NEXT_DIST_DIR is provided by webpack
 
-      (0, _sourceMapSupport.rewriteStacktrace)(error, "C:\\Users\\Matraqueado\\Downloads\\checkout-justfit\\.next");
+      (0, _sourceMapSupport.rewriteStacktrace)(error, "/Users/gabrieldossantos/Desktop/checkout-justfit (1)/.next");
       return error;
     }
   };

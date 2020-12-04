@@ -50,10 +50,10 @@ export default function SectionSummaryMobile() {
            <GridItem className={classes.stepMobile} xs={6} sm={6} md={4} style={{marginBottom:'25px'}} align='right'>
                  <img src={stepMobile4} />
            </GridItem>
-               <h6 style={{color:"#484848",fontWeight:'600',fontSize:'13px',paddingBottom:20,paddingTop:30,paddingLeft:15,textTransform:'none'}}>Confira aqui alguns detalhes do seu pedido</h6>
+               <h6 style={{color:"#484848",fontWeight:'700',fontSize:'14px',paddingBottom:20,paddingTop:30,paddingLeft:15,textTransform:'none'}}>Confira aqui alguns detalhes do seu pedido</h6>
          
 
-                 <GridItem style={{marginBottom:40,}}>
+                 <GridItem style={{marginBottom:40,}} align='center' justify='center'>
                <JustfitSummary theme='summary'>
                  <GridContainer style={{height:'100%'}}>
                    <GridItem xs={12} sm={12} md={4} style={{marginLeft:'30px',padding:0,}}>
@@ -85,7 +85,7 @@ export default function SectionSummaryMobile() {
                  </GridContainer>
                </JustfitSummary>
                </GridItem>
-               <GridItem style={{marginBottom:40,}}>
+               <GridItem style={{marginBottom:40,}} align='center' justify='center'>
                <JustfitSummary  theme='summary'>
                <GridContainer style={{height:'100%'}}>
                    <GridItem xs={12} sm={12} md={4} style={{marginLeft:'30px',padding:0,}}>
@@ -115,7 +115,7 @@ export default function SectionSummaryMobile() {
                </JustfitSummary>
                </GridItem>
               
-               <GridItem xs={12} sm={12} md={12}  >
+               <GridItem xs={12} sm={12} md={12}  align='center' justify='center'>
                   <JustfitSummary theme='summary'>
                   <GridContainer style={{minHeight:'300px'}}>
                    <GridItem xs={12} sm={12} md={4} style={{marginLeft:'30px',padding:0,}}>

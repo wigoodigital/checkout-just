@@ -7513,7 +7513,7 @@ var ServerStyleSheets = /*#__PURE__*/function () {
   }, {
     key: "getStyleElement",
     value: function getStyleElement(props) {
-      return react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement('style', Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement('style', Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
         id: 'jss-server-side',
         key: 'jss-server-side',
         dangerouslySetInnerHTML: {
@@ -7610,7 +7610,7 @@ function StylesProvider(props) {
 
   var outerOptions = react__WEBPACK_IMPORTED_MODULE_2___default.a.useContext(StylesContext);
 
-  var context = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, outerOptions), {}, {
+  var context = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, outerOptions, {
     disableGeneration: disableGeneration
   }, localOptions);
 
@@ -7778,7 +7778,7 @@ function mergeOuterLocalTheme(outerTheme, localTheme) {
     return mergedTheme;
   }
 
-  return Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, outerTheme), localTheme);
+  return Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, outerTheme, localTheme);
 }
 /**
  * This component takes a `theme` prop.
@@ -8201,7 +8201,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "withThemeCreator", function() { return _withTheme__WEBPACK_IMPORTED_MODULE_13__["withThemeCreator"]; });
 
-/** @license Material-UI v4.10.0
+/** @license Material-UI v4.11.2
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -8451,7 +8451,7 @@ function attach(_ref2, props) {
     _multiKeyStore__WEBPACK_IMPORTED_MODULE_5__["default"].set(stylesOptions.sheetsManager, stylesCreator, theme, sheetManager);
   }
 
-  var options = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, stylesCreator.options), stylesOptions), {}, {
+  var options = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, stylesCreator.options, stylesOptions, {
     theme: theme,
     flip: typeof stylesOptions.flip === 'boolean' ? stylesOptions.flip : theme.direction === 'rtl'
   });
@@ -8596,7 +8596,7 @@ function makeStyles(stylesOrCreator) {
     var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var theme = Object(_useTheme__WEBPACK_IMPORTED_MODULE_6__["default"])() || defaultTheme;
 
-    var stylesOptions = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, react__WEBPACK_IMPORTED_MODULE_2___default.a.useContext(_StylesProvider__WEBPACK_IMPORTED_MODULE_7__["StylesContext"])), stylesOptions2);
+    var stylesOptions = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, react__WEBPACK_IMPORTED_MODULE_2___default.a.useContext(_StylesProvider__WEBPACK_IMPORTED_MODULE_7__["StylesContext"]), stylesOptions2);
 
     var instance = react__WEBPACK_IMPORTED_MODULE_2___default.a.useRef();
     var shouldUpdate = react__WEBPACK_IMPORTED_MODULE_2___default.a.useRef();
@@ -8855,7 +8855,7 @@ function styled(Component) {
     /* eslint-enable react/forbid-foreign-prop-types */
 
 
-    var StyledComponent = react__WEBPACK_IMPORTED_MODULE_2___default.a.forwardRef(function StyledComponent(props, ref) {
+    var StyledComponent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.forwardRef(function StyledComponent(props, ref) {
       var children = props.children,
           classNameProp = props.className,
           clone = props.clone,
@@ -8871,7 +8871,7 @@ function styled(Component) {
       }
 
       if (clone) {
-        return react__WEBPACK_IMPORTED_MODULE_2___default.a.cloneElement(children, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.cloneElement(children, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
           className: Object(clsx__WEBPACK_IMPORTED_MODULE_3__["default"])(children.props.className, className)
         }, spread));
       }
@@ -8917,7 +8917,9 @@ function styled(Component) {
        * The component used for the root node.
        * Either a string to use a HTML element or a component.
        */
-      component: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.elementType
+      component: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a
+      /* @typescript-to-proptypes-ignore */
+      .elementType
     }, propTypes) : undefined;
 
     if (true) {
@@ -9082,7 +9084,7 @@ var withStyles = function withStyles(stylesOrCreator) {
       name: name || Component.displayName,
       classNamePrefix: classNamePrefix
     }, stylesOptions));
-    var WithStyles = react__WEBPACK_IMPORTED_MODULE_2___default.a.forwardRef(function WithStyles(props, ref) {
+    var WithStyles = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.forwardRef(function WithStyles(props, ref) {
       var classesProp = props.classes,
           innerRef = props.innerRef,
           other = Object(_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(props, ["classes", "innerRef"]); // The wrapper receives only user supplied props, which could be a subset of
@@ -9090,7 +9092,7 @@ var withStyles = function withStyles(stylesOrCreator) {
       // So copying it here would give us the same result in the wrapper as well.
 
 
-      var classes = useStyles(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, Component.defaultProps), props));
+      var classes = useStyles(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, Component.defaultProps, props));
       var theme;
       var more = other;
 
@@ -9219,7 +9221,7 @@ function withThemeCreator() {
       }
     }
 
-    var WithTheme = react__WEBPACK_IMPORTED_MODULE_2___default.a.forwardRef(function WithTheme(props, ref) {
+    var WithTheme = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.forwardRef(function WithTheme(props, ref) {
       var innerRef = props.innerRef,
           other = Object(_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(props, ["innerRef"]);
 
@@ -9417,7 +9419,7 @@ function breakpoints(styleFunction) {
     return Object(_merge__WEBPACK_IMPORTED_MODULE_4__["default"])(base, extended);
   };
 
-  newStyleFunction.propTypes =  true ? Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, styleFunction.propTypes), {}, {
+  newStyleFunction.propTypes =  true ? Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, styleFunction.propTypes, {
     xs: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object,
     sm: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object,
     md: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object,
@@ -9525,15 +9527,15 @@ function css(styleFunction) {
     var output = styleFunction(props);
 
     if (props.css) {
-      return Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, Object(_merge__WEBPACK_IMPORTED_MODULE_3__["default"])(output, styleFunction(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+      return Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, Object(_merge__WEBPACK_IMPORTED_MODULE_3__["default"])(output, styleFunction(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
         theme: props.theme
-      }, props.css)))), omit(props.css, [styleFunction.filterProps]));
+      }, props.css))), omit(props.css, [styleFunction.filterProps]));
     }
 
     return output;
   };
 
-  newStyleFunction.propTypes =  true ? Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, styleFunction.propTypes), {}, {
+  newStyleFunction.propTypes =  true ? Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, styleFunction.propTypes, {
     css: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object
   }) : undefined;
   newStyleFunction.filterProps = ['css'].concat(Object(_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(styleFunction.filterProps));
@@ -9894,7 +9896,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "textAlign", function() { return _typography__WEBPACK_IMPORTED_MODULE_13__["textAlign"]; });
 
-/** @license Material-UI v4.9.14
+/** @license Material-UI v4.11.2
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -10835,7 +10837,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _refType__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./refType */ "./node_modules/@material-ui/utils/esm/refType.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "refType", function() { return _refType__WEBPACK_IMPORTED_MODULE_9__["default"]; });
 
-/** @license Material-UI v4.10.2
+/** @license Material-UI v4.11.2
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -21936,7 +21938,7 @@ var MyApp = /*#__PURE__*/function (_App) {
   Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(MyApp, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var comment = document.createComment("\n\n=========================================================\n* Clicou Personal - Checkout\n=========================================================\n\n\n");
+      var comment = document.createComment("\n\n=========================================================\n* Just Fit - Checkout\n=========================================================\n\n\n");
       document.insertBefore(comment, document.documentElement);
     }
   }, {
@@ -21966,7 +21968,7 @@ var MyApp = /*#__PURE__*/function (_App) {
           lineNumber: 76,
           columnNumber: 11
         }
-      }, "Clicou Personal - Checkout")), __jsx(Component, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, pageProps, {
+      }, "Just Fit - Checkout")), __jsx(Component, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, pageProps, {
         __self: this,
         __source: {
           fileName: _jsxFileName,

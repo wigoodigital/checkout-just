@@ -51,7 +51,7 @@ export default class MyApp extends App {
     let comment = document.createComment(`
 
 =========================================================
-* Clicou Personal - Checkout
+* Just Fit - Checkout
 =========================================================
 
 
@@ -73,7 +73,7 @@ export default class MyApp extends App {
     return (
       <React.Fragment>
         <Head>
-          <title>Clicou Personal - Checkout</title>
+          <title>Just Fit - Checkout</title>
         </Head>
         <Component {...pageProps} />
       </React.Fragment>

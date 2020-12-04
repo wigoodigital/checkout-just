@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["static\\development\\pages\\_app.js"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["static/development/pages/_app.js"],{
 
 /***/ "./assets/jss/nextjs-material-kit-pro.js":
 /*!***********************************************!*\
@@ -182,7 +182,7 @@ var card = {
   background: whiteColor
 };
 var defaultFont = {
-  fontFamily: '"Benton Sans", "Helvetica", "Arial", sans-serif !important',
+  fontFamily: '"Museo Sans", "Helvetica", "Arial", sans-serif !important',
   fontWeight: "300",
   lineHeight: "1.5em"
 };
@@ -264,7 +264,7 @@ var title = {
   marginTop: "30px",
   marginBottom: "25px",
   minHeight: "32px",
-  fontFamily: '"Benton Sans", "Helvetica", "Arial", sans-serif !important'
+  fontFamily: '"Museo Sans", "Helvetica", "Arial", sans-serif !important'
 };
 var cardTitle = {
   "&, & a": _objectSpread({}, title, {
@@ -368,7 +368,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_CircularProgress__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/CircularProgress */ "./node_modules/@material-ui/core/esm/CircularProgress/index.js");
 /* harmony import */ var assets_jss_nextjs_material_kit_pro_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! assets/jss/nextjs-material-kit-pro.js */ "./assets/jss/nextjs-material-kit-pro.js");
 
-var _jsxFileName = "C:\\Users\\Matraqueado\\Downloads\\checkout-justfit\\components\\PageChange\\PageChange.js";
+var _jsxFileName = "/Users/gabrieldossantos/Desktop/checkout-justfit (1)/components/PageChange/PageChange.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -7513,7 +7513,7 @@ var ServerStyleSheets = /*#__PURE__*/function () {
   }, {
     key: "getStyleElement",
     value: function getStyleElement(props) {
-      return react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement('style', Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement('style', Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
         id: 'jss-server-side',
         key: 'jss-server-side',
         dangerouslySetInnerHTML: {
@@ -7610,7 +7610,7 @@ function StylesProvider(props) {
 
   var outerOptions = react__WEBPACK_IMPORTED_MODULE_2___default.a.useContext(StylesContext);
 
-  var context = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, outerOptions), {}, {
+  var context = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, outerOptions, {
     disableGeneration: disableGeneration
   }, localOptions);
 
@@ -7778,7 +7778,7 @@ function mergeOuterLocalTheme(outerTheme, localTheme) {
     return mergedTheme;
   }
 
-  return Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, outerTheme), localTheme);
+  return Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, outerTheme, localTheme);
 }
 /**
  * This component takes a `theme` prop.
@@ -8201,7 +8201,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "withThemeCreator", function() { return _withTheme__WEBPACK_IMPORTED_MODULE_13__["withThemeCreator"]; });
 
-/** @license Material-UI v4.10.0
+/** @license Material-UI v4.11.2
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -8451,7 +8451,7 @@ function attach(_ref2, props) {
     _multiKeyStore__WEBPACK_IMPORTED_MODULE_5__["default"].set(stylesOptions.sheetsManager, stylesCreator, theme, sheetManager);
   }
 
-  var options = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, stylesCreator.options), stylesOptions), {}, {
+  var options = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, stylesCreator.options, stylesOptions, {
     theme: theme,
     flip: typeof stylesOptions.flip === 'boolean' ? stylesOptions.flip : theme.direction === 'rtl'
   });
@@ -8596,7 +8596,7 @@ function makeStyles(stylesOrCreator) {
     var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var theme = Object(_useTheme__WEBPACK_IMPORTED_MODULE_6__["default"])() || defaultTheme;
 
-    var stylesOptions = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, react__WEBPACK_IMPORTED_MODULE_2___default.a.useContext(_StylesProvider__WEBPACK_IMPORTED_MODULE_7__["StylesContext"])), stylesOptions2);
+    var stylesOptions = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, react__WEBPACK_IMPORTED_MODULE_2___default.a.useContext(_StylesProvider__WEBPACK_IMPORTED_MODULE_7__["StylesContext"]), stylesOptions2);
 
     var instance = react__WEBPACK_IMPORTED_MODULE_2___default.a.useRef();
     var shouldUpdate = react__WEBPACK_IMPORTED_MODULE_2___default.a.useRef();
@@ -8855,7 +8855,7 @@ function styled(Component) {
     /* eslint-enable react/forbid-foreign-prop-types */
 
 
-    var StyledComponent = react__WEBPACK_IMPORTED_MODULE_2___default.a.forwardRef(function StyledComponent(props, ref) {
+    var StyledComponent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.forwardRef(function StyledComponent(props, ref) {
       var children = props.children,
           classNameProp = props.className,
           clone = props.clone,
@@ -8871,7 +8871,7 @@ function styled(Component) {
       }
 
       if (clone) {
-        return react__WEBPACK_IMPORTED_MODULE_2___default.a.cloneElement(children, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.cloneElement(children, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
           className: Object(clsx__WEBPACK_IMPORTED_MODULE_3__["default"])(children.props.className, className)
         }, spread));
       }
@@ -8917,7 +8917,9 @@ function styled(Component) {
        * The component used for the root node.
        * Either a string to use a HTML element or a component.
        */
-      component: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.elementType
+      component: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a
+      /* @typescript-to-proptypes-ignore */
+      .elementType
     }, propTypes) : undefined;
 
     if (true) {
@@ -9082,7 +9084,7 @@ var withStyles = function withStyles(stylesOrCreator) {
       name: name || Component.displayName,
       classNamePrefix: classNamePrefix
     }, stylesOptions));
-    var WithStyles = react__WEBPACK_IMPORTED_MODULE_2___default.a.forwardRef(function WithStyles(props, ref) {
+    var WithStyles = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.forwardRef(function WithStyles(props, ref) {
       var classesProp = props.classes,
           innerRef = props.innerRef,
           other = Object(_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(props, ["classes", "innerRef"]); // The wrapper receives only user supplied props, which could be a subset of
@@ -9090,7 +9092,7 @@ var withStyles = function withStyles(stylesOrCreator) {
       // So copying it here would give us the same result in the wrapper as well.
 
 
-      var classes = useStyles(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, Component.defaultProps), props));
+      var classes = useStyles(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, Component.defaultProps, props));
       var theme;
       var more = other;
 
@@ -9219,7 +9221,7 @@ function withThemeCreator() {
       }
     }
 
-    var WithTheme = react__WEBPACK_IMPORTED_MODULE_2___default.a.forwardRef(function WithTheme(props, ref) {
+    var WithTheme = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.forwardRef(function WithTheme(props, ref) {
       var innerRef = props.innerRef,
           other = Object(_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(props, ["innerRef"]);
 
@@ -9417,7 +9419,7 @@ function breakpoints(styleFunction) {
     return Object(_merge__WEBPACK_IMPORTED_MODULE_4__["default"])(base, extended);
   };
 
-  newStyleFunction.propTypes =  true ? Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, styleFunction.propTypes), {}, {
+  newStyleFunction.propTypes =  true ? Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, styleFunction.propTypes, {
     xs: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object,
     sm: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object,
     md: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object,
@@ -9525,15 +9527,15 @@ function css(styleFunction) {
     var output = styleFunction(props);
 
     if (props.css) {
-      return Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, Object(_merge__WEBPACK_IMPORTED_MODULE_3__["default"])(output, styleFunction(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+      return Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, Object(_merge__WEBPACK_IMPORTED_MODULE_3__["default"])(output, styleFunction(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
         theme: props.theme
-      }, props.css)))), omit(props.css, [styleFunction.filterProps]));
+      }, props.css))), omit(props.css, [styleFunction.filterProps]));
     }
 
     return output;
   };
 
-  newStyleFunction.propTypes =  true ? Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, styleFunction.propTypes), {}, {
+  newStyleFunction.propTypes =  true ? Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, styleFunction.propTypes, {
     css: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object
   }) : undefined;
   newStyleFunction.filterProps = ['css'].concat(Object(_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(styleFunction.filterProps));
@@ -9894,7 +9896,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "textAlign", function() { return _typography__WEBPACK_IMPORTED_MODULE_13__["textAlign"]; });
 
-/** @license Material-UI v4.9.14
+/** @license Material-UI v4.11.2
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -10728,7 +10730,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFunctionName", function() { return getFunctionName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return getDisplayName; });
 /* harmony import */ var _babel_runtime_helpers_esm_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
-/* harmony import */ var react_is__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-is */ "./node_modules/react-is/index.js");
+/* harmony import */ var react_is__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-is */ "./node_modules/@material-ui/utils/node_modules/react-is/index.js");
 /* harmony import */ var react_is__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_is__WEBPACK_IMPORTED_MODULE_1__);
 
  // Simplified polyfill for IE 11 support
@@ -10835,7 +10837,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _refType__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./refType */ "./node_modules/@material-ui/utils/esm/refType.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "refType", function() { return _refType__WEBPACK_IMPORTED_MODULE_9__["default"]; });
 
-/** @license Material-UI v4.10.2
+/** @license Material-UI v4.11.2
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -10882,6 +10884,261 @@ __webpack_require__.r(__webpack_exports__);
 
 var refType = prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object]);
 /* harmony default export */ __webpack_exports__["default"] = (refType);
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/utils/node_modules/react-is/cjs/react-is.development.js":
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/@material-ui/utils/node_modules/react-is/cjs/react-is.development.js ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/** @license React v17.0.1
+ * react-is.development.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+if (true) {
+  (function() {
+'use strict';
+
+// ATTENTION
+// When adding new symbols to this file,
+// Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
+// The Symbol used to tag the ReactElement-like types. If there is no native Symbol
+// nor polyfill, then a plain number is used for performance.
+var REACT_ELEMENT_TYPE = 0xeac7;
+var REACT_PORTAL_TYPE = 0xeaca;
+var REACT_FRAGMENT_TYPE = 0xeacb;
+var REACT_STRICT_MODE_TYPE = 0xeacc;
+var REACT_PROFILER_TYPE = 0xead2;
+var REACT_PROVIDER_TYPE = 0xeacd;
+var REACT_CONTEXT_TYPE = 0xeace;
+var REACT_FORWARD_REF_TYPE = 0xead0;
+var REACT_SUSPENSE_TYPE = 0xead1;
+var REACT_SUSPENSE_LIST_TYPE = 0xead8;
+var REACT_MEMO_TYPE = 0xead3;
+var REACT_LAZY_TYPE = 0xead4;
+var REACT_BLOCK_TYPE = 0xead9;
+var REACT_SERVER_BLOCK_TYPE = 0xeada;
+var REACT_FUNDAMENTAL_TYPE = 0xead5;
+var REACT_SCOPE_TYPE = 0xead7;
+var REACT_OPAQUE_ID_TYPE = 0xeae0;
+var REACT_DEBUG_TRACING_MODE_TYPE = 0xeae1;
+var REACT_OFFSCREEN_TYPE = 0xeae2;
+var REACT_LEGACY_HIDDEN_TYPE = 0xeae3;
+
+if (typeof Symbol === 'function' && Symbol.for) {
+  var symbolFor = Symbol.for;
+  REACT_ELEMENT_TYPE = symbolFor('react.element');
+  REACT_PORTAL_TYPE = symbolFor('react.portal');
+  REACT_FRAGMENT_TYPE = symbolFor('react.fragment');
+  REACT_STRICT_MODE_TYPE = symbolFor('react.strict_mode');
+  REACT_PROFILER_TYPE = symbolFor('react.profiler');
+  REACT_PROVIDER_TYPE = symbolFor('react.provider');
+  REACT_CONTEXT_TYPE = symbolFor('react.context');
+  REACT_FORWARD_REF_TYPE = symbolFor('react.forward_ref');
+  REACT_SUSPENSE_TYPE = symbolFor('react.suspense');
+  REACT_SUSPENSE_LIST_TYPE = symbolFor('react.suspense_list');
+  REACT_MEMO_TYPE = symbolFor('react.memo');
+  REACT_LAZY_TYPE = symbolFor('react.lazy');
+  REACT_BLOCK_TYPE = symbolFor('react.block');
+  REACT_SERVER_BLOCK_TYPE = symbolFor('react.server.block');
+  REACT_FUNDAMENTAL_TYPE = symbolFor('react.fundamental');
+  REACT_SCOPE_TYPE = symbolFor('react.scope');
+  REACT_OPAQUE_ID_TYPE = symbolFor('react.opaque.id');
+  REACT_DEBUG_TRACING_MODE_TYPE = symbolFor('react.debug_trace_mode');
+  REACT_OFFSCREEN_TYPE = symbolFor('react.offscreen');
+  REACT_LEGACY_HIDDEN_TYPE = symbolFor('react.legacy_hidden');
+}
+
+// Filter certain DOM attributes (e.g. src, href) if their values are empty strings.
+
+var enableScopeAPI = false; // Experimental Create Event Handle API.
+
+function isValidElementType(type) {
+  if (typeof type === 'string' || typeof type === 'function') {
+    return true;
+  } // Note: typeof might be other than 'symbol' or 'number' (e.g. if it's a polyfill).
+
+
+  if (type === REACT_FRAGMENT_TYPE || type === REACT_PROFILER_TYPE || type === REACT_DEBUG_TRACING_MODE_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || type === REACT_LEGACY_HIDDEN_TYPE || enableScopeAPI ) {
+    return true;
+  }
+
+  if (typeof type === 'object' && type !== null) {
+    if (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_BLOCK_TYPE || type[0] === REACT_SERVER_BLOCK_TYPE) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function typeOf(object) {
+  if (typeof object === 'object' && object !== null) {
+    var $$typeof = object.$$typeof;
+
+    switch ($$typeof) {
+      case REACT_ELEMENT_TYPE:
+        var type = object.type;
+
+        switch (type) {
+          case REACT_FRAGMENT_TYPE:
+          case REACT_PROFILER_TYPE:
+          case REACT_STRICT_MODE_TYPE:
+          case REACT_SUSPENSE_TYPE:
+          case REACT_SUSPENSE_LIST_TYPE:
+            return type;
+
+          default:
+            var $$typeofType = type && type.$$typeof;
+
+            switch ($$typeofType) {
+              case REACT_CONTEXT_TYPE:
+              case REACT_FORWARD_REF_TYPE:
+              case REACT_LAZY_TYPE:
+              case REACT_MEMO_TYPE:
+              case REACT_PROVIDER_TYPE:
+                return $$typeofType;
+
+              default:
+                return $$typeof;
+            }
+
+        }
+
+      case REACT_PORTAL_TYPE:
+        return $$typeof;
+    }
+  }
+
+  return undefined;
+}
+var ContextConsumer = REACT_CONTEXT_TYPE;
+var ContextProvider = REACT_PROVIDER_TYPE;
+var Element = REACT_ELEMENT_TYPE;
+var ForwardRef = REACT_FORWARD_REF_TYPE;
+var Fragment = REACT_FRAGMENT_TYPE;
+var Lazy = REACT_LAZY_TYPE;
+var Memo = REACT_MEMO_TYPE;
+var Portal = REACT_PORTAL_TYPE;
+var Profiler = REACT_PROFILER_TYPE;
+var StrictMode = REACT_STRICT_MODE_TYPE;
+var Suspense = REACT_SUSPENSE_TYPE;
+var hasWarnedAboutDeprecatedIsAsyncMode = false;
+var hasWarnedAboutDeprecatedIsConcurrentMode = false; // AsyncMode should be deprecated
+
+function isAsyncMode(object) {
+  {
+    if (!hasWarnedAboutDeprecatedIsAsyncMode) {
+      hasWarnedAboutDeprecatedIsAsyncMode = true; // Using console['warn'] to evade Babel and ESLint
+
+      console['warn']('The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 18+.');
+    }
+  }
+
+  return false;
+}
+function isConcurrentMode(object) {
+  {
+    if (!hasWarnedAboutDeprecatedIsConcurrentMode) {
+      hasWarnedAboutDeprecatedIsConcurrentMode = true; // Using console['warn'] to evade Babel and ESLint
+
+      console['warn']('The ReactIs.isConcurrentMode() alias has been deprecated, ' + 'and will be removed in React 18+.');
+    }
+  }
+
+  return false;
+}
+function isContextConsumer(object) {
+  return typeOf(object) === REACT_CONTEXT_TYPE;
+}
+function isContextProvider(object) {
+  return typeOf(object) === REACT_PROVIDER_TYPE;
+}
+function isElement(object) {
+  return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
+}
+function isForwardRef(object) {
+  return typeOf(object) === REACT_FORWARD_REF_TYPE;
+}
+function isFragment(object) {
+  return typeOf(object) === REACT_FRAGMENT_TYPE;
+}
+function isLazy(object) {
+  return typeOf(object) === REACT_LAZY_TYPE;
+}
+function isMemo(object) {
+  return typeOf(object) === REACT_MEMO_TYPE;
+}
+function isPortal(object) {
+  return typeOf(object) === REACT_PORTAL_TYPE;
+}
+function isProfiler(object) {
+  return typeOf(object) === REACT_PROFILER_TYPE;
+}
+function isStrictMode(object) {
+  return typeOf(object) === REACT_STRICT_MODE_TYPE;
+}
+function isSuspense(object) {
+  return typeOf(object) === REACT_SUSPENSE_TYPE;
+}
+
+exports.ContextConsumer = ContextConsumer;
+exports.ContextProvider = ContextProvider;
+exports.Element = Element;
+exports.ForwardRef = ForwardRef;
+exports.Fragment = Fragment;
+exports.Lazy = Lazy;
+exports.Memo = Memo;
+exports.Portal = Portal;
+exports.Profiler = Profiler;
+exports.StrictMode = StrictMode;
+exports.Suspense = Suspense;
+exports.isAsyncMode = isAsyncMode;
+exports.isConcurrentMode = isConcurrentMode;
+exports.isContextConsumer = isContextConsumer;
+exports.isContextProvider = isContextProvider;
+exports.isElement = isElement;
+exports.isForwardRef = isForwardRef;
+exports.isFragment = isFragment;
+exports.isLazy = isLazy;
+exports.isMemo = isMemo;
+exports.isPortal = isPortal;
+exports.isProfiler = isProfiler;
+exports.isStrictMode = isStrictMode;
+exports.isSuspense = isSuspense;
+exports.isValidElementType = isValidElementType;
+exports.typeOf = typeOf;
+  })();
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/utils/node_modules/react-is/index.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/@material-ui/utils/node_modules/react-is/index.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+if (false) {} else {
+  module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "./node_modules/@material-ui/utils/node_modules/react-is/cjs/react-is.development.js");
+}
+
 
 /***/ }),
 
@@ -11882,18 +12139,46 @@ var defaultUnits = {
   'border-top-right-radius': px,
   'border-top-width': px,
   'border-width': px,
+  'border-block': px,
+  'border-block-end': px,
+  'border-block-end-width': px,
+  'border-block-start': px,
+  'border-block-start-width': px,
+  'border-block-width': px,
+  'border-inline': px,
+  'border-inline-end': px,
+  'border-inline-end-width': px,
+  'border-inline-start': px,
+  'border-inline-start-width': px,
+  'border-inline-width': px,
+  'border-start-start-radius': px,
+  'border-start-end-radius': px,
+  'border-end-start-radius': px,
+  'border-end-end-radius': px,
   // Margin properties
   margin: px,
   'margin-bottom': px,
   'margin-left': px,
   'margin-right': px,
   'margin-top': px,
+  'margin-block': px,
+  'margin-block-end': px,
+  'margin-block-start': px,
+  'margin-inline': px,
+  'margin-inline-end': px,
+  'margin-inline-start': px,
   // Padding properties
   padding: px,
   'padding-bottom': px,
   'padding-left': px,
   'padding-right': px,
   'padding-top': px,
+  'padding-block': px,
+  'padding-block-end': px,
+  'padding-block-start': px,
+  'padding-inline': px,
+  'padding-inline-end': px,
+  'padding-inline-start': px,
   // Mask properties
   'mask-position-x': px,
   'mask-position-y': px,
@@ -11910,6 +12195,13 @@ var defaultUnits = {
   left: px,
   top: px,
   right: px,
+  inset: px,
+  'inset-block': px,
+  'inset-block-end': px,
+  'inset-block-start': px,
+  'inset-inline': px,
+  'inset-inline-end': px,
+  'inset-inline-start': px,
   // Shadow properties
   'box-shadow': px,
   'text-shadow': px,
@@ -11951,6 +12243,7 @@ var defaultUnits = {
   // Some random properties
   'shape-margin': px,
   size: px,
+  gap: px,
   // Grid properties
   grid: px,
   'grid-gap': px,
@@ -11998,7 +12291,7 @@ var units = addCamelCasedVersion(defaultUnits);
  */
 
 function iterate(prop, value, options) {
-  if (!value) return value;
+  if (value == null) return value;
 
   if (Array.isArray(value)) {
     for (var i = 0; i < value.length; i++) {
@@ -12015,9 +12308,9 @@ function iterate(prop, value, options) {
       }
     }
   } else if (typeof value === 'number') {
-    var unit = options[prop] || units[prop];
+    var unit = options[prop] || units[prop]; // Add the unit if available, except for the special case of 0px.
 
-    if (unit) {
+    if (unit && !(value === 0 && unit === px)) {
       return typeof unit === 'function' ? unit(value).toString() : "" + value + unit;
     }
 
@@ -12119,7 +12412,7 @@ function () {
 
   _proto.addRule = function addRule(name, style, options) {
     var rule = this.rules.add(name, style, options);
-    this.options.jss.plugins.onProcessRule(rule);
+    if (rule) this.options.jss.plugins.onProcessRule(rule);
     return rule;
   }
   /**
@@ -12183,14 +12476,14 @@ function addScope(selector, scope) {
   return scoped;
 }
 
-function handleNestedGlobalContainerRule(rule) {
+function handleNestedGlobalContainerRule(rule, sheet) {
   var options = rule.options,
       style = rule.style;
   var rules = style ? style[at] : null;
   if (!rules) return;
 
   for (var name in rules) {
-    options.sheet.addRule(name, rules[name], Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, options, {
+    sheet.addRule(name, rules[name], Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, options, {
       selector: addScope(name, rule.selector)
     }));
   }
@@ -12198,14 +12491,14 @@ function handleNestedGlobalContainerRule(rule) {
   delete style[at];
 }
 
-function handlePrefixedGlobalRule(rule) {
+function handlePrefixedGlobalRule(rule, sheet) {
   var options = rule.options,
       style = rule.style;
 
   for (var prop in style) {
     if (prop[0] !== '@' || prop.substr(0, at.length) !== at) continue;
     var selector = addScope(prop.substr(at.length), rule.selector);
-    options.sheet.addRule(selector, style[prop], Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, options, {
+    sheet.addRule(selector, style[prop], Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, options, {
       selector: selector
     }));
     delete style[prop];
@@ -12246,10 +12539,10 @@ function jssGlobal() {
     return null;
   }
 
-  function onProcessRule(rule) {
-    if (rule.type !== 'style') return;
-    handleNestedGlobalContainerRule(rule);
-    handlePrefixedGlobalRule(rule);
+  function onProcessRule(rule, sheet) {
+    if (rule.type !== 'style' || !sheet) return;
+    handleNestedGlobalContainerRule(rule, sheet);
+    handlePrefixedGlobalRule(rule, sheet);
   }
 
   return {
@@ -12325,7 +12618,8 @@ function jssNested() {
   function getOptions(rule, container, prevOptions) {
     // Options has been already created, now we only increase index.
     if (prevOptions) return Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, prevOptions, {
-      index: prevOptions.index + 1
+      index: prevOptions.index + 1 // $FlowFixMe[prop-missing]
+
     });
     var nestingLevel = rule.options.nestingLevel;
     nestingLevel = nestingLevel === undefined ? 1 : nestingLevel + 1;
@@ -12367,7 +12661,8 @@ function jssNested() {
         // Place conditional right after the parent rule to ensure right ordering.
         container.addRule(prop, {}, options) // Flow expects more options but they aren't required
         // And flow doesn't know this will always be a StyleRule which has the addRule method
-        // $FlowFixMe
+        // $FlowFixMe[incompatible-use]
+        // $FlowFixMe[prop-missing]
         .addRule(styleRule.key, style[prop], {
           selector: styleRule.selector
         });
@@ -12447,7 +12742,8 @@ __webpack_require__.r(__webpack_exports__);
 var now = Date.now();
 var fnValuesNs = "fnValues" + now;
 var fnRuleNs = "fnStyle" + ++now;
-function functionPlugin() {
+
+var functionPlugin = function functionPlugin() {
   return {
     onCreateRule: function onCreateRule(name, decl, options) {
       if (typeof decl !== 'function') return null;
@@ -12468,14 +12764,15 @@ function functionPlugin() {
         if (typeof value !== 'function') continue;
         delete style[prop];
         fnValues[prop] = value;
-      } // $FlowFixMe
+      } // $FlowFixMe[prop-missing]
 
 
       rule[fnValuesNs] = fnValues;
       return style;
     },
     onUpdate: function onUpdate(data, rule, sheet, options) {
-      var styleRule = rule;
+      var styleRule = rule; // $FlowFixMe[prop-missing]
+
       var fnRule = styleRule[fnRuleNs]; // If we have a style function, the entire rule is dynamic and style object
       // will be returned from that function.
 
@@ -12492,7 +12789,8 @@ function functionPlugin() {
             }
           }
         }
-      }
+      } // $FlowFixMe[prop-missing]
+
 
       var fnValues = styleRule[fnValuesNs]; // If we have a fn values map, it is a rule with function values.
 
@@ -12503,7 +12801,7 @@ function functionPlugin() {
       }
     }
   };
-}
+};
 
 /* harmony default export */ __webpack_exports__["default"] = (functionPlugin);
 
@@ -12601,7 +12899,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createRule", function() { return createRule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDynamicStyles", function() { return getDynamicStyles; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hasCSSTOMSupport", function() { return hasCSSTOMSupport; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sheets", function() { return sheets; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sheets", function() { return registry; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toCssValue", function() { return toCssValue; });
 /* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
 /* harmony import */ var is_in_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! is-in-browser */ "./node_modules/is-in-browser/dist/module.js");
@@ -12665,6 +12963,7 @@ var join = function join(value, by) {
 
   return result;
 };
+
 /**
  * Converts array values to string.
  *
@@ -12673,9 +12972,7 @@ var join = function join(value, by) {
  * `margin: [['5px', '10px'], '!important']` > `margin: 5px 10px !important;`
  * `color: ['red', !important]` > `color: red !important;`
  */
-
-
-function toCssValue(value, ignoreImportant) {
+var toCssValue = function toCssValue(value, ignoreImportant) {
   if (ignoreImportant === void 0) {
     ignoreImportant = false;
   }
@@ -12697,7 +12994,7 @@ function toCssValue(value, ignoreImportant) {
   }
 
   return cssValue;
-}
+};
 
 /**
  * Indent a string.
@@ -12981,11 +13278,11 @@ function () {
     this.options = void 0;
     this.isProcessed = false;
     this.renderable = void 0;
-    this.key = key; // Key might contain a unique suffix in case the `name` passed by user was duplicate.
-
-    this.query = options.name;
+    this.key = key;
     var atMatch = key.match(atRegExp);
-    this.at = atMatch ? atMatch[1] : 'unknown';
+    this.at = atMatch ? atMatch[1] : 'unknown'; // Key might contain a unique suffix in case the `name` passed by user was duplicate.
+
+    this.query = options.name || "@" + this.at;
     this.options = options;
     this.rules = new RuleList(Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, options, {
       parent: this
@@ -13534,13 +13831,13 @@ function () {
     var options;
 
     if (typeof (arguments.length <= 0 ? undefined : arguments[0]) === 'string') {
-      name = arguments.length <= 0 ? undefined : arguments[0]; // $FlowFixMe
+      name = arguments.length <= 0 ? undefined : arguments[0]; // $FlowFixMe[invalid-tuple-index]
 
-      data = arguments.length <= 1 ? undefined : arguments[1]; // $FlowFixMe
+      data = arguments.length <= 1 ? undefined : arguments[1]; // $FlowFixMe[invalid-tuple-index]
 
       options = arguments.length <= 2 ? undefined : arguments[2];
     } else {
-      data = arguments.length <= 0 ? undefined : arguments[0]; // $FlowFixMe
+      data = arguments.length <= 0 ? undefined : arguments[0]; // $FlowFixMe[invalid-tuple-index]
 
       options = arguments.length <= 1 ? undefined : arguments[1];
       name = null;
@@ -13767,7 +14064,13 @@ function () {
 
   _proto.deleteRule = function deleteRule(name) {
     var rule = typeof name === 'object' ? name : this.rules.get(name);
-    if (!rule) return false;
+
+    if (!rule || // Style sheet was created without link: true and attached, in this case we
+    // won't be able to remove the CSS rule from the DOM.
+    this.attached && !rule.renderable) {
+      return false;
+    }
+
     this.rules.remove(rule);
 
     if (this.attached && rule.renderable && this.renderer) {
@@ -13874,7 +14177,7 @@ function () {
 
   _proto.onProcessStyle = function onProcessStyle(style, rule, sheet) {
     for (var i = 0; i < this.registry.onProcessStyle.length; i++) {
-      // $FlowFixMe
+      // $FlowFixMe[prop-missing]
       rule.style = this.registry.onProcessStyle[i](rule.style, rule, sheet);
     }
   }
@@ -14051,7 +14354,7 @@ function () {
  * each request in order to not leak sheets across requests.
  */
 
-var sheets = new SheetsRegistry();
+var registry = new SheetsRegistry();
 
 /* eslint-disable */
 // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
@@ -14117,12 +14420,11 @@ var memoize = function memoize(fn) {
     return value;
   };
 };
+
 /**
  * Get a style property value.
  */
-
-
-function getPropertyValue(cssRule, prop) {
+var getPropertyValue = function getPropertyValue(cssRule, prop) {
   try {
     // Support CSSTOM.
     if (cssRule.attributeStyleMap) {
@@ -14134,13 +14436,12 @@ function getPropertyValue(cssRule, prop) {
     // IE may throw if property is unknown.
     return '';
   }
-}
+};
+
 /**
  * Set a style property.
  */
-
-
-function setProperty(cssRule, prop, value) {
+var setProperty = function setProperty(cssRule, prop, value) {
   try {
     var cssValue = value;
 
@@ -14165,13 +14466,12 @@ function setProperty(cssRule, prop, value) {
   }
 
   return true;
-}
+};
+
 /**
  * Remove a style property.
  */
-
-
-function removeProperty(cssRule, prop) {
+var removeProperty = function removeProperty(cssRule, prop) {
   try {
     // Support CSSTOM.
     if (cssRule.attributeStyleMap) {
@@ -14182,18 +14482,17 @@ function removeProperty(cssRule, prop) {
   } catch (err) {
      true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_2__["default"])(false, "[JSS] DOMException \"" + err.message + "\" was thrown. Tried to remove property \"" + prop + "\".") : undefined;
   }
-}
+};
+
 /**
  * Set the selector.
  */
-
-
-function setSelector(cssRule, selectorText) {
+var setSelector = function setSelector(cssRule, selectorText) {
   cssRule.selectorText = selectorText; // Return false if setter was not successful.
   // Currently works in chrome only.
 
   return cssRule.selectorText === selectorText;
-}
+};
 /**
  * Gets the `head` element upon the first call and caches it.
  * We assume it can't be null.
@@ -14257,11 +14556,11 @@ function findCommentNode(text) {
  * Find a node before which we can insert the sheet.
  */
 function findPrevNode(options) {
-  var registry = sheets.registry;
+  var registry$1 = registry.registry;
 
-  if (registry.length > 0) {
+  if (registry$1.length > 0) {
     // Try to insert before the next higher sheet.
-    var sheet = findHigherSheet(registry, options);
+    var sheet = findHigherSheet(registry$1, options);
 
     if (sheet && sheet.renderer) {
       return {
@@ -14271,7 +14570,7 @@ function findPrevNode(options) {
     } // Otherwise insert after the last attached.
 
 
-    sheet = findHighestSheet(registry, options);
+    sheet = findHighestSheet(registry$1, options);
 
     if (sheet && sheet.renderer) {
       return {
@@ -14337,13 +14636,6 @@ var getNonce = memoize(function () {
 });
 
 var _insertRule = function insertRule(container, rule, index) {
-  var maxIndex = container.cssRules.length; // In case previous insertion fails, passed index might be wrong
-
-  if (index === undefined || index > maxIndex) {
-    // eslint-disable-next-line no-param-reassign
-    index = maxIndex;
-  }
-
   try {
     if ('insertRule' in container) {
       var c = container;
@@ -14362,6 +14654,17 @@ var _insertRule = function insertRule(container, rule, index) {
   return container.cssRules[index];
 };
 
+var getValidRuleInsertionIndex = function getValidRuleInsertionIndex(container, index) {
+  var maxIndex = container.cssRules.length; // In case previous insertion fails, passed index might be wrong
+
+  if (index === undefined || index > maxIndex) {
+    // eslint-disable-next-line no-param-reassign
+    return maxIndex;
+  }
+
+  return index;
+};
+
 var createStyle = function createStyle() {
   var el = document.createElement('style'); // Without it, IE will have a broken source order specificity if we
   // insert rules after we insert the style tag.
@@ -14375,6 +14678,8 @@ var DomRenderer =
 /*#__PURE__*/
 function () {
   // HTMLStyleElement needs fixing https://github.com/facebook/flow/issues/2696
+  // Will be empty if link: true option is not set, because
+  // it is only for use together with insertRule API.
   function DomRenderer(sheet) {
     this.getPropertyValue = getPropertyValue;
     this.setProperty = setProperty;
@@ -14383,8 +14688,9 @@ function () {
     this.element = void 0;
     this.sheet = void 0;
     this.hasInsertedRules = false;
+    this.cssRules = [];
     // There is no sheet when the renderer is used from a standalone StyleRule.
-    if (sheet) sheets.add(sheet);
+    if (sheet) registry.add(sheet);
     this.sheet = sheet;
 
     var _ref = this.sheet ? this.sheet.options : {},
@@ -14425,8 +14731,15 @@ function () {
   ;
 
   _proto.detach = function detach() {
+    if (!this.sheet) return;
     var parentNode = this.element.parentNode;
-    if (parentNode) parentNode.removeChild(this.element);
+    if (parentNode) parentNode.removeChild(this.element); // In the most browsers, rules inserted using insertRule() API will be lost when style element is removed.
+    // Though IE will keep them and we need a consistent behavior.
+
+    if (this.sheet.options.link) {
+      this.cssRules = [];
+      this.element.textContent = '\n';
+    }
   }
   /**
    * Inject CSS string into element.
@@ -14469,39 +14782,46 @@ function () {
       var latestNativeParent = nativeParent;
 
       if (rule.type === 'conditional' || rule.type === 'keyframes') {
-        // We need to render the container without children first.
+        var _insertionIndex = getValidRuleInsertionIndex(nativeParent, index); // We need to render the container without children first.
+
+
         latestNativeParent = _insertRule(nativeParent, parent.toString({
           children: false
-        }), index);
+        }), _insertionIndex);
 
         if (latestNativeParent === false) {
           return false;
         }
+
+        this.refCssRule(rule, _insertionIndex, latestNativeParent);
       }
 
       this.insertRules(parent.rules, latestNativeParent);
       return latestNativeParent;
-    } // IE keeps the CSSStyleSheet after style node has been reattached,
-    // so we need to check if the `renderable` reference the right style sheet and not
-    // rerender those rules.
-
-
-    if (rule.renderable && rule.renderable.parentStyleSheet === this.element.sheet) {
-      return rule.renderable;
     }
 
     var ruleStr = rule.toString();
     if (!ruleStr) return false;
+    var insertionIndex = getValidRuleInsertionIndex(nativeParent, index);
 
-    var nativeRule = _insertRule(nativeParent, ruleStr, index);
+    var nativeRule = _insertRule(nativeParent, ruleStr, insertionIndex);
 
     if (nativeRule === false) {
       return false;
     }
 
     this.hasInsertedRules = true;
-    rule.renderable = nativeRule;
+    this.refCssRule(rule, insertionIndex, nativeRule);
     return nativeRule;
+  };
+
+  _proto.refCssRule = function refCssRule(rule, index, cssRule) {
+    rule.renderable = cssRule; // We only want to reference the top level rules, deleteRule API doesn't support removing nested rules
+    // like rules inside media queries or keyframes
+
+    if (rule.options.parent instanceof StyleSheet) {
+      this.cssRules[index] = cssRule;
+    }
   }
   /**
    * Delete a rule.
@@ -14513,6 +14833,7 @@ function () {
     var index = this.indexOf(cssRule);
     if (index === -1) return false;
     sheet.deleteRule(index);
+    this.cssRules.splice(index, 1);
     return true;
   }
   /**
@@ -14521,13 +14842,7 @@ function () {
   ;
 
   _proto.indexOf = function indexOf(cssRule) {
-    var cssRules = this.element.sheet.cssRules;
-
-    for (var index = 0; index < cssRules.length; index++) {
-      if (cssRule === cssRules[index]) return index;
-    }
-
-    return -1;
+    return this.cssRules.indexOf(cssRule);
   }
   /**
    * Generate a new CSS rule and replace the existing one.
@@ -14540,6 +14855,7 @@ function () {
     var index = this.indexOf(cssRule);
     if (index === -1) return false;
     this.element.sheet.deleteRule(index);
+    this.cssRules.splice(index, 1);
     return this.insertRule(rule, index);
   }
   /**
@@ -14561,7 +14877,7 @@ var Jss =
 function () {
   function Jss(options) {
     this.id = instanceCounter++;
-    this.version = "10.4.0";
+    this.version = "10.5.0";
     this.plugins = new PluginsRegistry();
     this.options = {
       id: {
@@ -14633,7 +14949,7 @@ function () {
         index = _options.index;
 
     if (typeof index !== 'number') {
-      index = sheets.index === 0 ? 0 : sheets.index + 1;
+      index = registry.index === 0 ? 0 : registry.index + 1;
     }
 
     var sheet = new StyleSheet(styles, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, options, {
@@ -14653,7 +14969,7 @@ function () {
 
   _proto.removeStyleSheet = function removeStyleSheet(sheet) {
     sheet.detach();
-    sheets.remove(sheet);
+    registry.remove(sheet);
     return this;
   }
   /**
@@ -14673,9 +14989,9 @@ function () {
 
     // Enable rule without name for inline styles.
     if (typeof name === 'object') {
-      // $FlowIgnore
+      // $FlowFixMe[incompatible-call]
       return this.createRule(undefined, name, style);
-    } // $FlowIgnore
+    } // $FlowFixMe[incompatible-type]
 
 
     var ruleOptions = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, options, {
@@ -14819,7 +15135,7 @@ function () {
  * Export a constant indicating if this browser has CSSTOM support.
  * https://developers.google.com/web/updates/2018/03/cssom
  */
-var hasCSSTOMSupport = typeof CSS !== 'undefined' && CSS && 'number' in CSS;
+var hasCSSTOMSupport = typeof CSS === 'object' && CSS != null && 'number' in CSS;
 /**
  * Creates a new instance of Jss.
  */
@@ -14831,9 +15147,9 @@ var create = function create(options) {
  * A global Jss instance.
  */
 
-var index = create();
+var jss = create();
 
-/* harmony default export */ __webpack_exports__["default"] = (index);
+/* harmony default export */ __webpack_exports__["default"] = (jss);
 
 
 
@@ -21552,7 +21868,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _this = undefined,
-    _jsxFileName = "C:\\Users\\Matraqueado\\Downloads\\checkout-justfit\\pages\\_app.js";
+    _jsxFileName = "/Users/gabrieldossantos/Desktop/checkout-justfit (1)/pages/_app.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement;
 
@@ -21622,7 +21938,7 @@ var MyApp = /*#__PURE__*/function (_App) {
   Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(MyApp, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var comment = document.createComment("\n\n=========================================================\n* Clicou Personal - Checkout\n=========================================================\n\n\n");
+      var comment = document.createComment("\n\n=========================================================\n* Just Fit - Checkout\n=========================================================\n\n\n");
       document.insertBefore(comment, document.documentElement);
     }
   }, {
@@ -21652,7 +21968,7 @@ var MyApp = /*#__PURE__*/function (_App) {
           lineNumber: 76,
           columnNumber: 11
         }
-      }, "Clicou Personal - Checkout")), __jsx(Component, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, pageProps, {
+      }, "Just Fit - Checkout")), __jsx(Component, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, pageProps, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
@@ -21712,7 +22028,7 @@ var MyApp = /*#__PURE__*/function (_App) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! next-client-pages-loader?page=%2F_app&absolutePagePath=private-next-pages%2F_app.js&hotRouterUpdates=true! */"./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F_app&absolutePagePath=private-next-pages%2F_app.js&hotRouterUpdates=true!./");
-module.exports = __webpack_require__(/*! C:\Users\Matraqueado\Downloads\checkout-justfit\node_modules\next\dist\client\router.js */"./node_modules/next/dist/client/router.js");
+module.exports = __webpack_require__(/*! /Users/gabrieldossantos/Desktop/checkout-justfit (1)/node_modules/next/dist/client/router.js */"./node_modules/next/dist/client/router.js");
 
 
 /***/ }),

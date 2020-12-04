@@ -25,6 +25,14 @@ import face6 from "assets/img/faces/kendall.jpg";
 import face7 from "assets/img/faces/card-profile5-square.jpg";
 import face8 from "assets/img/faces/card-profile2-square.jpg";
 
+import Accordion from '@material-ui/core/ExpansionPanel';
+import AccordionSummary from '@material-ui/core/ExpansionPanelSummary';
+import AccordionDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Scrollbar from 'perfect-scrollbar-react';
+import Typography from '@material-ui/core/Typography';
+import 'perfect-scrollbar-react/dist/style.min.css';
+
 import seloCadeado from "assets/img/selo-cadeado.png";
 import siteSeguro from "assets/img/site-seguro.png";
 import imgSsl from "assets/img/cadeado.png";
@@ -38,15 +46,24 @@ import styles from "assets/jss/nextjs-material-kit-pro/pages/lateral/lateralStyl
 
 const useStyles = makeStyles(styles);
 
+
+
 export default props => {
     const classes = useStyles();
+
+
+    const [expanded, setExpanded] = React.useState(false);
+
+const handleChange = (panel) => (event, isExpanded) => {
+  setExpanded(isExpanded ? panel : false);
+};
   return (
     <Menu>
-      <GridContainer  className={classes.contentMobile} style={{padding:0,margin:0,overflow: 'hidden',zIndex:1,}} justify="center" align='center' >        
+      <GridContainer  className={classes.contentMobile} style={{padding:0,margin:0, marginTop: '50px !important'}} justify="center" align='center' >        
         <GridItem xs={12} sm={12} md={12} align='center' justify='center'>
             
              <h5 style={{padding:0,margin:0,color:'#787878',fontSize:'16px',marginTop:'20px',}}>PLANO <strong style={{color:'#484848'}} >FIT+ </strong></h5>
-             <h5 style={{padding:0,margin:0,marginBottom:'30px',fontSize:'16px'}}>UNIDADE <strong>BARRETOS</strong></h5>
+             <h5 style={{padding:0,margin:0,marginBottom:'30px',fontSize:'16px'}}>UNIDADE BARRETOS</h5>
     
                </GridItem>
                
@@ -61,12 +78,287 @@ export default props => {
                
         
                </GridItem>
-               <GridItem xs={12} sm={12} md={12} align='center' justify='center' style={{marginTop:'10px', marginBottom:'20px'}}>
-                <iframe align='center' style={{width: '100%', height: '400px', backgroundColor: '#FFF',border:'1px solid #D9D9D9',borderRadius: '10px'}}>
+              
+               <GridItem xs={12} sm={12} md={12}>
+                      <div className='billing-info'>
 
+                        <div style={{ display: 'flex', maxHeight: '400px', backgroundColor: 'white', padding: 20, borderRadius:13 }}>
+                          <Scrollbar>
+                            <div className="list-data">
+                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                                <AccordionSummary
+                                  expandIcon={<ExpandMoreIcon />}
+                                  aria-controls="panel1bh-content"
+                                  id="panel1bh-header"
+                                >
+                                  <Typography className={classes.heading}>1ª Cobrança</Typography>
+                                  <Typography className={classes.secondaryHeading}> R$ 59,80</Typography>
+                                </AccordionSummary>
+                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
+                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Mensalidade</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 29,90</Typography>
+                                  </GridItem>
+                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 29,90</Typography>
+                                  </GridItem>
+                                </AccordionDetails>
+                              </Accordion>
+                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+                                <AccordionSummary
+                                  expandIcon={<ExpandMoreIcon />}
+                                  aria-controls="panel2bh-content"
+                                  id="panel2bh-header"
+                                >
+                                  <Typography className={classes.heading}>2ª Cobrança</Typography>
+                                  <Typography className={classes.secondaryHeading}> R$ 79,90</Typography>
+                                </AccordionSummary>
+                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
+                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Mensalidade</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
+                                  </GridItem>
+                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
+                                  </GridItem>
+                                </AccordionDetails>
+                              </Accordion>
+                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+                                <AccordionSummary
+                                  expandIcon={<ExpandMoreIcon />}
+                                  aria-controls="panel3bh-content"
+                                  id="panel3bh-header"
+                                >
+                                  <Typography className={classes.heading}>3ª Cobrança</Typography>
+                                  <Typography className={classes.secondaryHeading}> R$ 79,90
+                                
+          </Typography>
+                                </AccordionSummary>
+                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
+                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Mensalidade</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
+                                  </GridItem>
+                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
+                                  </GridItem>
+                                </AccordionDetails>
+                              </Accordion>
+                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+                                <AccordionSummary
+                                  expandIcon={<ExpandMoreIcon />}
+                                  aria-controls="panel4bh-content"
+                                  id="panel4bh-header"
+                                >
+                                  <Typography className={classes.heading}>4ª Cobrança</Typography>
+                                  <Typography className={classes.secondaryHeading}> R$ 79,90
+                                
+                                </Typography>
+                                </AccordionSummary>
+                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
+                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Mensalidade</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
+                                  </GridItem>
+                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
+                                  </GridItem>
+                                </AccordionDetails>
+                              </Accordion>
+                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
+                                <AccordionSummary
+                                  expandIcon={<ExpandMoreIcon />}
+                                  aria-controls="panel5bh-content"
+                                  id="panel5bh-header"
+                                >
+                                  <Typography className={classes.heading}>5ª Cobrança</Typography>
+                                  <Typography className={classes.secondaryHeading}> R$ 79,90
+                                
+                                </Typography>
+                                </AccordionSummary>
+                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
+                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Mensalidade</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
+                                  </GridItem>
+                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
+                                  </GridItem>
+                                </AccordionDetails>
+                              </Accordion>
+                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
+                                <AccordionSummary
+                                  expandIcon={<ExpandMoreIcon />}
+                                  aria-controls="panel6bh-content"
+                                  id="panel6bh-header"
+                                >
+                                  <Typography className={classes.heading}>6ª Cobrança</Typography>
+                                  <Typography className={classes.secondaryHeading}> R$ 79,90
+                                
+                                </Typography>
+                                </AccordionSummary>
+                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
+                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Mensalidade</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
+                                  </GridItem>
+                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
+                                  </GridItem>
+                                </AccordionDetails>
+                              </Accordion>
+                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel7'} onChange={handleChange('panel7')}>
+                                <AccordionSummary
+                                  expandIcon={<ExpandMoreIcon />}
+                                  aria-controls="panel7bh-content"
+                                  id="panel7bh-header"
+                                >
+                                  <Typography className={classes.heading}>7ª Cobrança</Typography>
+                                  <Typography className={classes.secondaryHeading}> R$ 79,90
+                                
+                                </Typography>
+                                </AccordionSummary>
+                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
+                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Mensalidade</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
+                                  </GridItem>
+                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
+                                  </GridItem>
+                                </AccordionDetails>
+                              </Accordion>
+                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel8'} onChange={handleChange('panel8')}>
+                                <AccordionSummary
+                                  expandIcon={<ExpandMoreIcon />}
+                                  aria-controls="panel8bh-content"
+                                  id="panel8bh-header"
+                                >
+                                  <Typography className={classes.heading}>8ª Cobrança</Typography>
+                                  <Typography className={classes.secondaryHeading}> R$ 79,90
+                                
+                                </Typography>
+                                </AccordionSummary>
+                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
+                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Mensalidade</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
+                                  </GridItem>
+                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
+                                  </GridItem>
+                                </AccordionDetails>
+                              </Accordion>
 
-                </iframe>
-               </GridItem>
+                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel9'} onChange={handleChange('panel9')}>
+                                <AccordionSummary
+                                  expandIcon={<ExpandMoreIcon />}
+                                  aria-controls="panel9bh-content"
+                                  id="panel9bh-header"
+                                >
+                                  <Typography className={classes.heading}>9ª Cobrança</Typography>
+                                  <Typography className={classes.secondaryHeading}> R$ 79,90
+                                
+                                </Typography>
+                                </AccordionSummary>
+                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
+                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Mensalidade</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
+                                  </GridItem>
+                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
+                                  </GridItem>
+                                </AccordionDetails>
+                              </Accordion>
+
+                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel10'} onChange={handleChange('panel10')}>
+                                <AccordionSummary
+                                  expandIcon={<ExpandMoreIcon />}
+                                  aria-controls="panel10bh-content"
+                                  id="panel10bh-header"
+                                >
+                                  <Typography className={classes.heading}>10ª Cobrança</Typography>
+                                  <Typography className={classes.secondaryHeading}> R$ 79,90
+                                
+                                </Typography>
+                                </AccordionSummary>
+                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
+                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Mensalidade</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
+                                  </GridItem>
+                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
+                                  </GridItem>
+                                </AccordionDetails>
+                              </Accordion>
+
+                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel11'} onChange={handleChange('panel11')}>
+                                <AccordionSummary
+                                  expandIcon={<ExpandMoreIcon />}
+                                  aria-controls="panel11bh-content"
+                                  id="panel11bh-header"
+                                >
+                                  <Typography className={classes.heading}>11ª Cobrança</Typography>
+                                  <Typography className={classes.secondaryHeading}> R$ 79,90
+                                
+                                </Typography>
+                                </AccordionSummary>
+                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
+                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Mensalidade</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
+                                  </GridItem>
+                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
+                                  </GridItem>
+                                </AccordionDetails>
+                              </Accordion>
+
+                              
+                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel12'} onChange={handleChange('panel12')}>
+                                <AccordionSummary
+                                  expandIcon={<ExpandMoreIcon />}
+                                  aria-controls="panel12bh-content"
+                                  id="panel12bh-header"
+                                >
+                                  <Typography className={classes.heading}>12ª Cobrança</Typography>
+                                  <Typography className={classes.secondaryHeading}> R$ 79,90
+                                
+                                </Typography>
+                                </AccordionSummary>
+                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
+                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Mensalidade</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
+                                  </GridItem>
+                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',padding:0,margin:0,}} >
+                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
+                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
+                                  </GridItem>
+                                </AccordionDetails>
+                              </Accordion>
+
+                            </div>
+                          </Scrollbar>
+                        </div>
+
+                      </div>
+                    </GridItem>
+                  
+            
                <GridContainer justify='center' align='center' style={{marginTop:'20px'}}>
 
                    </GridContainer>
