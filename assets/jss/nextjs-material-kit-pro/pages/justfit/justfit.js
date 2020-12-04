@@ -340,7 +340,7 @@ const style = {
   },
 
   btnCard: {
-    margin: '5px',
+    margin: '5px',    
     display: 'flex',
     textAlign: 'center',
     justifyContent: 'center',
@@ -362,6 +362,7 @@ const style = {
     },
     "& span": {
       margin: '10px',
+      marginLeft: '0px',    
       width: '12px',
       height: '12px',
       borderRadius: '20px',
@@ -381,7 +382,7 @@ const style = {
     alignItems: 'center',
     flexDirection: 'row',
     cursor: 'pointer',
-    width: '250px',
+    width: '280px',
     height: '70px',
     border: 0,
     borderRadius: '5px',
@@ -396,6 +397,7 @@ const style = {
     },
     "& span": {
       margin: '20px',
+      marginLeft: 0,      
       width: '12px',
       height: '12px',
       borderRadius: '20px',
@@ -640,6 +642,19 @@ const style = {
     },
     "& a:hover": {
       color: "#CCDA01"
+    },
+    "& span": {
+      display: 'flex',
+      marginTop: '5px',
+      alignItems: 'center',
+      color: '#c85a5f',
+      fontSize: '5px',
+      "& label": {
+       color: '#c85a5f',
+       fontSize: '13px',
+       margin: '0',
+       padding: '4px'
+      }
     }
   },
 

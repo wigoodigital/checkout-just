@@ -416,12 +416,13 @@ export default function CustomizedSteppers() {
   const [isLoading, setIsLoading] = React.useState(false);
   
   const [validationForm, setValidationForm] = React.useState(false);
+  const [validationPayment, setValidationPayment] = React.useState(false);
   
 
   const [dataSale, setDataSale] = React.useState({
 
     customer: {
-      companyBranchId: 15956,
+      companyBranchId: 26,
       name: "LETICIA CLUG BASTOS GAMA",
       birthDate: "1994-02-20",
       sex: "F",
@@ -448,60 +449,32 @@ export default function CustomizedSteppers() {
         document: "41410072851",
         email: "LETICIACLUG@HOTMAIL.COM",
         phone: "1199911-2140",
-        active: true
-      },
+        active: true,        
+      },        
       planData: {
-        companyBranchId: 15956,
-        planId: 344722,
+        companyBranchId: 26,
+        planId: 600,
         consultantId: 11650531,
         promotionId: 0,
         startDate: "2020-07-31",
-        dueDate: "2020-07-31"
-      },
-      "paymentMethod": "creditCard",
+        dueDate: "2020-07-31",
+        cupom:"",
+        nrParcelasPagamento: 12
+      },    
       card: {
-        number: "41410072851",
-        name: "LETICIA CLUG BASTOS GAMA",
-        valid: "12/20",
-        cvv: "782"
+        number: "",
+        name: "",
+        valid: "",
+        cvv: "",
+        bandeira:""
       },
-      "anamnese": {
-        "idade": "",
-        "altura": "",
-        "objetivo": "",
-        "habitoTreino": "",
-        "frequenciaTreino": "",
-        "fazMusculacao": "",
-        "fazAulas": "",
-        "sedentario": "",
-        "sedentarioTempo": "",
-        "reclusaoTreino": "SIM",
-        "tempoPorDia": "",
-        "periodo": "",
-        "peso": "",
-        "patologia": "",
-        "outroPatologia": "",
-        "osseoArticular": "",
-        "qualOsseoArticular": "",
-        "cirurgia": "",
-        "qualCirurgia": "",
-        "internacao": "",
-        "qualInternacao": "",
-        "medicamento": "",
-        "qualMedicamento": "",
-        "fuma": "",
-        "nutricionista": "",
-        "personalTrainer": "",
-        "equipamentos": "",
-        "status": "",
-        "unidade": "",
-        "aluno": "",
-        optinSms: true,
-        optinEmail: true,
-        optinTelegram: true,
-        aceiteTermos: true
-
-      }
+      dcc: {
+        conta:"",
+        contaCorrenteDV:"",
+        agencia:"",
+        agenciaDV:"",
+        banco:""
+      }      
     }
 
 
@@ -523,7 +496,7 @@ export default function CustomizedSteppers() {
         setValidationForm(true);        
         return
       case 2:
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);       
+        setValidationPayment(true);        
         return
       case 3:
         setActiveStep((prevActiveStep) => prevActiveStep + 1);        
@@ -568,7 +541,7 @@ export default function CustomizedSteppers() {
       case 1:
         return <SectionForm setDataSale={setDataSale} setActiveStep={setActiveStep} setIsLoading={setIsLoading} setValidationForm={setValidationForm}  validationForm={validationForm} />;
       case 2:
-        return <SectionPayment setDataSale={setDataSale} setActiveStep={setActiveStep} />
+        return <SectionPayment setDataSale={setDataSale} setActiveStep={setActiveStep} setIsLoading={setIsLoading} setValidationPayment={setValidationPayment}  validationPayment={validationPayment} />
       case 3:
         return <SectionSummary dataSale={dataSale} />
       case 4:
@@ -799,9 +772,9 @@ export default function CustomizedSteppers() {
     console.log("dataSale");
     console.log(dataSale);
 
-    if (activeStep == 2) {
-      fetchData(dataSale);
-    }
+    // if (activeStep == 2) {
+    //   fetchData(dataSale);
+    // }
 
   }, [dataSale]);
 
@@ -1254,7 +1227,7 @@ export default function CustomizedSteppers() {
                                 isLoading ? (
                                   <CircularProgress style={{ color: "#ccd900" }} size={30}/>
                                 ) : 
-                                  activeStep === steps.length - 1 ? 'FINALIZAR' : 'CONTINUAR'                                      
+                                  activeStep === steps.length - 2 ? 'FINALIZAR' : 'CONTINUAR'                                      
                                 }
                             </Button>
                           

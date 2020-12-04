@@ -31,7 +31,7 @@ import JustfitSummary from "../../components/Justfit/JustfitSummary/JustfitSumma
 
 const useStyles = makeStyles(styles);
 
-export default function SectionSummary() {
+export default function SectionSummary(props) {
   const classes = useStyles();
   return (
       

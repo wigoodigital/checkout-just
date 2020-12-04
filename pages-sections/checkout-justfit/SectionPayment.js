@@ -1,15 +1,19 @@
 /*eslint-disable*/
 import React from "react";
 import { useState } from "react";
+import axios from 'axios';
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 // @material-ui/icons
 import Mail from "@material-ui/icons/Mail";
 import Favorite from "@material-ui/icons/Favorite";
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 // core components
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
@@ -27,13 +31,243 @@ import Justfit from "../../components/Justfit/justfit";
 import PlanHorizontal from "../../components/Justfit/JustfitPlans/PlanHorizontal";
 import { Grid } from "@material-ui/core";
 
+import InputMask from "react-input-mask";
+
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers';
+import * as yup from "yup";
+import { setLocale } from 'yup';
+
 const useStyles = makeStyles(styles);
 
 
+setLocale({  
+  mixed: {
+    notType: function notType(_ref) {
+      switch (_ref.type) {
+        case 'number':
+          return 'Este campo deve ser um número';
+        case 'string':
+          return 'deve ser um texto';
+        default:
+          return 'formato errado';
+      }
+    },
+    default: 'é inválido',
+    required: 'Desculpe, este campo é obrigatório',
+    oneOf: 'deve ser um dos seguintes valores: ${values}',
+    notOneOf: 'não pode ser um dos seguintes valores: ${values}',
+  },
+  string: {
+      length: 'deve ter exatamente ${length} caracteres',
+      min: 'deve ter pelo menos ${min} caracteres',
+      max: 'deve ter no máximo ${max} caracteres',
+      email: 'Por favor, informe um e-mail inválido',
+      url: 'deve ter um formato de URL válida',
+      trim: 'não deve conter espaços no início ou no fim.',
+      lowercase: 'deve estar em maiúsculo',
+      uppercase: 'deve estar em minúsculo',
+  },
+  number: {
+      min: 'deve ser no mínimo ${min}',
+      max: 'deve ser no máximo ${max}',
+      lessThan: 'deve ser menor que ${less}',
+      moreThan: 'deve ser maior que ${more}',
+      notEqual: 'não pode ser igual à ${notEqual}',
+      positive: 'deve ser um número posítivo',
+      negative: 'deve ser um número negativo',
+      integer: 'deve ser um número inteiro',      
+  },
+      date: {
+      min: 'deve ser maior que a data ${min}',
+      max: 'deve ser menor que a data ${max}',
+  },
+      array: {
+      min: 'deve ter no mínimo ${min} itens',
+      max: 'deve ter no máximo ${max} itens',
+  }
+});
+
+function isValidDateCard(date) {
+  // return /^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/.test(date);
+  return /^((0[1-9])|(1[0-2]))\/((2009)|(20[1-2][0-9]))$/.test(date);
+}
+
+function getCardFlag(cardnumber) {
+  var cardnumber = cardnumber.replace(/[^0-9]+/g, '');
+
+  var cards = {
+      visa      : /^4[0-9]{12}(?:[0-9]{3})/,
+      mastercard : /^5[1-5][0-9]{14}/,
+      diners    : /^3(?:0[0-5]|[68][0-9])[0-9]{11}/,
+      amex      : /^3[47][0-9]{13}/,
+      discover  : /^6(?:011|5[0-9]{2})[0-9]{12}/,
+      hipercard  : /^(606282\d{10}(\d{3})?)|(3841\d{15})/,
+      elo        : /^((((636368)|(438935)|(504175)|(451416)|(636297))\d{0,10})|((5067)|(4576)|(4011))\d{0,12})/,
+      jcb        : /^(?:2131|1800|35\d{3})\d{11}/,       
+      aura      : /^(5078\d{2})(\d{2})(\d{11})$/     
+  };
+
+  for (var flag in cards) {
+      if(cards[flag].test(cardnumber)) {
+          return flag;
+      }
+  }       
+
+  return false;
+}
+
+function isValidCPF(cpf) {
+  if (typeof cpf !== "string") return false
+  cpf = cpf.replace(/[\s.-]*/igm, '')
+  if (
+      !cpf ||
+      cpf.length != 11 ||
+      cpf == "00000000000" ||
+      cpf == "11111111111" ||
+      cpf == "22222222222" ||
+      cpf == "33333333333" ||
+      cpf == "44444444444" ||
+      cpf == "55555555555" ||
+      cpf == "66666666666" ||
+      cpf == "77777777777" ||
+      cpf == "88888888888" ||
+      cpf == "99999999999" 
+  ) {
+      return false
+  }
+  var soma = 0
+  var resto
+  for (var i = 1; i <= 9; i++) 
+      soma = soma + parseInt(cpf.substring(i-1, i)) * (11 - i)
+  resto = (soma * 10) % 11
+  if ((resto == 10) || (resto == 11))  resto = 0
+  if (resto != parseInt(cpf.substring(9, 10)) ) return false
+  soma = 0
+  for (var i = 1; i <= 10; i++) 
+      soma = soma + parseInt(cpf.substring(i-1, i)) * (12 - i)
+  resto = (soma * 10) % 11
+  if ((resto == 10) || (resto == 11))  resto = 0
+  if (resto != parseInt(cpf.substring(10, 11) ) ) return false
+  return true
+}
 
 
 
-export default function SectionPayment() {
+yup.addMethod(yup.string, "dateCard", function(message) {	
+	return yup.mixed().test("date", message || "Por favor, digite uma data válida", value => isValidDateCard(value));
+});
+
+yup.addMethod(yup.string, "card", function(message) {	
+	return yup.mixed().test("card", message || "Por favor, digite um número de cartão válido", value => getCardFlag(value));
+});
+
+yup.addMethod(yup.string, "cpf", function(message) {
+	// return yup.mixed().test("cpf", message || "número de CPF inválido", value => cpfValidate(value));
+	return yup.mixed().test("cpf", message || "número de CPF inválido", value => isValidCPF(value));
+});
+
+
+
+const SignupSchema = yup.object().shape({  
+  
+    
+  cep: yup
+    .string()    
+    .test('validCep', 'Por favor, digite um CEP válido', 
+      function(value) {
+          return /^([0-9]{5}-[0-9]{3})$/.test(value);
+      }),       
+  endereco: yup
+    .string()
+    .required(),
+  numero: yup
+    .number()
+    .required(),
+  complemento: yup
+    .string(),    
+  bairro: yup
+    .string()
+    .required(),
+  estado: yup
+    .string()
+    .required(),
+  cidade: yup
+    .string()
+    .required(),  
+
+});
+
+
+const creditCardSchema = yup.object().shape({  
+
+
+  nameCredit: yup
+    .string()
+    .required(),
+
+  cpfCredit: yup
+    .string()
+    .cpf("Por favor, informe um CPF válido"),  
+
+  number: yup
+    .string()
+    .card()
+    .required(),  
+  valid: yup
+    .string()
+    .dateCard()
+    .required(),
+  cvv: yup
+    .string()
+    .matches(/^[0-9]{3}$/, 'Por favor, digite um CVV válido') 
+    .required(),   
+
+  acceptTermsCredit: yup.bool().oneOf([true], 'O aceite dos termos é obrigatório')  
+
+});
+
+
+const debitAccountSchema = yup.object().shape({  
+
+  nameDebit: yup
+    .string()
+    .required(),
+
+  cpfDebit: yup
+    .string()
+    .cpf("Por favor, informe um CPF válido"),  
+  banco: yup
+    .string()    
+    .required(),
+  agencia: yup
+    .number()
+    .required(),
+  agenciaDV: yup
+    .number()
+    .required(),
+  conta: yup
+    .number()
+    .required(),
+  contaDV: yup
+    .number()
+    .required(),   
+  
+  acceptTermsDebit: yup.bool().oneOf([true], 'O aceite dos termos é obrigatório')  
+
+});
+
+
+
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+
+
+
+export default function SectionPayment(props) {
 
   const [firstCardColor, setFirstCardColor] = useState('#484848');
   const [firstCardTextColor, setFirstCardTextColor] = useState('white');
@@ -44,12 +278,273 @@ export default function SectionPayment() {
   const [displayPayment, setDisplayPayment] = useState('block');
   const [displayDebit, setDisplayDebit] = useState('none');
 
+  const [showError, setShowError] = React.useState(false);
+  const [messageReturn, setMessageReturn] = React.useState({
+    code: "000",
+    msg: "Erro ao enviar dados. Tente mais tarde"
+  })
+
+  const [address, setAddress] = React.useState({    
+    endereco: "",
+    bairro: "",
+    estado: "",
+    cidade: ""
+  })
+
+
+  const { register, trigger, control, getValues, errors } = useForm({
+    resolver: yupResolver(SignupSchema),
+    mode: "onBlur"    
+  });
+  
+  const { register: registerCredit, trigger: triggerCredit, control: controlCredit, getValues: getValuesCredit, errors: errorsCredit } = useForm({
+    resolver: yupResolver(creditCardSchema),
+    mode: "onBlur"    
+  });
+  
+  const { register: registerDebit, trigger: triggerDebit, control: controlDebit, getValues: getValuesDebit, errors: errorsDebit } = useForm({
+    resolver: yupResolver(debitAccountSchema),
+    mode: "onBlur"    
+  });
+  
+  
+
+  React.useEffect( () => {
+    if(props.validationPayment){            
+      validateForm();  
+      // validateTeste();
+      props.setIsLoading(true);
+      props.setValidationPayment(false);      
+    }            
+  }, [props.validationPayment]);
+
+  const validateTeste = async () => {
+    var resultCredit = await triggerCredit();
+    console.log(resultCredit);
+    
+    var resultDebit = await triggerDebit();
+    console.log(resultDebit);
+
+    
+  }
+
+  const validateForm = async () => {
+        
+    // var result = await trigger([ "name", "email", "cpf", "sex", "birthDate", "phone" ]);
+    var validationForms = false;
+    var validationCobranca = await trigger();
+
+    
+    if(displayPayment == "block"){      
+      validationForms = await triggerCredit();
+      if(!validationForms || !validationCobranca){
+        props.setIsLoading(false);
+        return
+      } else {
+        var identificationForm = getValues();
+        console.log("identificationForm");    
+        console.log(identificationForm);  
+        
+        var identificationCredit = getValuesCredit();
+        console.log("identificationCredit");    
+        console.log(identificationCredit);  
+
+        const codBrand = getBrandCod(identificationCredit.number);
+
+        props.setDataSale( prevDataSale => {
+          return {  
+            customer: { 
+              ...prevDataSale.customer,              
+              financeResponsible: {
+                ...prevDataSale.customer.financeResponsible,
+                name: identificationCredit.nameCredit,
+                document: identificationCredit.cpfCredit,                
+              }, 
+              address: {
+                address: identificationForm.endereco,
+                number: identificationForm.numero,
+                complement: identificationForm.complemento,
+                district: identificationForm.bairro,
+                city: identificationForm.cidade,
+                state: identificationForm.estado,
+                postalCode: identificationForm.cep.replace(/[^\d]+/g,'')
+              },
+              card: {
+                number: identificationCredit.number.replace(/\s+/g, ''),
+                name: identificationCredit.nameCredit,
+                valid: identificationCredit.valid,
+                cvv: identificationCredit.cvv,
+                bandeira: codBrand,
+              }                              
+            }               
+          }
+        });  
+
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      }
+    } else {      
+      validationForms = await triggerDebit();
+      if(!validationForms || !validationCobranca){
+        props.setIsLoading(false);
+        return
+      } else {
+        var identificationForm = getValues();
+        console.log("identificationForm");    
+        console.log(identificationForm);  
+        
+        var identificationDebit = getValuesDebit();
+        console.log("identificationDebit");
+        console.log(identificationDebit); 
+                
+
+        
+        props.setDataSale( prevDataSale => {
+          return {  
+            customer: { 
+              ...prevDataSale.customer,              
+              financeResponsible: {
+                ...prevDataSale.customer.financeResponsible,
+                name: identificationDebit.nameDebit,
+                document: identificationDebit.cpfDebit,                
+              }, 
+              address: {
+                address: identificationForm.endereco,
+                number: identificationForm.numero,
+                complement: identificationForm.complemento,
+                district: identificationForm.bairro,
+                city: identificationForm.cidade,
+                state: identificationForm.estado,
+                postalCode: identificationForm.cep.replace(/[^\d]+/g,'')
+              },           
+              dcc: {
+                conta: identificationDebit.conta,
+                contaCorrenteDV: identificationDebit.contaDV,
+                agencia: identificationDebit.agencia,
+                agenciaDV: identificationDebit.agenciaDV,
+                banco: identificationDebit.banco
+              }                                
+            }               
+          }
+        });  
+
+        props.setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      }
+    }
+
+    props.setIsLoading(false);    
+  }
+
+
+  const getAddress = async (cep) => {    
+        
+    setAddress( (prevAddress) => {
+      return {
+        ...prevAddress,       
+        endereco: "",
+        bairro: "",
+        estado: "",
+        cidade: "",
+      }
+    });
+
+    await axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+      .then(res => {
+
+        if(res.data.error){
+          // setError(true);
+          console.log(res.data.error);
+          return
+        }
+
+        setAddress( (prevAddress) => {
+          return {
+            ...prevAddress,
+            cep: res.data.cep,
+            endereco: res.data.logradouro,
+            bairro: res.data.bairro,
+            estado: res.data.uf,
+            cidade: res.data.localidade,
+          }
+        });        
+
+        trigger(["cep", "endereco", "bairro", "estado", "cidade"]);
+        
+      })
+      .catch((error) => {
+        console.log(error);
+        // setError(true);
+      })
+      .finally(() => {
+        // setLoading(false);
+      });
+  };
+
+  const getCardFlag = (cardnumber) => {
+    var cardnumber = cardnumber.replace(/[^0-9]+/g, '');
+  
+    var cards = {
+        visa      : /^4[0-9]{12}(?:[0-9]{3})/,
+        mastercard : /^5[1-5][0-9]{14}/,
+        diners    : /^3(?:0[0-5]|[68][0-9])[0-9]{11}/,
+        amex      : /^3[47][0-9]{13}/,
+        discover  : /^6(?:011|5[0-9]{2})[0-9]{12}/,
+        hipercard  : /^(606282\d{10}(\d{3})?)|(3841\d{15})/,
+        elo        : /^((((636368)|(438935)|(504175)|(451416)|(636297))\d{0,10})|((5067)|(4576)|(4011))\d{0,12})/,
+        jcb        : /^(?:2131|1800|35\d{3})\d{11}/,       
+        aura      : /^(5078\d{2})(\d{2})(\d{11})$/     
+    };
+  
+    for (var flag in cards) {
+        if(cards[flag].test(cardnumber)) {
+            return flag;
+        }
+    }       
+  
+    return false;
+  }
+
+  const getBrandCod = (numberCard) => {
+    let brandCard = getCardFlag(numberCard);
+    switch (brandCard) {
+      case "visa":                
+        return 1;
+        break;
+      case "mastercard":        
+        return 2;
+        break;      
+      case "diners":        
+        return 3;
+        break;  
+      case "amex":        
+        return 4;
+        break;    
+      case "discover":        
+        return 8;
+        break;    
+      case "hipercard":        
+        return 9;
+        break;    
+      case "elo":        
+        return 6;
+        break;    
+      case "jcb":        
+        return 7;
+        break;    
+      case "aura":        
+        return 5;
+        break;      
+      default:
+        return 0;        
+        break    
+      }
+  }
+
 
   const classes = useStyles();
   return (
 
     <GridContainer className={classes.content} justify="center" >
-      <GridItem xs={12} sm={12} md={10}>
+      <GridItem xs={12} sm={12} md={11}>
         <Justfit
           theme="white"
           className={classes.jusfit}
@@ -67,9 +562,10 @@ export default function SectionPayment() {
                 </GridItem>
 
                 <GridItem xs={12} sm={12} md={12}>
-                  <GridContainer justify="space-between" align='center' style={{ display: 'flex', flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
+                  <GridContainer justify="start" align='center' style={{ display: 'flex', flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
 
                     <button className={classes.btnCardChecked} style={{ backgroundColor: firstCardColor, color: firstCardTextColor, marginLeft: 10, marginRight: 10 }} onClick={() => { setFirstCardColor("#484848"); setFirstCardTextColor('#FFF'); setSecondCardColor('#F2F2F2'); setSecondCardTextColor('#484848'); setThirdCardColor("#F2F2F2"); setThirdCardTextColor('#484848'); setDisplayDebit('none'); setDisplayPayment('block'); }}>
+                      
                       <span style={{ backgroundColor: firstCardTextColor }}></span>
                       <svg width="31" height="31" viewBox="0 0 31 31" fill="none" style={{ marginRight: 15 }} xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0)">
@@ -87,7 +583,7 @@ export default function SectionPayment() {
                     </button>
 
 
-                    <button className={classes.btnCard} style={{ backgroundColor: secondCardColor, color: secondCardTextColor, marginLeft: 10, marginRight: 10 }} onClick={() => { setFirstCardColor("#F2F2F2"); setFirstCardTextColor('#484848'); setSecondCardColor('#484848'); setSecondCardTextColor('#FFF'); setThirdCardColor("#F2F2F2"); setThirdCardTextColor('#484848'); setDisplayDebit('none'); setDisplayPayment('block'); }}>
+                    <button className={classes.btnCard} style={{ backgroundColor: secondCardColor, color: secondCardTextColor, marginLeft: 10, marginRight: 10, display: "none" }} onClick={() => { setFirstCardColor("#F2F2F2"); setFirstCardTextColor('#484848'); setSecondCardColor('#484848'); setSecondCardTextColor('#FFF'); setThirdCardColor("#F2F2F2"); setThirdCardTextColor('#484848'); setDisplayDebit('none'); setDisplayPayment('block'); }}>
                       <span style={{ backgroundColor: secondCardTextColor }}></span>
                       <svg width="31" height="31" viewBox="0 0 31 31" fill="none" style={{ marginRight: 15 }} xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0)">
@@ -132,39 +628,99 @@ export default function SectionPayment() {
                         <GridItem xs={12} sm={12} md={12}>
                           <h5 style={{ color: "#484848", fontSize: '18px', fontWeight: 600, paddingTop: '50px !important', padding: 0, margin: 0, }}>Informações de Pagamento</h5>
                         </GridItem>
-                        <GridItem xs={12} sm={12} md={12} className={classes.formInputItem}>
-                          <h2 >Nome impresso no Cartão</h2>
-                          <input></input>
-                        </GridItem>
-                        <GridItem xs={12} sm={12} md={6} className={classes.formInputItem}>
+                        <GridItem xs={12} sm={12} md={12} className={ errorsCredit.number ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
                           <h2>Número do Cartão</h2>
-                          <input></input>
+                          <Controller                                                  
+                            as={InputMask}
+                            control={controlCredit}
+                            mask="9999 9999 9999 9999"
+                            name="number"     
+                            type="tel"     
+                            defaultValue={""}                                                                                                                   
+                          />   
+                          { errorsCredit.number && (                      
+                            <span><ErrorOutlineIcon/><label>{errorsCredit.number.message}</label></span>                      
+                            )
+                          } 
                         </GridItem>
-                        <GridItem xs={12} sm={12} md={6} className={classes.formInputItem}>
-                          <h2>CPF do Titular do Cartão</h2>
-                          <input></input>
+                        <GridItem xs={12} sm={12} md={6} className={ errorsCredit.valid ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
+                          <h2>Vencimento (MM/AAAA)</h2>
+                          <Controller                      
+                            
+                            as={InputMask}
+                            control={controlCredit}
+                            mask="99/9999"
+                            name="valid"     
+                            type="tel"     
+                            defaultValue={""}                                                                     
+                                              
+                          />                   
+                          { errorsCredit.valid && (                      
+                            <span><ErrorOutlineIcon/><label>{errorsCredit.valid.message}</label></span>                      
+                            )
+                          } 
                         </GridItem>
-                        <GridItem xs={12} sm={12} md={4} className={classes.formInputItem}>
-                          <h2>Vencimento</h2>
-                          <input></input>
-                        </GridItem>
-                        <GridItem xs={12} sm={12} md={4} className={classes.formInputItem}>
+                        <GridItem xs={12} sm={12} md={6} className={ errorsCredit.cvv ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>                        
                           <h2>Cod. Segurança</h2>
-                          <input></input>
+                          <Controller                                                  
+                            as={InputMask}
+                            control={controlCredit}
+                            mask="999"
+                            name="cvv"     
+                            type="tel"     
+                            defaultValue={""}                                                                     
+                                              
+                          />  
+                          { errorsCredit.cvv && (                      
+                            <span><ErrorOutlineIcon/><label>{errorsCredit.cvv.message}</label></span>                      
+                            )
+                          } 
+                          
                         </GridItem>
-                        <GridItem xs={12} sm={12} md={4} className={classes.formInputItem}>
+                        {/* <GridItem xs={12} sm={12} md={3} className={classes.formInputItem}>
                           <h2>Nº de parcelas</h2>
                           <input></input>
-                        </GridItem>
+                        </GridItem> */}
+                        <GridItem xs={12} sm={12} md={6} className={ errorsCredit.nameCredit ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
+                          <h2 >Nome impresso no Cartão</h2>
+                          <input ref={registerCredit} name="nameCredit" id="nameCredit"></input>
+                          { errorsCredit.nameCredit && (                      
+                            <span><ErrorOutlineIcon/><label>{errorsCredit.nameCredit.message}</label></span>                      
+                            )
+                          }
+                        </GridItem>                        
+                        <GridItem xs={12} sm={12} md={6} className={ errorsCredit.cpfCredit ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
+                          <h2>CPF do Titular do Cartão</h2>                  
+                          <Controller                      
+                            
+                            as={InputMask}
+                            control={controlCredit}
+                            mask="999.999.999-99"
+                            name="cpfCredit"     
+                            type="tel"     
+                            defaultValue={""}                                                                     
+                                              
+                          />                   
+                          { errorsCredit.cpfCredit && (                      
+                            <span><ErrorOutlineIcon/><label>{errorsCredit.cpfCredit.message}</label></span>                      
+                            )
+                          } 
+                        </GridItem>                        
+                        
                         <GridItem xs={12} sm={12} md={12} className={classes.checkboxItemPayment} style={{ marginTop: 20 }}>
                           <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', }}>
-                            <label className={classes.containerCheckboxT} style={{marginRight:0}}>
-                              <input type='checkbox' ></input>
+                            <label className={classes.containerCheckboxT}>
+                              <input type='checkbox' name="acceptTermsCredit" ref={registerCredit}></input>
                               <span className={classes.checkmarkT}  ></span>
                             </label>
-                            <h2 style={{marginLeft:0}}>Li e aceito o contrato, o <a>termo de adesão</a> e o <a>regulamento interno</a>.</h2>
+                            <h2>Li e aceito o contrato, o <a>termo de adesão</a> e o <a>regulamento interno</a>.</h2>
                           </div>
+                          { errorsCredit.acceptTermsCredit && (                      
+                            <span><ErrorOutlineIcon/><label>{errorsCredit.acceptTermsCredit.message}</label></span>                      
+                            )
+                          }   
                         </GridItem>
+                        
                       </GridContainer>
                     </GridItem>
 
@@ -173,38 +729,89 @@ export default function SectionPayment() {
                         <GridItem xs={12} sm={12} md={12}>
                           <h5 style={{ color: "#484848", fontSize: '18px', fontWeight: 600, paddingTop: '50px !important', padding: 0, margin: 0, }}>Informações de Pagamento</h5>
                         </GridItem>
-                        <GridItem xs={12} sm={12} md={12} className={classes.formInputItem}>
+                        <GridItem xs={12} sm={12} md={12} className={ errorsDebit.nameDebit ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
                           <h2 >Nome completo</h2>
-                          <input></input>
+                          <input ref={registerDebit} name="nameDebit" id="nameDebit"></input>
+                          { errorsDebit.nameDebit && (                      
+                            <span><ErrorOutlineIcon/><label>{errorsDebit.nameDebit.message}</label></span>                      
+                            )
+                          }
                         </GridItem>
-                        <GridItem xs={12} sm={12} md={6} className={classes.formInputItem}>
-                          <h2>CPF</h2>
-                          <input></input>
+                        <GridItem xs={12} sm={12} md={6} className={ errorsDebit.cpfDebit ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
+                          <h2>CPF</h2>                          
+                          <Controller                      
+                            
+                            as={InputMask}
+                            control={controlDebit}
+                            mask="999.999.999-99"
+                            name="cpfDebit"     
+                            type="tel"     
+                            defaultValue={""}                                                                     
+                                              
+                          />  
+                          { errorsDebit.cpfDebit && (                      
+                            <span><ErrorOutlineIcon/><label>{errorsDebit.cpfDebit.message}</label></span>                      
+                            )
+                          }
                         </GridItem>
-                        <GridItem xs={12} sm={12} md={6} className={classes.formInputItem}>
-                          <h2>Nome do banco</h2>
-                          <input></input>
+                        <GridItem xs={12} sm={12} md={6} className={ errorsDebit.banco ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
+                          <h2>Nome do banco</h2>                          
+                          <select name="banco" id="banco" ref={registerDebit}>
+                            <option value="1">Banco do Brasil</option>
+                            <option value="341">Itaú</option>
+                            <option value="237">Bradesco</option>
+                            <option value="33">Santander</option>
+                            
+                          </select>
+                          { errorsDebit.banco && (                      
+                            <span><ErrorOutlineIcon/><label>{errorsDebit.banco.message}</label></span>                      
+                            )
+                          }
                         </GridItem>
-                        <GridItem xs={12} sm={12} md={4} className={classes.formInputItem}>
+                        <GridItem xs={12} sm={12} md={9} className={ errorsDebit.agencia ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
                           <h2>Agência</h2>
-                          <input></input>
+                          <input ref={registerDebit} name="agencia" id="agencia"></input>
+                          { errorsDebit.agencia && (                      
+                            <span><ErrorOutlineIcon/><label>{errorsDebit.agencia.message}</label></span>                      
+                            )
+                          }
                         </GridItem>
-                        <GridItem xs={12} sm={12} md={4} className={classes.formInputItem}>
+                        <GridItem xs={12} sm={12} md={3} className={ errorsDebit.agenciaDV ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
+                          <h2>Dígito</h2>
+                          <input ref={registerDebit} name="agenciaDV" id="agenciaDV"></input>
+                          { errorsDebit.agenciaDV && (                      
+                            <span><ErrorOutlineIcon/><label>{errorsDebit.agenciaDV.message}</label></span>                      
+                            )
+                          }
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={9} className={ errorsDebit.conta ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
                           <h2>Conta</h2>
-                          <input></input>
+                          <input ref={registerDebit} name="conta" id="conta"></input>
+                          { errorsDebit.conta && (                      
+                            <span><ErrorOutlineIcon/><label>{errorsDebit.conta.message}</label></span>                      
+                            )
+                          }
                         </GridItem>
-                        <GridItem xs={12} sm={12} md={4} className={classes.formInputItem}>
-                          <h2>Digito</h2>
-                          <input></input>
+                        <GridItem xs={12} sm={12} md={3} className={ errorsDebit.contaDV ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
+                          <h2>Dígito</h2>
+                          <input ref={registerDebit} name="contaDV" id="contaDV"></input>
+                          { errorsDebit.contaDV && (                      
+                            <span><ErrorOutlineIcon/><label>{errorsDebit.contaDV.message}</label></span>                      
+                            )
+                          }
                         </GridItem>
                         <GridItem xs={12} sm={12} md={12} className={classes.checkboxItemPayment} style={{ marginTop: 20 }}>
                           <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', }}>
                             <label className={classes.containerCheckboxT}>
-                              <input type='checkbox' ></input>
+                              <input type='checkbox' name="acceptTermsDebit" ref={registerDebit}></input>
                               <span className={classes.checkmarkT}  ></span>
                             </label>
                             <h2>Li e aceito o contrato, o <a>termo de adesão</a> e o <a>regulamento interno</a>.</h2>
                           </div>
+                          { errorsDebit.acceptTermsDebit && (                      
+                            <span><ErrorOutlineIcon/><label>{errorsDebit.acceptTermsDebit.message}</label></span>                      
+                            )
+                          }     
                         </GridItem>
                       </GridContainer>
                     </GridItem>
@@ -216,33 +823,86 @@ export default function SectionPayment() {
                           <h5 style={{ color: "#484848", fontSize: '18px', fontWeight: 600, paddingTop: '50px !important', padding: 0, margin: 0, }}>Endereço de cobrança</h5>
                         </GridItem>
 
-                        <GridItem xs={12} sm={12} md={6} className={classes.formInputItem}>
+                        <GridItem xs={12} sm={12} md={9} className={ errors.cep ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
                           <h2 >CEP</h2>
-                          <input></input>
+                          
+                          {/* <Controller
+                            as={InputMask}
+                            control={control}
+                            mask="99999-999"
+                            name="cep"
+                            type="tel"
+                            onBlur={(e) => {
+                              console.log(e.target.value);                              
+                            }}
+                            defaultValue={""}                            
+                          /> */}
+
+                          <InputMask
+                            name="cep"
+                            mask={"99999-999"}
+                            maskPlaceholder={""}                            
+                            inputRef={register()}
+                            // defaultValue={""}
+                            onBlur={(e) => {
+                              // console.log(e.target.value);   
+                              console.log(getValues("cep"));  
+                              getAddress(getValues("cep"));
+                            }}
+                          />
+                          { errors.cep && (                      
+                            <span><ErrorOutlineIcon/><label>{errors.cep.message}</label></span>                      
+                            )
+                          }   
                         </GridItem>
-                        <GridItem xs={12} sm={12} md={6} className={classes.formInputItem}>
-                          <h2>Logradouro</h2>
-                          <input></input>
-                        </GridItem>
-                        <GridItem xs={12} sm={12} md={3} className={classes.formInputItem}>
-                          <h2>Número</h2>
-                          <input></input>
-                        </GridItem>
-                        <GridItem xs={12} sm={12} md={6} className={classes.formInputItem}>
-                          <h2>Complemento</h2>
-                          <input></input>
-                        </GridItem>
-                        <GridItem xs={12} sm={12} md={3} className={classes.formInputItem}>
+                        <GridItem xs={12} sm={12} md={3} className={ errors.estado ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
                           <h2>UF</h2>
-                          <input></input>
+                          <input ref={register} name="estado" id="estado" value={address.estado}></input>
+                          { errors.estado && (                      
+                            <span><ErrorOutlineIcon/><label>{errors.estado.message}</label></span>                      
+                            )
+                          }
                         </GridItem>
-                        <GridItem xs={12} sm={12} md={6} className={classes.formInputItem}>
+                        <GridItem xs={12} sm={12} md={12} className={ errors.endereco ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
+                          <h2>Logradouro</h2>
+                          <input ref={register} name="endereco" id="endereco" value={address.endereco}></input>
+                          { errors.endereco && (                      
+                            <span><ErrorOutlineIcon/><label>{errors.endereco.message}</label></span>                      
+                            )
+                          }
+                        </GridItem>                        
+                        <GridItem xs={12} sm={12} md={6} className={ errors.bairro ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
                           <h2>Bairro</h2>
-                          <input></input>
+                          <input ref={register} name="bairro" id="bairro" value={address.bairro}></input>
+                          { errors.bairro && (                      
+                            <span><ErrorOutlineIcon/><label>{errors.bairro.message}</label></span>                      
+                            )
+                          }
                         </GridItem>
-                        <GridItem xs={12} sm={12} md={6} className={classes.formInputItem}>
+                        <GridItem xs={12} sm={12} md={6} className={ errors.cidade ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
                           <h2>Cidade</h2>
-                          <input></input>
+                          <input ref={register} name="cidade" id="cidade" value={address.cidade}></input>
+                          { errors.cidade && (                      
+                            <span><ErrorOutlineIcon/><label>{errors.cidade.message}</label></span>                      
+                            )
+                          }
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={3} className={ errors.numero ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
+                          <h2>Número</h2>
+                          <input ref={register} name="numero" id="numero" type="tel"></input>
+                          
+                          { errors.numero && (                      
+                            <span><ErrorOutlineIcon/><label>{errors.numero.message}</label></span>                      
+                            )
+                          }
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={9} className={ errors.complemento ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
+                          <h2>Complemento</h2>
+                          <input ref={register} name="complemento" id="complemento"></input>
+                          { errors.complemento && (                      
+                            <span><ErrorOutlineIcon/><label>{errors.complemento.message}</label></span>                      
+                            )
+                          }
                         </GridItem>
                       </GridContainer>
                     </GridItem>

@@ -4513,6 +4513,7 @@ const style = _objectSpread({}, assets_jss_nextjs_material_kit_pro_imagesStyles_
     },
     "& span": {
       margin: '10px',
+      marginLeft: '0px',
       width: '12px',
       height: '12px',
       borderRadius: '20px',
@@ -4529,7 +4530,7 @@ const style = _objectSpread({}, assets_jss_nextjs_material_kit_pro_imagesStyles_
     alignItems: 'center',
     flexDirection: 'row',
     cursor: 'pointer',
-    width: '250px',
+    width: '280px',
     height: '70px',
     border: 0,
     borderRadius: '5px',
@@ -4544,6 +4545,7 @@ const style = _objectSpread({}, assets_jss_nextjs_material_kit_pro_imagesStyles_
     },
     "& span": {
       margin: '20px',
+      marginLeft: 0,
       width: '12px',
       height: '12px',
       borderRadius: '20px',
@@ -4768,6 +4770,19 @@ const style = _objectSpread({}, assets_jss_nextjs_material_kit_pro_imagesStyles_
     },
     "& a:hover": {
       color: "#CCDA01"
+    },
+    "& span": {
+      display: 'flex',
+      marginTop: '5px',
+      alignItems: 'center',
+      color: '#c85a5f',
+      fontSize: '5px',
+      "& label": {
+        color: '#c85a5f',
+        fontSize: '13px',
+        margin: '0',
+        padding: '4px'
+      }
     }
   },
   planoDark: {
@@ -11073,6 +11088,12 @@ __webpack_require__.r(__webpack_exports__);
 var _jsxFileName = "/Users/gabrieldossantos/Desktop/checkout-justfit (1)/pages-sections/checkout-justfit/SectionForm.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 /*eslint-disable*/
@@ -11111,6 +11132,54 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 
 
+Object(yup__WEBPACK_IMPORTED_MODULE_26__["setLocale"])({
+  mixed: {
+    notType: function notType(_ref) {
+      switch (_ref.type) {
+        case 'number':
+          return 'deve ser um número';
+
+        case 'string':
+          return 'deve ser um texto';
+
+        default:
+          return 'formato errado';
+      }
+    },
+    default: 'é inválido',
+    required: 'Desculpe, este campo é obrigatório',
+    oneOf: 'deve ser um dos seguintes valores: ${values}',
+    notOneOf: 'não pode ser um dos seguintes valores: ${values}'
+  },
+  string: {
+    length: 'deve ter exatamente ${length} caracteres',
+    min: 'deve ter pelo menos ${min} caracteres',
+    max: 'deve ter no máximo ${max} caracteres',
+    email: 'Por favor, informe um e-mail inválido',
+    url: 'deve ter um formato de URL válida',
+    trim: 'não deve conter espaços no início ou no fim.',
+    lowercase: 'deve estar em maiúsculo',
+    uppercase: 'deve estar em minúsculo'
+  },
+  number: {
+    min: 'deve ser no mínimo ${min}',
+    max: 'deve ser no máximo ${max}',
+    lessThan: 'deve ser menor que ${less}',
+    moreThan: 'deve ser maior que ${more}',
+    notEqual: 'não pode ser igual à ${notEqual}',
+    positive: 'deve ser um número posítivo',
+    negative: 'deve ser um número negativo',
+    integer: 'deve ser um número inteiro'
+  },
+  date: {
+    min: 'deve ser maior que a data ${min}',
+    max: 'deve ser menor que a data ${max}'
+  },
+  array: {
+    min: 'deve ter no mínimo ${min} itens',
+    max: 'deve ter no máximo ${max} itens'
+  }
+});
 
 function isValidCPF(cpf) {
   if (typeof cpf !== "string") return false;
@@ -11210,7 +11279,7 @@ function Alert(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 175,
+      lineNumber: 223,
       columnNumber: 10
     }
   }));
@@ -11244,12 +11313,13 @@ function SectionForm(props) {
 
   const validateForm = async () => {
     // var result = await trigger();
-    var identificationForm = getValues();
-    console.log(identificationForm); // var result = await trigger([ "name", "email", "cpf", "sex", "birthDate", "phone" ]);
-
+    // var result = await trigger([ "name", "email", "cpf", "sex", "birthDate", "phone" ]);
     var result = await trigger();
 
     if (result) {
+      var identificationForm = getValues();
+      console.log("identificationForm");
+      console.log(identificationForm);
       var resultCpf = await validateCpf(identificationForm.cpf);
       console.log("resultCpf");
       console.log(resultCpf);
@@ -11260,6 +11330,27 @@ function SectionForm(props) {
         console.log(resultEmail);
 
         if (resultEmail) {
+          props.setDataSale(prevDataSale => {
+            return {
+              customer: _objectSpread({}, prevDataSale.customer, {
+                name: identificationForm.firstName.toUpperCase(),
+                email: identificationForm.email,
+                document: identificationForm.cpf.replace(/[^\d]+/g, ''),
+                sex: identificationForm.sex,
+                birthDate: identificationForm.birthDate,
+                financeResponsible: _objectSpread({}, prevDataSale.customer.financeResponsible, {
+                  name: identificationForm.firstName.toUpperCase(),
+                  document: identificationForm.cpf.replace(/[^\d]+/g, ''),
+                  email: identificationForm.email,
+                  phone: identificationForm.phone.replace(/\s+/g, '')
+                }),
+                phones: [{
+                  type: "cellphone",
+                  number: identificationForm.phone.replace(/\s+/g, '')
+                }]
+              })
+            };
+          });
           props.setActiveStep(prevActiveStep => prevActiveStep + 1);
         }
       }
@@ -11339,7 +11430,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 298,
+      lineNumber: 376,
       columnNumber: 7
     }
   }, __jsx(_material_ui_core_Snackbar__WEBPACK_IMPORTED_MODULE_6___default.a, {
@@ -11349,7 +11440,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 299,
+      lineNumber: 377,
       columnNumber: 9
     }
   }, __jsx(Alert, {
@@ -11358,7 +11449,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 300,
+      lineNumber: 378,
       columnNumber: 11
     }
   }, messageReturn.msg)), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_13__["default"], {
@@ -11368,7 +11459,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 304,
+      lineNumber: 382,
       columnNumber: 9
     }
   }, __jsx(_components_Justfit_justfit__WEBPACK_IMPORTED_MODULE_20__["default"], {
@@ -11377,7 +11468,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 305,
+      lineNumber: 383,
       columnNumber: 11
     }
   }, __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
@@ -11386,7 +11477,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 309,
+      lineNumber: 387,
       columnNumber: 11
     }
   }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_13__["default"], {
@@ -11399,7 +11490,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 310,
+      lineNumber: 388,
       columnNumber: 13
     }
   }, __jsx("h1", {
@@ -11412,7 +11503,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 312,
+      lineNumber: 390,
       columnNumber: 13
     }
   }, "IDENTIFIQUE-SE PARA CONTINUAR")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_13__["default"], {
@@ -11425,7 +11516,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 344,
+      lineNumber: 422,
       columnNumber: 13
     }
   }, __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
@@ -11433,7 +11524,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 345,
+      lineNumber: 423,
       columnNumber: 13
     }
   }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_13__["default"], {
@@ -11443,7 +11534,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 346,
+      lineNumber: 424,
       columnNumber: 15
     }
   }, __jsx("h5", {
@@ -11456,7 +11547,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 348,
+      lineNumber: 426,
       columnNumber: 19
     }
   }, "Preencha os campos abaixo para se cadastrar")), __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
@@ -11467,7 +11558,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 353,
+      lineNumber: 431,
       columnNumber: 15
     }
   }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_13__["default"], {
@@ -11478,14 +11569,14 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 354,
+      lineNumber: 432,
       columnNumber: 19
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 355,
+      lineNumber: 433,
       columnNumber: 21
     }
   }, "Nome"), __jsx("input", {
@@ -11495,28 +11586,28 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 356,
+      lineNumber: 434,
       columnNumber: 21
     }
   }), errors.firstName && __jsx("span", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 358,
+      lineNumber: 436,
       columnNumber: 23
     }
   }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_11___default.a, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 358,
+      lineNumber: 436,
       columnNumber: 29
     }
   }), __jsx("label", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 358,
+      lineNumber: 436,
       columnNumber: 48
     }
   }, errors.firstName.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_13__["default"], {
@@ -11527,14 +11618,14 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 362,
+      lineNumber: 440,
       columnNumber: 19
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 363,
+      lineNumber: 441,
       columnNumber: 21
     }
   }, "Sobrenome"), __jsx("input", {
@@ -11544,28 +11635,28 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 364,
+      lineNumber: 442,
       columnNumber: 21
     }
   }), errors.lastName && __jsx("span", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 366,
+      lineNumber: 444,
       columnNumber: 23
     }
   }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_11___default.a, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 366,
+      lineNumber: 444,
       columnNumber: 29
     }
   }), __jsx("label", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 366,
+      lineNumber: 444,
       columnNumber: 48
     }
   }, errors.lastName.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_13__["default"], {
@@ -11576,14 +11667,14 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 370,
+      lineNumber: 448,
       columnNumber: 19
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 371,
+      lineNumber: 449,
       columnNumber: 21
     }
   }, "E-mail"), __jsx("input", {
@@ -11594,28 +11685,28 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 372,
+      lineNumber: 450,
       columnNumber: 21
     }
   }), errors.email && __jsx("span", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 374,
+      lineNumber: 452,
       columnNumber: 23
     }
   }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_11___default.a, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 374,
+      lineNumber: 452,
       columnNumber: 29
     }
   }), __jsx("label", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 374,
+      lineNumber: 452,
       columnNumber: 48
     }
   }, errors.email.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_13__["default"], {
@@ -11626,14 +11717,14 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 378,
+      lineNumber: 456,
       columnNumber: 19
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 379,
+      lineNumber: 457,
       columnNumber: 21
     }
   }, "CPF"), __jsx(react_hook_form__WEBPACK_IMPORTED_MODULE_24__["Controller"], {
@@ -11646,28 +11737,28 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 380,
+      lineNumber: 458,
       columnNumber: 21
     }
   }), errors.cpf && __jsx("span", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 391,
+      lineNumber: 469,
       columnNumber: 23
     }
   }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_11___default.a, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 391,
+      lineNumber: 469,
       columnNumber: 29
     }
   }), __jsx("label", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 391,
+      lineNumber: 469,
       columnNumber: 48
     }
   }, errors.cpf.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_13__["default"], {
@@ -11678,14 +11769,14 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 395,
+      lineNumber: 473,
       columnNumber: 19
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 396,
+      lineNumber: 474,
       columnNumber: 21
     }
   }, "Sexo"), __jsx("select", {
@@ -11695,7 +11786,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 398,
+      lineNumber: 476,
       columnNumber: 21
     }
   }, __jsx("option", {
@@ -11703,7 +11794,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 399,
+      lineNumber: 477,
       columnNumber: 23
     }
   }, "Masculino"), __jsx("option", {
@@ -11711,28 +11802,28 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 400,
+      lineNumber: 478,
       columnNumber: 23
     }
   }, "Feminino")), errors.sex && __jsx("span", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 403,
+      lineNumber: 481,
       columnNumber: 23
     }
   }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_11___default.a, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 403,
+      lineNumber: 481,
       columnNumber: 29
     }
   }), __jsx("label", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 403,
+      lineNumber: 481,
       columnNumber: 48
     }
   }, errors.sex.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_13__["default"], {
@@ -11743,14 +11834,14 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 407,
+      lineNumber: 485,
       columnNumber: 19
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 408,
+      lineNumber: 486,
       columnNumber: 21
     }
   }, "Data de nascimento"), __jsx(react_hook_form__WEBPACK_IMPORTED_MODULE_24__["Controller"], {
@@ -11766,28 +11857,28 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 410,
+      lineNumber: 488,
       columnNumber: 21
     }
   }), errors.birthDate && __jsx("span", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 422,
+      lineNumber: 500,
       columnNumber: 23
     }
   }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_11___default.a, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 422,
+      lineNumber: 500,
       columnNumber: 29
     }
   }), __jsx("label", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 422,
+      lineNumber: 500,
       columnNumber: 48
     }
   }, errors.birthDate.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_13__["default"], {
@@ -11798,14 +11889,14 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 426,
+      lineNumber: 504,
       columnNumber: 19
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 427,
+      lineNumber: 505,
       columnNumber: 21
     }
   }, "Celular"), __jsx(react_hook_form__WEBPACK_IMPORTED_MODULE_24__["Controller"], {
@@ -11818,28 +11909,28 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 429,
+      lineNumber: 507,
       columnNumber: 21
     }
   }), errors.phone && __jsx("span", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 439,
+      lineNumber: 517,
       columnNumber: 23
     }
   }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_11___default.a, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 439,
+      lineNumber: 517,
       columnNumber: 29
     }
   }), __jsx("label", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 439,
+      lineNumber: 517,
       columnNumber: 48
     }
   }, errors.phone.message)))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_13__["default"], {
@@ -11853,7 +11944,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 444,
+      lineNumber: 522,
       columnNumber: 19
     }
   }, __jsx("div", {
@@ -11867,7 +11958,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 445,
+      lineNumber: 523,
       columnNumber: 21
     }
   }, __jsx("label", {
@@ -11875,7 +11966,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 446,
+      lineNumber: 524,
       columnNumber: 21
     }
   }, __jsx("input", {
@@ -11885,7 +11976,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 447,
+      lineNumber: 525,
       columnNumber: 25
     }
   }), __jsx("span", {
@@ -11893,35 +11984,35 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 448,
+      lineNumber: 526,
       columnNumber: 25
     }
   })), __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 450,
+      lineNumber: 528,
       columnNumber: 21
     }
   }, "Aceito receber not\xEDcias e comunicados da JustFit por SMS, Whatsapp e Liga\xE7\xE3o.")), errors.optinPhone && __jsx("span", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 453,
+      lineNumber: 531,
       columnNumber: 23
     }
   }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_11___default.a, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 453,
+      lineNumber: 531,
       columnNumber: 29
     }
   }), __jsx("label", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 453,
+      lineNumber: 531,
       columnNumber: 48
     }
   }, errors.optinPhone.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_13__["default"], {
@@ -11932,7 +12023,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 457,
+      lineNumber: 535,
       columnNumber: 19
     }
   }, __jsx("div", {
@@ -11946,7 +12037,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 458,
+      lineNumber: 536,
       columnNumber: 21
     }
   }, __jsx("label", {
@@ -11954,7 +12045,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 459,
+      lineNumber: 537,
       columnNumber: 29
     }
   }, __jsx("input", {
@@ -11964,7 +12055,7 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 460,
+      lineNumber: 538,
       columnNumber: 25
     }
   }), __jsx("span", {
@@ -11972,35 +12063,35 @@ function SectionForm(props) {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 461,
+      lineNumber: 539,
       columnNumber: 25
     }
   })), __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 463,
+      lineNumber: 541,
       columnNumber: 21
     }
   }, "Aceito receber not\xEDcias e comunicados da JustFit por Newsletter.")), errors.optinEmail && __jsx("span", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 466,
+      lineNumber: 544,
       columnNumber: 23
     }
   }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_11___default.a, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 466,
+      lineNumber: 544,
       columnNumber: 29
     }
   }), __jsx("label", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 466,
+      lineNumber: 544,
       columnNumber: 48
     }
   }, errors.optinEmail.message)))))))));
@@ -12020,38 +12111,63 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return SectionPayment; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "classnames");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core/styles */ "@material-ui/core/styles");
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _material_ui_core_List__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/List */ "@material-ui/core/List");
-/* harmony import */ var _material_ui_core_List__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_List__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/ListItem */ "@material-ui/core/ListItem");
-/* harmony import */ var _material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _material_ui_icons_Mail__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/icons/Mail */ "@material-ui/icons/Mail");
-/* harmony import */ var _material_ui_icons_Mail__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Mail__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _material_ui_icons_Favorite__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/icons/Favorite */ "@material-ui/icons/Favorite");
-/* harmony import */ var _material_ui_icons_Favorite__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Favorite__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! components/Grid/GridContainer.js */ "./components/Grid/GridContainer.js");
-/* harmony import */ var components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! components/Grid/GridItem.js */ "./components/Grid/GridItem.js");
-/* harmony import */ var components_CustomButtons_Button_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! components/CustomButtons/Button.js */ "./components/CustomButtons/Button.js");
-/* harmony import */ var components_CustomInput_CustomInput_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! components/CustomInput/CustomInput.js */ "./components/CustomInput/CustomInput.js");
-/* harmony import */ var components_Footer_Footer_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! components/Footer/Footer.js */ "./components/Footer/Footer.js");
-/* harmony import */ var assets_img_credit_card_dark_png__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! assets/img/credit-card-dark.png */ "./assets/img/credit-card-dark.png");
-/* harmony import */ var assets_img_credit_card_dark_png__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(assets_img_credit_card_dark_png__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var assets_img_credit_card_white_png__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! assets/img/credit-card-white.png */ "./assets/img/credit-card-white.png");
-/* harmony import */ var assets_img_credit_card_white_png__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(assets_img_credit_card_white_png__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var assets_img_debit_bank_dark_png__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! assets/img/debit-bank-dark.png */ "./assets/img/debit-bank-dark.png");
-/* harmony import */ var assets_img_debit_bank_dark_png__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(assets_img_debit_bank_dark_png__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var assets_jss_nextjs_material_kit_pro_pages_justfit_justfit_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! assets/jss/nextjs-material-kit-pro/pages/justfit/justfit.js */ "./assets/jss/nextjs-material-kit-pro/pages/justfit/justfit.js");
-/* harmony import */ var _components_Justfit_justfit__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../components/Justfit/justfit */ "./components/Justfit/justfit.js");
-/* harmony import */ var _components_Justfit_JustfitPlans_PlanHorizontal__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../components/Justfit/JustfitPlans/PlanHorizontal */ "./components/Justfit/JustfitPlans/PlanHorizontal.js");
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @material-ui/core */ "@material-ui/core");
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "axios");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "classnames");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/styles */ "@material-ui/core/styles");
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _material_ui_core_List__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/List */ "@material-ui/core/List");
+/* harmony import */ var _material_ui_core_List__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_List__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/ListItem */ "@material-ui/core/ListItem");
+/* harmony import */ var _material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _material_ui_core_Snackbar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/Snackbar */ "@material-ui/core/Snackbar");
+/* harmony import */ var _material_ui_core_Snackbar__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Snackbar__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/lab/Alert */ "@material-ui/lab/Alert");
+/* harmony import */ var _material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _material_ui_icons_Mail__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/icons/Mail */ "@material-ui/icons/Mail");
+/* harmony import */ var _material_ui_icons_Mail__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Mail__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _material_ui_icons_Favorite__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/icons/Favorite */ "@material-ui/icons/Favorite");
+/* harmony import */ var _material_ui_icons_Favorite__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Favorite__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @material-ui/icons/ErrorOutline */ "@material-ui/icons/ErrorOutline");
+/* harmony import */ var _material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! components/Grid/GridContainer.js */ "./components/Grid/GridContainer.js");
+/* harmony import */ var components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! components/Grid/GridItem.js */ "./components/Grid/GridItem.js");
+/* harmony import */ var components_CustomButtons_Button_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! components/CustomButtons/Button.js */ "./components/CustomButtons/Button.js");
+/* harmony import */ var components_CustomInput_CustomInput_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! components/CustomInput/CustomInput.js */ "./components/CustomInput/CustomInput.js");
+/* harmony import */ var components_Footer_Footer_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! components/Footer/Footer.js */ "./components/Footer/Footer.js");
+/* harmony import */ var assets_img_credit_card_dark_png__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! assets/img/credit-card-dark.png */ "./assets/img/credit-card-dark.png");
+/* harmony import */ var assets_img_credit_card_dark_png__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(assets_img_credit_card_dark_png__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var assets_img_credit_card_white_png__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! assets/img/credit-card-white.png */ "./assets/img/credit-card-white.png");
+/* harmony import */ var assets_img_credit_card_white_png__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(assets_img_credit_card_white_png__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var assets_img_debit_bank_dark_png__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! assets/img/debit-bank-dark.png */ "./assets/img/debit-bank-dark.png");
+/* harmony import */ var assets_img_debit_bank_dark_png__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(assets_img_debit_bank_dark_png__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var assets_jss_nextjs_material_kit_pro_pages_justfit_justfit_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! assets/jss/nextjs-material-kit-pro/pages/justfit/justfit.js */ "./assets/jss/nextjs-material-kit-pro/pages/justfit/justfit.js");
+/* harmony import */ var _components_Justfit_justfit__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../../components/Justfit/justfit */ "./components/Justfit/justfit.js");
+/* harmony import */ var _components_Justfit_JustfitPlans_PlanHorizontal__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../../components/Justfit/JustfitPlans/PlanHorizontal */ "./components/Justfit/JustfitPlans/PlanHorizontal.js");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @material-ui/core */ "@material-ui/core");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var react_input_mask__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! react-input-mask */ "react-input-mask");
+/* harmony import */ var react_input_mask__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(react_input_mask__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! react-hook-form */ "react-hook-form");
+/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(react_hook_form__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var _hookform_resolvers__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @hookform/resolvers */ "@hookform/resolvers");
+/* harmony import */ var _hookform_resolvers__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_hookform_resolvers__WEBPACK_IMPORTED_MODULE_25__);
+/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! yup */ "yup");
+/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(yup__WEBPACK_IMPORTED_MODULE_26__);
 var _jsxFileName = "/Users/gabrieldossantos/Desktop/checkout-justfit (1)/pages-sections/checkout-justfit/SectionPayment.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 /*eslint-disable*/
+
 
  // nodejs library that concatenates classes
 
@@ -12059,7 +12175,10 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
+
+
  // @material-ui/icons
+
 
 
  // core components
@@ -12076,8 +12195,170 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
-const useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__["makeStyles"])(assets_jss_nextjs_material_kit_pro_pages_justfit_justfit_js__WEBPACK_IMPORTED_MODULE_15__["default"]);
-function SectionPayment() {
+
+
+
+
+
+const useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__["makeStyles"])(assets_jss_nextjs_material_kit_pro_pages_justfit_justfit_js__WEBPACK_IMPORTED_MODULE_19__["default"]);
+Object(yup__WEBPACK_IMPORTED_MODULE_26__["setLocale"])({
+  mixed: {
+    notType: function notType(_ref) {
+      switch (_ref.type) {
+        case 'number':
+          return 'Este campo deve ser um número';
+
+        case 'string':
+          return 'deve ser um texto';
+
+        default:
+          return 'formato errado';
+      }
+    },
+    default: 'é inválido',
+    required: 'Desculpe, este campo é obrigatório',
+    oneOf: 'deve ser um dos seguintes valores: ${values}',
+    notOneOf: 'não pode ser um dos seguintes valores: ${values}'
+  },
+  string: {
+    length: 'deve ter exatamente ${length} caracteres',
+    min: 'deve ter pelo menos ${min} caracteres',
+    max: 'deve ter no máximo ${max} caracteres',
+    email: 'Por favor, informe um e-mail inválido',
+    url: 'deve ter um formato de URL válida',
+    trim: 'não deve conter espaços no início ou no fim.',
+    lowercase: 'deve estar em maiúsculo',
+    uppercase: 'deve estar em minúsculo'
+  },
+  number: {
+    min: 'deve ser no mínimo ${min}',
+    max: 'deve ser no máximo ${max}',
+    lessThan: 'deve ser menor que ${less}',
+    moreThan: 'deve ser maior que ${more}',
+    notEqual: 'não pode ser igual à ${notEqual}',
+    positive: 'deve ser um número posítivo',
+    negative: 'deve ser um número negativo',
+    integer: 'deve ser um número inteiro'
+  },
+  date: {
+    min: 'deve ser maior que a data ${min}',
+    max: 'deve ser menor que a data ${max}'
+  },
+  array: {
+    min: 'deve ter no mínimo ${min} itens',
+    max: 'deve ter no máximo ${max} itens'
+  }
+});
+
+function isValidDateCard(date) {
+  // return /^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/.test(date);
+  return /^((0[1-9])|(1[0-2]))\/((2009)|(20[1-2][0-9]))$/.test(date);
+}
+
+function getCardFlag(cardnumber) {
+  var cardnumber = cardnumber.replace(/[^0-9]+/g, '');
+  var cards = {
+    visa: /^4[0-9]{12}(?:[0-9]{3})/,
+    mastercard: /^5[1-5][0-9]{14}/,
+    diners: /^3(?:0[0-5]|[68][0-9])[0-9]{11}/,
+    amex: /^3[47][0-9]{13}/,
+    discover: /^6(?:011|5[0-9]{2})[0-9]{12}/,
+    hipercard: /^(606282\d{10}(\d{3})?)|(3841\d{15})/,
+    elo: /^((((636368)|(438935)|(504175)|(451416)|(636297))\d{0,10})|((5067)|(4576)|(4011))\d{0,12})/,
+    jcb: /^(?:2131|1800|35\d{3})\d{11}/,
+    aura: /^(5078\d{2})(\d{2})(\d{11})$/
+  };
+
+  for (var flag in cards) {
+    if (cards[flag].test(cardnumber)) {
+      return flag;
+    }
+  }
+
+  return false;
+}
+
+function isValidCPF(cpf) {
+  if (typeof cpf !== "string") return false;
+  cpf = cpf.replace(/[\s.-]*/igm, '');
+
+  if (!cpf || cpf.length != 11 || cpf == "00000000000" || cpf == "11111111111" || cpf == "22222222222" || cpf == "33333333333" || cpf == "44444444444" || cpf == "55555555555" || cpf == "66666666666" || cpf == "77777777777" || cpf == "88888888888" || cpf == "99999999999") {
+    return false;
+  }
+
+  var soma = 0;
+  var resto;
+
+  for (var i = 1; i <= 9; i++) soma = soma + parseInt(cpf.substring(i - 1, i)) * (11 - i);
+
+  resto = soma * 10 % 11;
+  if (resto == 10 || resto == 11) resto = 0;
+  if (resto != parseInt(cpf.substring(9, 10))) return false;
+  soma = 0;
+
+  for (var i = 1; i <= 10; i++) soma = soma + parseInt(cpf.substring(i - 1, i)) * (12 - i);
+
+  resto = soma * 10 % 11;
+  if (resto == 10 || resto == 11) resto = 0;
+  if (resto != parseInt(cpf.substring(10, 11))) return false;
+  return true;
+}
+
+yup__WEBPACK_IMPORTED_MODULE_26__["addMethod"](yup__WEBPACK_IMPORTED_MODULE_26__["string"], "dateCard", function (message) {
+  return yup__WEBPACK_IMPORTED_MODULE_26__["mixed"]().test("date", message || "Por favor, digite uma data válida", value => isValidDateCard(value));
+});
+yup__WEBPACK_IMPORTED_MODULE_26__["addMethod"](yup__WEBPACK_IMPORTED_MODULE_26__["string"], "card", function (message) {
+  return yup__WEBPACK_IMPORTED_MODULE_26__["mixed"]().test("card", message || "Por favor, digite um número de cartão válido", value => getCardFlag(value));
+});
+yup__WEBPACK_IMPORTED_MODULE_26__["addMethod"](yup__WEBPACK_IMPORTED_MODULE_26__["string"], "cpf", function (message) {
+  // return yup.mixed().test("cpf", message || "número de CPF inválido", value => cpfValidate(value));
+  return yup__WEBPACK_IMPORTED_MODULE_26__["mixed"]().test("cpf", message || "número de CPF inválido", value => isValidCPF(value));
+});
+const SignupSchema = yup__WEBPACK_IMPORTED_MODULE_26__["object"]().shape({
+  cep: yup__WEBPACK_IMPORTED_MODULE_26__["string"]().test('validCep', 'Por favor, digite um CEP válido', function (value) {
+    return /^([0-9]{5}-[0-9]{3})$/.test(value);
+  }),
+  endereco: yup__WEBPACK_IMPORTED_MODULE_26__["string"]().required(),
+  numero: yup__WEBPACK_IMPORTED_MODULE_26__["number"]().required(),
+  complemento: yup__WEBPACK_IMPORTED_MODULE_26__["string"](),
+  bairro: yup__WEBPACK_IMPORTED_MODULE_26__["string"]().required(),
+  estado: yup__WEBPACK_IMPORTED_MODULE_26__["string"]().required(),
+  cidade: yup__WEBPACK_IMPORTED_MODULE_26__["string"]().required()
+});
+const creditCardSchema = yup__WEBPACK_IMPORTED_MODULE_26__["object"]().shape({
+  nameCredit: yup__WEBPACK_IMPORTED_MODULE_26__["string"]().required(),
+  cpfCredit: yup__WEBPACK_IMPORTED_MODULE_26__["string"]().cpf("Por favor, informe um CPF válido"),
+  number: yup__WEBPACK_IMPORTED_MODULE_26__["string"]().card().required(),
+  valid: yup__WEBPACK_IMPORTED_MODULE_26__["string"]().dateCard().required(),
+  cvv: yup__WEBPACK_IMPORTED_MODULE_26__["string"]().matches(/^[0-9]{3}$/, 'Por favor, digite um CVV válido').required(),
+  acceptTermsCredit: yup__WEBPACK_IMPORTED_MODULE_26__["bool"]().oneOf([true], 'O aceite dos termos é obrigatório')
+});
+const debitAccountSchema = yup__WEBPACK_IMPORTED_MODULE_26__["object"]().shape({
+  nameDebit: yup__WEBPACK_IMPORTED_MODULE_26__["string"]().required(),
+  cpfDebit: yup__WEBPACK_IMPORTED_MODULE_26__["string"]().cpf("Por favor, informe um CPF válido"),
+  banco: yup__WEBPACK_IMPORTED_MODULE_26__["string"]().required(),
+  agencia: yup__WEBPACK_IMPORTED_MODULE_26__["number"]().required(),
+  agenciaDV: yup__WEBPACK_IMPORTED_MODULE_26__["number"]().required(),
+  conta: yup__WEBPACK_IMPORTED_MODULE_26__["number"]().required(),
+  contaDV: yup__WEBPACK_IMPORTED_MODULE_26__["number"]().required(),
+  acceptTermsDebit: yup__WEBPACK_IMPORTED_MODULE_26__["bool"]().oneOf([true], 'O aceite dos termos é obrigatório')
+});
+
+function Alert(props) {
+  return __jsx(_material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_7___default.a, _extends({
+    elevation: 6,
+    variant: "filled"
+  }, props, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 264,
+      columnNumber: 10
+    }
+  }));
+}
+
+function SectionPayment(props) {
   const {
     0: firstCardColor,
     1: setFirstCardColor
@@ -12110,36 +12391,287 @@ function SectionPayment() {
     0: displayDebit,
     1: setDisplayDebit
   } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('none');
+  const [showError, setShowError] = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(false);
+  const [messageReturn, setMessageReturn] = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState({
+    code: "000",
+    msg: "Erro ao enviar dados. Tente mais tarde"
+  });
+  const [address, setAddress] = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState({
+    endereco: "",
+    bairro: "",
+    estado: "",
+    cidade: ""
+  });
+  const {
+    register,
+    trigger,
+    control,
+    getValues,
+    errors
+  } = Object(react_hook_form__WEBPACK_IMPORTED_MODULE_24__["useForm"])({
+    resolver: Object(_hookform_resolvers__WEBPACK_IMPORTED_MODULE_25__["yupResolver"])(SignupSchema),
+    mode: "onBlur"
+  });
+  const {
+    register: registerCredit,
+    trigger: triggerCredit,
+    control: controlCredit,
+    getValues: getValuesCredit,
+    errors: errorsCredit
+  } = Object(react_hook_form__WEBPACK_IMPORTED_MODULE_24__["useForm"])({
+    resolver: Object(_hookform_resolvers__WEBPACK_IMPORTED_MODULE_25__["yupResolver"])(creditCardSchema),
+    mode: "onBlur"
+  });
+  const {
+    register: registerDebit,
+    trigger: triggerDebit,
+    control: controlDebit,
+    getValues: getValuesDebit,
+    errors: errorsDebit
+  } = Object(react_hook_form__WEBPACK_IMPORTED_MODULE_24__["useForm"])({
+    resolver: Object(_hookform_resolvers__WEBPACK_IMPORTED_MODULE_25__["yupResolver"])(debitAccountSchema),
+    mode: "onBlur"
+  });
+  react__WEBPACK_IMPORTED_MODULE_0___default.a.useEffect(() => {
+    if (props.validationPayment) {
+      validateForm(); // validateTeste();
+
+      props.setIsLoading(true);
+      props.setValidationPayment(false);
+    }
+  }, [props.validationPayment]);
+
+  const validateTeste = async () => {
+    var resultCredit = await triggerCredit();
+    console.log(resultCredit);
+    var resultDebit = await triggerDebit();
+    console.log(resultDebit);
+  };
+
+  const validateForm = async () => {
+    // var result = await trigger([ "name", "email", "cpf", "sex", "birthDate", "phone" ]);
+    var validationForms = false;
+    var validationCobranca = await trigger();
+
+    if (displayPayment == "block") {
+      validationForms = await triggerCredit();
+
+      if (!validationForms || !validationCobranca) {
+        props.setIsLoading(false);
+        return;
+      } else {
+        var identificationForm = getValues();
+        console.log("identificationForm");
+        console.log(identificationForm);
+        var identificationCredit = getValuesCredit();
+        console.log("identificationCredit");
+        console.log(identificationCredit);
+        const codBrand = getBrandCod(identificationCredit.number);
+        props.setDataSale(prevDataSale => {
+          return {
+            customer: _objectSpread({}, prevDataSale.customer, {
+              financeResponsible: _objectSpread({}, prevDataSale.customer.financeResponsible, {
+                name: identificationCredit.nameCredit,
+                document: identificationCredit.cpfCredit
+              }),
+              address: {
+                address: identificationForm.endereco,
+                number: identificationForm.numero,
+                complement: identificationForm.complemento,
+                district: identificationForm.bairro,
+                city: identificationForm.cidade,
+                state: identificationForm.estado,
+                postalCode: identificationForm.cep.replace(/[^\d]+/g, '')
+              },
+              card: {
+                number: identificationCredit.number.replace(/\s+/g, ''),
+                name: identificationCredit.nameCredit,
+                valid: identificationCredit.valid,
+                cvv: identificationCredit.cvv,
+                bandeira: codBrand
+              }
+            })
+          };
+        });
+        props.setActiveStep(prevActiveStep => prevActiveStep + 1);
+      }
+    } else {
+      validationForms = await triggerDebit();
+
+      if (!validationForms || !validationCobranca) {
+        props.setIsLoading(false);
+        return;
+      } else {
+        var identificationForm = getValues();
+        console.log("identificationForm");
+        console.log(identificationForm);
+        var identificationDebit = getValuesDebit();
+        console.log("identificationDebit");
+        console.log(identificationDebit);
+        props.setDataSale(prevDataSale => {
+          return {
+            customer: _objectSpread({}, prevDataSale.customer, {
+              financeResponsible: _objectSpread({}, prevDataSale.customer.financeResponsible, {
+                name: identificationDebit.nameDebit,
+                document: identificationDebit.cpfDebit
+              }),
+              address: {
+                address: identificationForm.endereco,
+                number: identificationForm.numero,
+                complement: identificationForm.complemento,
+                district: identificationForm.bairro,
+                city: identificationForm.cidade,
+                state: identificationForm.estado,
+                postalCode: identificationForm.cep.replace(/[^\d]+/g, '')
+              },
+              dcc: {
+                conta: identificationDebit.conta,
+                contaCorrenteDV: identificationDebit.contaDV,
+                agencia: identificationDebit.agencia,
+                agenciaDV: identificationDebit.agenciaDV,
+                banco: identificationDebit.banco
+              }
+            })
+          };
+        });
+        props.setActiveStep(prevActiveStep => prevActiveStep + 1);
+      }
+    }
+
+    props.setIsLoading(false);
+  };
+
+  const getAddress = async cep => {
+    setAddress(prevAddress => {
+      return _objectSpread({}, prevAddress, {
+        endereco: "",
+        bairro: "",
+        estado: "",
+        cidade: ""
+      });
+    });
+    await axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(`https://viacep.com.br/ws/${cep}/json/`).then(res => {
+      if (res.data.error) {
+        // setError(true);
+        console.log(res.data.error);
+        return;
+      }
+
+      setAddress(prevAddress => {
+        return _objectSpread({}, prevAddress, {
+          cep: res.data.cep,
+          endereco: res.data.logradouro,
+          bairro: res.data.bairro,
+          estado: res.data.uf,
+          cidade: res.data.localidade
+        });
+      });
+      trigger(["cep", "endereco", "bairro", "estado", "cidade"]);
+    }).catch(error => {
+      console.log(error); // setError(true);
+    }).finally(() => {// setLoading(false);
+    });
+  };
+
+  const getCardFlag = cardnumber => {
+    var cardnumber = cardnumber.replace(/[^0-9]+/g, '');
+    var cards = {
+      visa: /^4[0-9]{12}(?:[0-9]{3})/,
+      mastercard: /^5[1-5][0-9]{14}/,
+      diners: /^3(?:0[0-5]|[68][0-9])[0-9]{11}/,
+      amex: /^3[47][0-9]{13}/,
+      discover: /^6(?:011|5[0-9]{2})[0-9]{12}/,
+      hipercard: /^(606282\d{10}(\d{3})?)|(3841\d{15})/,
+      elo: /^((((636368)|(438935)|(504175)|(451416)|(636297))\d{0,10})|((5067)|(4576)|(4011))\d{0,12})/,
+      jcb: /^(?:2131|1800|35\d{3})\d{11}/,
+      aura: /^(5078\d{2})(\d{2})(\d{11})$/
+    };
+
+    for (var flag in cards) {
+      if (cards[flag].test(cardnumber)) {
+        return flag;
+      }
+    }
+
+    return false;
+  };
+
+  const getBrandCod = numberCard => {
+    let brandCard = getCardFlag(numberCard);
+
+    switch (brandCard) {
+      case "visa":
+        return 1;
+        break;
+
+      case "mastercard":
+        return 2;
+        break;
+
+      case "diners":
+        return 3;
+        break;
+
+      case "amex":
+        return 4;
+        break;
+
+      case "discover":
+        return 8;
+        break;
+
+      case "hipercard":
+        return 9;
+        break;
+
+      case "elo":
+        return 6;
+        break;
+
+      case "jcb":
+        return 7;
+        break;
+
+      case "aura":
+        return 5;
+        break;
+
+      default:
+        return 0;
+        break;
+    }
+  };
+
   const classes = useStyles();
-  return __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  return __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_11__["default"], {
     className: classes.content,
     justify: "center",
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 51,
+      lineNumber: 546,
       columnNumber: 5
     }
-  }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
-    md: 10,
+    md: 11,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 52,
+      lineNumber: 547,
       columnNumber: 7
     }
-  }, __jsx(_components_Justfit_justfit__WEBPACK_IMPORTED_MODULE_16__["default"], {
+  }, __jsx(_components_Justfit_justfit__WEBPACK_IMPORTED_MODULE_20__["default"], {
     theme: "white",
     className: classes.jusfit,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 53,
+      lineNumber: 548,
       columnNumber: 9
     }
-  }, __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_11__["default"], {
     justify: "center",
     style: {
       marginBottom: '30px'
@@ -12147,29 +12679,29 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 57,
+      lineNumber: 552,
       columnNumber: 11
     }
-  }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
     md: 12,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 59,
+      lineNumber: 554,
       columnNumber: 13
     }
-  }, __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_11__["default"], {
     justify: "center",
     align: "left",
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 60,
+      lineNumber: 555,
       columnNumber: 15
     }
-  }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
     md: 12,
@@ -12179,7 +12711,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 62,
+      lineNumber: 557,
       columnNumber: 17
     }
   }, __jsx("h1", {
@@ -12192,17 +12724,17 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 63,
+      lineNumber: 558,
       columnNumber: 19
     }
-  }, "ESCOLHA SEU MEIO DE PAGAMENTO")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, "ESCOLHA SEU MEIO DE PAGAMENTO")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
     md: 12,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 65,
+      lineNumber: 560,
       columnNumber: 17
     }
   }, __jsx("h1", {
@@ -12216,21 +12748,21 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 66,
+      lineNumber: 561,
       columnNumber: 19
     }
-  }, "Selecione uma das op\xE7\xF5es de pagamento e preencha os campos abaixo")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, "Selecione uma das op\xE7\xF5es de pagamento e preencha os campos abaixo")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
     md: 12,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 69,
+      lineNumber: 564,
       columnNumber: 17
     }
-  }, __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    justify: "space-between",
+  }, __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    justify: "start",
     align: "center",
     style: {
       display: 'flex',
@@ -12241,7 +12773,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 70,
+      lineNumber: 565,
       columnNumber: 19
     }
   }, __jsx("button", {
@@ -12265,7 +12797,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 72,
+      lineNumber: 567,
       columnNumber: 21
     }
   }, __jsx("span", {
@@ -12275,7 +12807,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 73,
+      lineNumber: 569,
       columnNumber: 23
     }
   }), __jsx("svg", {
@@ -12290,7 +12822,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 74,
+      lineNumber: 570,
       columnNumber: 23
     }
   }, __jsx("g", {
@@ -12298,7 +12830,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 75,
+      lineNumber: 571,
       columnNumber: 25
     }
   }, __jsx("path", {
@@ -12307,7 +12839,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 76,
+      lineNumber: 572,
       columnNumber: 27
     }
   }), __jsx("path", {
@@ -12316,14 +12848,14 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 77,
+      lineNumber: 573,
       columnNumber: 27
     }
   })), __jsx("defs", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 79,
+      lineNumber: 575,
       columnNumber: 25
     }
   }, __jsx("clipPath", {
@@ -12331,7 +12863,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 80,
+      lineNumber: 576,
       columnNumber: 27
     }
   }, __jsx("rect", {
@@ -12342,14 +12874,14 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 81,
+      lineNumber: 577,
       columnNumber: 29
     }
   })))), __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 86,
+      lineNumber: 582,
       columnNumber: 23
     }
   }, "Cart\xE3o de Cr\xE9dito")), __jsx("button", {
@@ -12358,7 +12890,8 @@ function SectionPayment() {
       backgroundColor: secondCardColor,
       color: secondCardTextColor,
       marginLeft: 10,
-      marginRight: 10
+      marginRight: 10,
+      display: "none"
     },
     onClick: () => {
       setFirstCardColor("#F2F2F2");
@@ -12373,7 +12906,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 90,
+      lineNumber: 586,
       columnNumber: 21
     }
   }, __jsx("span", {
@@ -12383,7 +12916,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 91,
+      lineNumber: 587,
       columnNumber: 23
     }
   }), __jsx("svg", {
@@ -12398,7 +12931,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 92,
+      lineNumber: 588,
       columnNumber: 23
     }
   }, __jsx("g", {
@@ -12406,7 +12939,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 93,
+      lineNumber: 589,
       columnNumber: 25
     }
   }, __jsx("path", {
@@ -12415,7 +12948,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 94,
+      lineNumber: 590,
       columnNumber: 27
     }
   }), __jsx("path", {
@@ -12424,14 +12957,14 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 95,
+      lineNumber: 591,
       columnNumber: 27
     }
   })), __jsx("defs", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 97,
+      lineNumber: 593,
       columnNumber: 25
     }
   }, __jsx("clipPath", {
@@ -12439,7 +12972,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 98,
+      lineNumber: 594,
       columnNumber: 27
     }
   }, __jsx("rect", {
@@ -12450,14 +12983,14 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 99,
+      lineNumber: 595,
       columnNumber: 29
     }
   })))), __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 103,
+      lineNumber: 599,
       columnNumber: 23
     }
   }, "Cart\xE3o de D\xE9bito")), __jsx("button", {
@@ -12481,7 +13014,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 107,
+      lineNumber: 603,
       columnNumber: 21
     }
   }, __jsx("span", {
@@ -12491,7 +13024,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 108,
+      lineNumber: 604,
       columnNumber: 23
     }
   }), __jsx("svg", {
@@ -12506,7 +13039,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 109,
+      lineNumber: 605,
       columnNumber: 23
     }
   }, __jsx("g", {
@@ -12514,7 +13047,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 110,
+      lineNumber: 606,
       columnNumber: 25
     }
   }, __jsx("path", {
@@ -12523,7 +13056,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 111,
+      lineNumber: 607,
       columnNumber: 27
     }
   }), __jsx("path", {
@@ -12532,14 +13065,14 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 112,
+      lineNumber: 608,
       columnNumber: 27
     }
   })), __jsx("defs", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 114,
+      lineNumber: 610,
       columnNumber: 25
     }
   }, __jsx("clipPath", {
@@ -12547,7 +13080,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 115,
+      lineNumber: 611,
       columnNumber: 27
     }
   }, __jsx("rect", {
@@ -12558,17 +13091,17 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 116,
+      lineNumber: 612,
       columnNumber: 29
     }
   })))), __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 121,
+      lineNumber: 617,
       columnNumber: 23
     }
-  }, "D\xE9bito em conta")))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, "D\xE9bito em conta")))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
     md: 12,
@@ -12579,18 +13112,18 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 127,
+      lineNumber: 623,
       columnNumber: 17
     }
-  }, __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_11__["default"], {
     justify: "center",
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 129,
+      lineNumber: 625,
       columnNumber: 19
     }
-  }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
     md: 6,
@@ -12601,25 +13134,25 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 130,
+      lineNumber: 626,
       columnNumber: 21
     }
-  }, __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_11__["default"], {
     justify: "left",
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 131,
+      lineNumber: 627,
       columnNumber: 23
     }
-  }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
     md: 12,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 132,
+      lineNumber: 628,
       columnNumber: 25
     }
   }, __jsx("h5", {
@@ -12634,160 +13167,267 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 133,
+      lineNumber: 629,
       columnNumber: 27
     }
-  }, "Informa\xE7\xF5es de Pagamento")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, "Informa\xE7\xF5es de Pagamento")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
     md: 12,
-    className: classes.formInputItem,
+    className: errorsCredit.number ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 135,
+      lineNumber: 631,
       columnNumber: 25
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 136,
+      lineNumber: 632,
+      columnNumber: 27
+    }
+  }, "N\xFAmero do Cart\xE3o"), __jsx(react_hook_form__WEBPACK_IMPORTED_MODULE_24__["Controller"], {
+    as: react_input_mask__WEBPACK_IMPORTED_MODULE_23___default.a,
+    control: controlCredit,
+    mask: "9999 9999 9999 9999",
+    name: "number",
+    type: "tel",
+    defaultValue: "",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 633,
+      columnNumber: 27
+    }
+  }), errorsCredit.number && __jsx("span", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 642,
+      columnNumber: 29
+    }
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 642,
+      columnNumber: 35
+    }
+  }), __jsx("label", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 642,
+      columnNumber: 54
+    }
+  }, errorsCredit.number.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    xs: 12,
+    sm: 12,
+    md: 6,
+    className: errorsCredit.valid ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 646,
+      columnNumber: 25
+    }
+  }, __jsx("h2", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 647,
+      columnNumber: 27
+    }
+  }, "Vencimento (MM/AAAA)"), __jsx(react_hook_form__WEBPACK_IMPORTED_MODULE_24__["Controller"], {
+    as: react_input_mask__WEBPACK_IMPORTED_MODULE_23___default.a,
+    control: controlCredit,
+    mask: "99/9999",
+    name: "valid",
+    type: "tel",
+    defaultValue: "",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 648,
+      columnNumber: 27
+    }
+  }), errorsCredit.valid && __jsx("span", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 659,
+      columnNumber: 29
+    }
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 659,
+      columnNumber: 35
+    }
+  }), __jsx("label", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 659,
+      columnNumber: 54
+    }
+  }, errorsCredit.valid.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    xs: 12,
+    sm: 12,
+    md: 6,
+    className: errorsCredit.cvv ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 663,
+      columnNumber: 25
+    }
+  }, __jsx("h2", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 664,
+      columnNumber: 27
+    }
+  }, "Cod. Seguran\xE7a"), __jsx(react_hook_form__WEBPACK_IMPORTED_MODULE_24__["Controller"], {
+    as: react_input_mask__WEBPACK_IMPORTED_MODULE_23___default.a,
+    control: controlCredit,
+    mask: "999",
+    name: "cvv",
+    type: "tel",
+    defaultValue: "",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 665,
+      columnNumber: 27
+    }
+  }), errorsCredit.cvv && __jsx("span", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 675,
+      columnNumber: 29
+    }
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 675,
+      columnNumber: 35
+    }
+  }), __jsx("label", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 675,
+      columnNumber: 54
+    }
+  }, errorsCredit.cvv.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    xs: 12,
+    sm: 12,
+    md: 6,
+    className: errorsCredit.nameCredit ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 684,
+      columnNumber: 25
+    }
+  }, __jsx("h2", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 685,
       columnNumber: 27
     }
   }, "Nome impresso no Cart\xE3o"), __jsx("input", {
+    ref: registerCredit,
+    name: "nameCredit",
+    id: "nameCredit",
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 137,
+      lineNumber: 686,
       columnNumber: 27
     }
-  })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }), errorsCredit.nameCredit && __jsx("span", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 688,
+      columnNumber: 29
+    }
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 688,
+      columnNumber: 35
+    }
+  }), __jsx("label", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 688,
+      columnNumber: 54
+    }
+  }, errorsCredit.nameCredit.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
     md: 6,
-    className: classes.formInputItem,
+    className: errorsCredit.cpfCredit ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 139,
+      lineNumber: 692,
       columnNumber: 25
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 140,
+      lineNumber: 693,
       columnNumber: 27
     }
-  }, "N\xFAmero do Cart\xE3o"), __jsx("input", {
+  }, "CPF do Titular do Cart\xE3o"), __jsx(react_hook_form__WEBPACK_IMPORTED_MODULE_24__["Controller"], {
+    as: react_input_mask__WEBPACK_IMPORTED_MODULE_23___default.a,
+    control: controlCredit,
+    mask: "999.999.999-99",
+    name: "cpfCredit",
+    type: "tel",
+    defaultValue: "",
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 141,
+      lineNumber: 694,
       columnNumber: 27
     }
-  })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    xs: 12,
-    sm: 12,
-    md: 6,
-    className: classes.formInputItem,
+  }), errorsCredit.cpfCredit && __jsx("span", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 143,
-      columnNumber: 25
+      lineNumber: 705,
+      columnNumber: 29
     }
-  }, __jsx("h2", {
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 144,
-      columnNumber: 27
+      lineNumber: 705,
+      columnNumber: 35
     }
-  }, "CPF do Titular do Cart\xE3o"), __jsx("input", {
+  }), __jsx("label", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 145,
-      columnNumber: 27
+      lineNumber: 705,
+      columnNumber: 54
     }
-  })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    xs: 12,
-    sm: 12,
-    md: 4,
-    className: classes.formInputItem,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 147,
-      columnNumber: 25
-    }
-  }, __jsx("h2", {
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 148,
-      columnNumber: 27
-    }
-  }, "Vencimento"), __jsx("input", {
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 149,
-      columnNumber: 27
-    }
-  })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    xs: 12,
-    sm: 12,
-    md: 4,
-    className: classes.formInputItem,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 151,
-      columnNumber: 25
-    }
-  }, __jsx("h2", {
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 152,
-      columnNumber: 27
-    }
-  }, "Cod. Seguran\xE7a"), __jsx("input", {
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 153,
-      columnNumber: 27
-    }
-  })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    xs: 12,
-    sm: 12,
-    md: 4,
-    className: classes.formInputItem,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 155,
-      columnNumber: 25
-    }
-  }, __jsx("h2", {
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 156,
-      columnNumber: 27
-    }
-  }, "N\xBA de parcelas"), __jsx("input", {
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 157,
-      columnNumber: 27
-    }
-  })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, errorsCredit.cpfCredit.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
     md: 12,
@@ -12798,7 +13438,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 159,
+      lineNumber: 710,
       columnNumber: 25
     }
   }, __jsx("div", {
@@ -12810,26 +13450,25 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 160,
+      lineNumber: 711,
       columnNumber: 27
     }
   }, __jsx("label", {
     className: classes.containerCheckboxT,
-    style: {
-      marginRight: 0
-    },
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 161,
+      lineNumber: 712,
       columnNumber: 29
     }
   }, __jsx("input", {
     type: "checkbox",
+    name: "acceptTermsCredit",
+    ref: registerCredit,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 162,
+      lineNumber: 713,
       columnNumber: 31
     }
   }), __jsx("span", {
@@ -12837,34 +13476,52 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 163,
+      lineNumber: 714,
       columnNumber: 31
     }
   })), __jsx("h2", {
-    style: {
-      marginLeft: 0
-    },
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 165,
+      lineNumber: 716,
       columnNumber: 29
     }
   }, "Li e aceito o contrato, o ", __jsx("a", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 165,
-      columnNumber: 82
+      lineNumber: 716,
+      columnNumber: 59
     }
   }, "termo de ades\xE3o"), " e o ", __jsx("a", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 165,
-      columnNumber: 109
+      lineNumber: 716,
+      columnNumber: 86
     }
-  }, "regulamento interno"), "."))))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, "regulamento interno"), ".")), errorsCredit.acceptTermsCredit && __jsx("span", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 719,
+      columnNumber: 29
+    }
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 719,
+      columnNumber: 35
+    }
+  }), __jsx("label", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 719,
+      columnNumber: 54
+    }
+  }, errorsCredit.acceptTermsCredit.message))))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
     md: 6,
@@ -12875,25 +13532,25 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 171,
+      lineNumber: 727,
       columnNumber: 21
     }
-  }, __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_11__["default"], {
     justify: "left",
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 172,
+      lineNumber: 728,
       columnNumber: 23
     }
-  }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
     md: 12,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 173,
+      lineNumber: 729,
       columnNumber: 25
     }
   }, __jsx("h5", {
@@ -12908,160 +13565,388 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 174,
+      lineNumber: 730,
       columnNumber: 27
     }
-  }, "Informa\xE7\xF5es de Pagamento")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, "Informa\xE7\xF5es de Pagamento")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
     md: 12,
-    className: classes.formInputItem,
+    className: errorsDebit.nameDebit ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 176,
+      lineNumber: 732,
       columnNumber: 25
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 177,
+      lineNumber: 733,
       columnNumber: 27
     }
   }, "Nome completo"), __jsx("input", {
+    ref: registerDebit,
+    name: "nameDebit",
+    id: "nameDebit",
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 178,
+      lineNumber: 734,
       columnNumber: 27
     }
-  })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }), errorsDebit.nameDebit && __jsx("span", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 736,
+      columnNumber: 29
+    }
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 736,
+      columnNumber: 35
+    }
+  }), __jsx("label", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 736,
+      columnNumber: 54
+    }
+  }, errorsDebit.nameDebit.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
     md: 6,
-    className: classes.formInputItem,
+    className: errorsDebit.cpfDebit ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 180,
+      lineNumber: 740,
       columnNumber: 25
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 181,
+      lineNumber: 741,
       columnNumber: 27
     }
-  }, "CPF"), __jsx("input", {
+  }, "CPF"), __jsx(react_hook_form__WEBPACK_IMPORTED_MODULE_24__["Controller"], {
+    as: react_input_mask__WEBPACK_IMPORTED_MODULE_23___default.a,
+    control: controlDebit,
+    mask: "999.999.999-99",
+    name: "cpfDebit",
+    type: "tel",
+    defaultValue: "",
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 182,
+      lineNumber: 742,
       columnNumber: 27
     }
-  })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }), errorsDebit.cpfDebit && __jsx("span", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 753,
+      columnNumber: 29
+    }
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 753,
+      columnNumber: 35
+    }
+  }), __jsx("label", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 753,
+      columnNumber: 54
+    }
+  }, errorsDebit.cpfDebit.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
     md: 6,
-    className: classes.formInputItem,
+    className: errorsDebit.banco ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 184,
+      lineNumber: 757,
       columnNumber: 25
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 185,
+      lineNumber: 758,
       columnNumber: 27
     }
-  }, "Nome do banco"), __jsx("input", {
+  }, "Nome do banco"), __jsx("select", {
+    name: "banco",
+    id: "banco",
+    ref: registerDebit,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 186,
+      lineNumber: 759,
       columnNumber: 27
     }
-  })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, __jsx("option", {
+    value: "1",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 760,
+      columnNumber: 29
+    }
+  }, "Banco do Brasil"), __jsx("option", {
+    value: "341",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 761,
+      columnNumber: 29
+    }
+  }, "Ita\xFA"), __jsx("option", {
+    value: "237",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 762,
+      columnNumber: 29
+    }
+  }, "Bradesco"), __jsx("option", {
+    value: "33",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 763,
+      columnNumber: 29
+    }
+  }, "Santander")), errorsDebit.banco && __jsx("span", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 767,
+      columnNumber: 29
+    }
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 767,
+      columnNumber: 35
+    }
+  }), __jsx("label", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 767,
+      columnNumber: 54
+    }
+  }, errorsDebit.banco.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
-    md: 4,
-    className: classes.formInputItem,
+    md: 9,
+    className: errorsDebit.agencia ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 188,
+      lineNumber: 771,
       columnNumber: 25
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 189,
+      lineNumber: 772,
       columnNumber: 27
     }
   }, "Ag\xEAncia"), __jsx("input", {
+    ref: registerDebit,
+    name: "agencia",
+    id: "agencia",
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 190,
+      lineNumber: 773,
       columnNumber: 27
     }
-  })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    xs: 12,
-    sm: 12,
-    md: 4,
-    className: classes.formInputItem,
+  }), errorsDebit.agencia && __jsx("span", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 192,
+      lineNumber: 775,
+      columnNumber: 29
+    }
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 775,
+      columnNumber: 35
+    }
+  }), __jsx("label", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 775,
+      columnNumber: 54
+    }
+  }, errorsDebit.agencia.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    xs: 12,
+    sm: 12,
+    md: 3,
+    className: errorsDebit.agenciaDV ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 779,
       columnNumber: 25
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 193,
+      lineNumber: 780,
+      columnNumber: 27
+    }
+  }, "D\xEDgito"), __jsx("input", {
+    ref: registerDebit,
+    name: "agenciaDV",
+    id: "agenciaDV",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 781,
+      columnNumber: 27
+    }
+  }), errorsDebit.agenciaDV && __jsx("span", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 783,
+      columnNumber: 29
+    }
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 783,
+      columnNumber: 35
+    }
+  }), __jsx("label", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 783,
+      columnNumber: 54
+    }
+  }, errorsDebit.agenciaDV.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    xs: 12,
+    sm: 12,
+    md: 9,
+    className: errorsDebit.conta ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 787,
+      columnNumber: 25
+    }
+  }, __jsx("h2", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 788,
       columnNumber: 27
     }
   }, "Conta"), __jsx("input", {
+    ref: registerDebit,
+    name: "conta",
+    id: "conta",
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 194,
+      lineNumber: 789,
       columnNumber: 27
     }
-  })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    xs: 12,
-    sm: 12,
-    md: 4,
-    className: classes.formInputItem,
+  }), errorsDebit.conta && __jsx("span", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 196,
+      lineNumber: 791,
+      columnNumber: 29
+    }
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 791,
+      columnNumber: 35
+    }
+  }), __jsx("label", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 791,
+      columnNumber: 54
+    }
+  }, errorsDebit.conta.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    xs: 12,
+    sm: 12,
+    md: 3,
+    className: errorsDebit.contaDV ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 795,
       columnNumber: 25
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 197,
+      lineNumber: 796,
       columnNumber: 27
     }
-  }, "Digito"), __jsx("input", {
+  }, "D\xEDgito"), __jsx("input", {
+    ref: registerDebit,
+    name: "contaDV",
+    id: "contaDV",
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 198,
+      lineNumber: 797,
       columnNumber: 27
     }
-  })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }), errorsDebit.contaDV && __jsx("span", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 799,
+      columnNumber: 29
+    }
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 799,
+      columnNumber: 35
+    }
+  }), __jsx("label", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 799,
+      columnNumber: 54
+    }
+  }, errorsDebit.contaDV.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
     md: 12,
@@ -13072,7 +13957,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 200,
+      lineNumber: 803,
       columnNumber: 25
     }
   }, __jsx("div", {
@@ -13084,7 +13969,7 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 201,
+      lineNumber: 804,
       columnNumber: 27
     }
   }, __jsx("label", {
@@ -13092,15 +13977,17 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 202,
+      lineNumber: 805,
       columnNumber: 29
     }
   }, __jsx("input", {
     type: "checkbox",
+    name: "acceptTermsDebit",
+    ref: registerDebit,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 203,
+      lineNumber: 806,
       columnNumber: 31
     }
   }), __jsx("span", {
@@ -13108,31 +13995,52 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 204,
+      lineNumber: 807,
       columnNumber: 31
     }
   })), __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 206,
+      lineNumber: 809,
       columnNumber: 29
     }
   }, "Li e aceito o contrato, o ", __jsx("a", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 206,
+      lineNumber: 809,
       columnNumber: 59
     }
   }, "termo de ades\xE3o"), " e o ", __jsx("a", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 206,
+      lineNumber: 809,
       columnNumber: 86
     }
-  }, "regulamento interno"), "."))))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, "regulamento interno"), ".")), errorsDebit.acceptTermsDebit && __jsx("span", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 812,
+      columnNumber: 29
+    }
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 812,
+      columnNumber: 35
+    }
+  }), __jsx("label", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 812,
+      columnNumber: 54
+    }
+  }, errorsDebit.acceptTermsDebit.message))))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
     md: 6,
@@ -13142,25 +14050,25 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 213,
+      lineNumber: 820,
       columnNumber: 21
     }
-  }, __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_11__["default"], {
     justify: "center",
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 214,
+      lineNumber: 821,
       columnNumber: 23
     }
-  }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
     md: 12,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 215,
+      lineNumber: 822,
       columnNumber: 25
     }
   }, __jsx("h5", {
@@ -13175,185 +14083,365 @@ function SectionPayment() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 216,
+      lineNumber: 823,
       columnNumber: 27
     }
-  }, "Endere\xE7o de cobran\xE7a")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, "Endere\xE7o de cobran\xE7a")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
-    md: 6,
-    className: classes.formInputItem,
+    md: 9,
+    className: errors.cep ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 219,
+      lineNumber: 826,
       columnNumber: 25
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 220,
+      lineNumber: 827,
       columnNumber: 27
     }
-  }, "CEP"), __jsx("input", {
+  }, "CEP"), __jsx(react_input_mask__WEBPACK_IMPORTED_MODULE_23___default.a, {
+    name: "cep",
+    mask: "99999-999",
+    maskPlaceholder: "",
+    inputRef: register() // defaultValue={""}
+    ,
+    onBlur: e => {
+      // console.log(e.target.value);   
+      console.log(getValues("cep"));
+      getAddress(getValues("cep"));
+    },
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 221,
+      lineNumber: 841,
       columnNumber: 27
     }
-  })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    xs: 12,
-    sm: 12,
-    md: 6,
-    className: classes.formInputItem,
+  }), errors.cep && __jsx("span", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 223,
-      columnNumber: 25
+      lineNumber: 854,
+      columnNumber: 29
     }
-  }, __jsx("h2", {
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 224,
-      columnNumber: 27
+      lineNumber: 854,
+      columnNumber: 35
     }
-  }, "Logradouro"), __jsx("input", {
+  }), __jsx("label", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 225,
-      columnNumber: 27
+      lineNumber: 854,
+      columnNumber: 54
     }
-  })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    xs: 12,
-    sm: 12,
-    md: 3,
-    className: classes.formInputItem,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 227,
-      columnNumber: 25
-    }
-  }, __jsx("h2", {
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 228,
-      columnNumber: 27
-    }
-  }, "N\xFAmero"), __jsx("input", {
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 229,
-      columnNumber: 27
-    }
-  })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    xs: 12,
-    sm: 12,
-    md: 6,
-    className: classes.formInputItem,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 231,
-      columnNumber: 25
-    }
-  }, __jsx("h2", {
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 232,
-      columnNumber: 27
-    }
-  }, "Complemento"), __jsx("input", {
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 233,
-      columnNumber: 27
-    }
-  })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, errors.cep.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
     md: 3,
-    className: classes.formInputItem,
+    className: errors.estado ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 235,
+      lineNumber: 858,
       columnNumber: 25
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 236,
+      lineNumber: 859,
       columnNumber: 27
     }
   }, "UF"), __jsx("input", {
+    ref: register,
+    name: "estado",
+    id: "estado",
+    value: address.estado,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 237,
+      lineNumber: 860,
       columnNumber: 27
     }
-  })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    xs: 12,
-    sm: 12,
-    md: 6,
-    className: classes.formInputItem,
+  }), errors.estado && __jsx("span", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 239,
+      lineNumber: 862,
+      columnNumber: 29
+    }
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 862,
+      columnNumber: 35
+    }
+  }), __jsx("label", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 862,
+      columnNumber: 54
+    }
+  }, errors.estado.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    xs: 12,
+    sm: 12,
+    md: 12,
+    className: errors.endereco ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 866,
       columnNumber: 25
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 240,
+      lineNumber: 867,
+      columnNumber: 27
+    }
+  }, "Logradouro"), __jsx("input", {
+    ref: register,
+    name: "endereco",
+    id: "endereco",
+    value: address.endereco,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 868,
+      columnNumber: 27
+    }
+  }), errors.endereco && __jsx("span", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 870,
+      columnNumber: 29
+    }
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 870,
+      columnNumber: 35
+    }
+  }), __jsx("label", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 870,
+      columnNumber: 54
+    }
+  }, errors.endereco.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    xs: 12,
+    sm: 12,
+    md: 6,
+    className: errors.bairro ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 874,
+      columnNumber: 25
+    }
+  }, __jsx("h2", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 875,
       columnNumber: 27
     }
   }, "Bairro"), __jsx("input", {
+    ref: register,
+    name: "bairro",
+    id: "bairro",
+    value: address.bairro,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 241,
+      lineNumber: 876,
       columnNumber: 27
     }
-  })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }), errors.bairro && __jsx("span", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 878,
+      columnNumber: 29
+    }
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 878,
+      columnNumber: 35
+    }
+  }), __jsx("label", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 878,
+      columnNumber: 54
+    }
+  }, errors.bairro.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
     xs: 12,
     sm: 12,
     md: 6,
-    className: classes.formInputItem,
+    className: errors.cidade ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 243,
+      lineNumber: 882,
       columnNumber: 25
     }
   }, __jsx("h2", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 244,
+      lineNumber: 883,
       columnNumber: 27
     }
   }, "Cidade"), __jsx("input", {
+    ref: register,
+    name: "cidade",
+    id: "cidade",
+    value: address.cidade,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 245,
+      lineNumber: 884,
       columnNumber: 27
     }
-  }))))))))))));
+  }), errors.cidade && __jsx("span", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 886,
+      columnNumber: 29
+    }
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 886,
+      columnNumber: 35
+    }
+  }), __jsx("label", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 886,
+      columnNumber: 54
+    }
+  }, errors.cidade.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    xs: 12,
+    sm: 12,
+    md: 3,
+    className: errors.numero ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 890,
+      columnNumber: 25
+    }
+  }, __jsx("h2", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 891,
+      columnNumber: 27
+    }
+  }, "N\xFAmero"), __jsx("input", {
+    ref: register,
+    name: "numero",
+    id: "numero",
+    type: "tel",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 892,
+      columnNumber: 27
+    }
+  }), errors.numero && __jsx("span", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 895,
+      columnNumber: 29
+    }
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 895,
+      columnNumber: 35
+    }
+  }), __jsx("label", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 895,
+      columnNumber: 54
+    }
+  }, errors.numero.message))), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    xs: 12,
+    sm: 12,
+    md: 9,
+    className: errors.complemento ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 899,
+      columnNumber: 25
+    }
+  }, __jsx("h2", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 900,
+      columnNumber: 27
+    }
+  }, "Complemento"), __jsx("input", {
+    ref: register,
+    name: "complemento",
+    id: "complemento",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 901,
+      columnNumber: 27
+    }
+  }), errors.complemento && __jsx("span", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 903,
+      columnNumber: 29
+    }
+  }, __jsx(_material_ui_icons_ErrorOutline__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 903,
+      columnNumber: 35
+    }
+  }), __jsx("label", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 903,
+      columnNumber: 54
+    }
+  }, errors.complemento.message)))))))))))));
 }
 
 /***/ }),
@@ -14491,7 +15579,7 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 const useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__["makeStyles"])(assets_jss_nextjs_material_kit_pro_pages_justfit_justfit_js__WEBPACK_IMPORTED_MODULE_16__["default"]);
-function SectionSummary() {
+function SectionSummary(props) {
   const classes = useStyles();
   return __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_7__["default"], {
     className: classes.content,
@@ -23296,14 +24384,15 @@ function getSteps() {
 
 function CustomizedSteppers() {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(0);
+  const [activeStep, setActiveStep] = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(3);
   const [activeAnamnese, setActiveAnamnese] = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(0);
   const [showModal, setShowModal] = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(false);
   const [isLoading, setIsLoading] = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(false);
   const [validationForm, setValidationForm] = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(false);
+  const [validationPayment, setValidationPayment] = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(false);
   const [dataSale, setDataSale] = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState({
     customer: {
-      companyBranchId: 15956,
+      companyBranchId: 26,
       name: "LETICIA CLUG BASTOS GAMA",
       birthDate: "1994-02-20",
       sex: "F",
@@ -23331,55 +24420,28 @@ function CustomizedSteppers() {
         active: true
       },
       planData: {
-        companyBranchId: 15956,
-        planId: 344722,
+        companyBranchId: 26,
+        planId: 600,
         consultantId: 11650531,
         promotionId: 0,
         startDate: "2020-07-31",
-        dueDate: "2020-07-31"
+        dueDate: "2020-07-31",
+        cupom: "",
+        nrParcelasPagamento: 12
       },
-      "paymentMethod": "creditCard",
       card: {
-        number: "41410072851",
-        name: "LETICIA CLUG BASTOS GAMA",
-        valid: "12/20",
-        cvv: "782"
+        number: "",
+        name: "",
+        valid: "",
+        cvv: "",
+        bandeira: ""
       },
-      "anamnese": {
-        "idade": "",
-        "altura": "",
-        "objetivo": "",
-        "habitoTreino": "",
-        "frequenciaTreino": "",
-        "fazMusculacao": "",
-        "fazAulas": "",
-        "sedentario": "",
-        "sedentarioTempo": "",
-        "reclusaoTreino": "SIM",
-        "tempoPorDia": "",
-        "periodo": "",
-        "peso": "",
-        "patologia": "",
-        "outroPatologia": "",
-        "osseoArticular": "",
-        "qualOsseoArticular": "",
-        "cirurgia": "",
-        "qualCirurgia": "",
-        "internacao": "",
-        "qualInternacao": "",
-        "medicamento": "",
-        "qualMedicamento": "",
-        "fuma": "",
-        "nutricionista": "",
-        "personalTrainer": "",
-        "equipamentos": "",
-        "status": "",
-        "unidade": "",
-        "aluno": "",
-        optinSms: true,
-        optinEmail: true,
-        optinTelegram: true,
-        aceiteTermos: true
+      dcc: {
+        conta: "",
+        contaCorrenteDV: "",
+        agencia: "",
+        agenciaDV: "",
+        banco: ""
       }
     }
   });
@@ -23397,7 +24459,7 @@ function CustomizedSteppers() {
         return;
 
       case 2:
-        setActiveStep(prevActiveStep => prevActiveStep + 1);
+        setValidationPayment(true);
         return;
 
       case 3:
@@ -23447,7 +24509,7 @@ function CustomizedSteppers() {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 567,
+            lineNumber: 540,
             columnNumber: 16
           }
         });
@@ -23462,7 +24524,7 @@ function CustomizedSteppers() {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 569,
+            lineNumber: 542,
             columnNumber: 16
           }
         });
@@ -23471,10 +24533,13 @@ function CustomizedSteppers() {
         return __jsx(_pages_sections_checkout_justfit_SectionPayment__WEBPACK_IMPORTED_MODULE_51__["default"], {
           setDataSale: setDataSale,
           setActiveStep: setActiveStep,
+          setIsLoading: setIsLoading,
+          setValidationPayment: setValidationPayment,
+          validationPayment: validationPayment,
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 571,
+            lineNumber: 544,
             columnNumber: 16
           }
         });
@@ -23485,7 +24550,7 @@ function CustomizedSteppers() {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 573,
+            lineNumber: 546,
             columnNumber: 16
           }
         });
@@ -23496,7 +24561,7 @@ function CustomizedSteppers() {
           __self: this,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 575,
+            lineNumber: 548,
             columnNumber: 16
           }
         });
@@ -23694,11 +24759,9 @@ function CustomizedSteppers() {
   }, []);
   react__WEBPACK_IMPORTED_MODULE_0___default.a.useEffect(() => {
     console.log("dataSale");
-    console.log(dataSale);
-
-    if (activeStep == 2) {
-      fetchData(dataSale);
-    }
+    console.log(dataSale); // if (activeStep == 2) {
+    //   fetchData(dataSale);
+    // }
   }, [dataSale]);
   react__WEBPACK_IMPORTED_MODULE_0___default.a.useEffect(() => {
     console.log("activeStep");
@@ -23716,14 +24779,14 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 829,
+      lineNumber: 802,
       columnNumber: 7
     }
   }, __jsx("title", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 830,
+      lineNumber: 803,
       columnNumber: 9
     }
   }, "Justfit Checkout")), __jsx("div", {
@@ -23731,7 +24794,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 834,
+      lineNumber: 807,
       columnNumber: 7
     }
   }, __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_29__["default"], {
@@ -23742,7 +24805,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 835,
+      lineNumber: 808,
       columnNumber: 9
     }
   }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -23756,14 +24819,14 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 837,
+      lineNumber: 810,
       columnNumber: 11
     }
   }, __jsx(_pages_sections_checkout_justfit_SectionProgressBar__WEBPACK_IMPORTED_MODULE_52__["default"], {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 839,
+      lineNumber: 812,
       columnNumber: 13
     }
   }), __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_29__["default"], {
@@ -23772,7 +24835,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 840,
+      lineNumber: 813,
       columnNumber: 13
     }
   }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -23784,7 +24847,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 841,
+      lineNumber: 814,
       columnNumber: 15
     }
   }, __jsx(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__["MuiThemeProvider"], {
@@ -23792,7 +24855,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 842,
+      lineNumber: 815,
       columnNumber: 17
     }
   }, __jsx(_material_ui_core_Stepper__WEBPACK_IMPORTED_MODULE_5___default.a, {
@@ -23802,14 +24865,14 @@ function CustomizedSteppers() {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 844,
+        lineNumber: 817,
         columnNumber: 82
       }
     }),
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 844,
+      lineNumber: 817,
       columnNumber: 21
     }
   }, steps.map(label => __jsx(_material_ui_core_Step__WEBPACK_IMPORTED_MODULE_6___default.a, {
@@ -23817,7 +24880,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 846,
+      lineNumber: 819,
       columnNumber: 25
     }
   }, __jsx(_material_ui_core_StepLabel__WEBPACK_IMPORTED_MODULE_7___default.a, {
@@ -23825,7 +24888,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 847,
+      lineNumber: 820,
       columnNumber: 27
     }
   }, label))))))), __jsx("div", {
@@ -23837,7 +24900,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 857,
+      lineNumber: 830,
       columnNumber: 13
     }
   }, __jsx(pages_sections_checkout_SectionModal_js__WEBPACK_IMPORTED_MODULE_42__["default"], {
@@ -23847,7 +24910,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 858,
+      lineNumber: 831,
       columnNumber: 13
     }
   }), __jsx("div", {
@@ -23855,14 +24918,14 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 863,
+      lineNumber: 836,
       columnNumber: 13
     }
   }, activeStep === steps.length ? __jsx("div", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 865,
+      lineNumber: 838,
       columnNumber: 17
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -23870,7 +24933,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 866,
+      lineNumber: 839,
       columnNumber: 19
     }
   }, "All steps completed - you're finished"), __jsx(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_24___default.a, {
@@ -23879,28 +24942,28 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 869,
+      lineNumber: 842,
       columnNumber: 19
     }
   }, "Reset")) : __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, activeStep === 10 ? __jsx("div", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 877,
+      lineNumber: 850,
       columnNumber: 23
     }
   }, getStepContent(activeStep), __jsx("div", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 879,
+      lineNumber: 852,
       columnNumber: 25
     }
   })) : __jsx("div", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 896,
+      lineNumber: 869,
       columnNumber: 25
     }
   }, __jsx(_material_ui_core_Grow__WEBPACK_IMPORTED_MODULE_31___default.a, _extends({
@@ -23914,7 +24977,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 898,
+      lineNumber: 871,
       columnNumber: 27
     }
   }), getStepContent(activeStep))))), __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_29__["default"], {
@@ -23926,7 +24989,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 925,
+      lineNumber: 898,
       columnNumber: 13
     }
   }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -23936,7 +24999,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 926,
+      lineNumber: 899,
       columnNumber: 15
     }
   }, __jsx("button", {
@@ -23948,14 +25011,14 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 927,
+      lineNumber: 900,
       columnNumber: 17
     }
   }, " FINALIZAR E VOLTAR PARA HOME")))), __jsx(pages_sections_footer_SectionFooter_js__WEBPACK_IMPORTED_MODULE_38__["default"], {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 933,
+      lineNumber: 906,
       columnNumber: 13
     }
   })), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -23970,7 +25033,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 935,
+      lineNumber: 908,
       columnNumber: 11
     }
   }, __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_29__["default"], {
@@ -23983,7 +25046,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 936,
+      lineNumber: 909,
       columnNumber: 13
     }
   }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -23993,7 +25056,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 937,
+      lineNumber: 910,
       columnNumber: 15
     }
   }, __jsx(components_Lateral_Lateral_js__WEBPACK_IMPORTED_MODULE_32__["default"], {
@@ -24002,7 +25065,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 938,
+      lineNumber: 911,
       columnNumber: 17
     }
   }, __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_29__["default"], {
@@ -24014,7 +25077,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 942,
+      lineNumber: 915,
       columnNumber: 19
     }
   }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -24022,7 +25085,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 943,
+      lineNumber: 916,
       columnNumber: 21
     }
   }, __jsx("h5", {
@@ -24035,7 +25098,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 944,
+      lineNumber: 917,
       columnNumber: 23
     }
   }, "PLANO ", __jsx("strong", {
@@ -24045,7 +25108,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 944,
+      lineNumber: 917,
       columnNumber: 103
     }
   }, "FIT+ ")), __jsx("h5", {
@@ -24058,7 +25121,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 945,
+      lineNumber: 918,
       columnNumber: 23
     }
   }, "UNIDADE BARRETOS")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -24073,7 +25136,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 955,
+      lineNumber: 928,
       columnNumber: 21
     }
   }, __jsx("h6", {
@@ -24089,14 +25152,14 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 956,
+      lineNumber: 929,
       columnNumber: 23
     }
   }, "Informa\xE7\xF5es de Cobran\xE7a")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 964,
+      lineNumber: 937,
       columnNumber: 21
     }
   }, __jsx("div", {
@@ -24104,7 +25167,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 965,
+      lineNumber: 938,
       columnNumber: 23
     }
   }, __jsx("div", {
@@ -24118,14 +25181,14 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 967,
+      lineNumber: 940,
       columnNumber: 25
     }
   }, __jsx(perfect_scrollbar_react__WEBPACK_IMPORTED_MODULE_20___default.a, {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 968,
+      lineNumber: 941,
       columnNumber: 27
     }
   }, __jsx("div", {
@@ -24133,7 +25196,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 969,
+      lineNumber: 942,
       columnNumber: 29
     }
   }, __jsx(_material_ui_core_ExpansionPanel__WEBPACK_IMPORTED_MODULE_16___default.a, {
@@ -24143,7 +25206,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 970,
+      lineNumber: 943,
       columnNumber: 31
     }
   }, __jsx(_material_ui_core_ExpansionPanelSummary__WEBPACK_IMPORTED_MODULE_17___default.a, {
@@ -24151,7 +25214,7 @@ function CustomizedSteppers() {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 972,
+        lineNumber: 945,
         columnNumber: 47
       }
     }),
@@ -24160,7 +25223,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 971,
+      lineNumber: 944,
       columnNumber: 33
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24168,7 +25231,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 976,
+      lineNumber: 949,
       columnNumber: 35
     }
   }, "1\xAA Cobran\xE7a"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24176,7 +25239,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 977,
+      lineNumber: 950,
       columnNumber: 35
     }
   }, " R$ 59,80")), __jsx(_material_ui_core_ExpansionPanelDetails__WEBPACK_IMPORTED_MODULE_18___default.a, {
@@ -24187,7 +25250,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 979,
+      lineNumber: 952,
       columnNumber: 33
     }
   }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -24205,7 +25268,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 980,
+      lineNumber: 953,
       columnNumber: 33
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24213,7 +25276,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 981,
+      lineNumber: 954,
       columnNumber: 33
     }
   }, "Mensalidade"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24221,7 +25284,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 982,
+      lineNumber: 955,
       columnNumber: 35
     }
   }, " R$ 29,90")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -24239,7 +25302,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 984,
+      lineNumber: 957,
       columnNumber: 35
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24247,7 +25310,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 985,
+      lineNumber: 958,
       columnNumber: 33
     }
   }, "Taxa de ades\xE3o"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24255,7 +25318,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 986,
+      lineNumber: 959,
       columnNumber: 35
     }
   }, " R$ 29,90")))), __jsx(_material_ui_core_ExpansionPanel__WEBPACK_IMPORTED_MODULE_16___default.a, {
@@ -24265,7 +25328,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 990,
+      lineNumber: 963,
       columnNumber: 31
     }
   }, __jsx(_material_ui_core_ExpansionPanelSummary__WEBPACK_IMPORTED_MODULE_17___default.a, {
@@ -24273,7 +25336,7 @@ function CustomizedSteppers() {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 992,
+        lineNumber: 965,
         columnNumber: 47
       }
     }),
@@ -24282,7 +25345,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 991,
+      lineNumber: 964,
       columnNumber: 33
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24290,7 +25353,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 996,
+      lineNumber: 969,
       columnNumber: 35
     }
   }, "2\xAA Cobran\xE7a"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24298,7 +25361,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 997,
+      lineNumber: 970,
       columnNumber: 35
     }
   }, " R$ 79,90")), __jsx(_material_ui_core_ExpansionPanelDetails__WEBPACK_IMPORTED_MODULE_18___default.a, {
@@ -24309,7 +25372,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 999,
+      lineNumber: 972,
       columnNumber: 33
     }
   }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -24327,7 +25390,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1000,
+      lineNumber: 973,
       columnNumber: 33
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24335,7 +25398,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1001,
+      lineNumber: 974,
       columnNumber: 33
     }
   }, "Mensalidade"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24343,7 +25406,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1002,
+      lineNumber: 975,
       columnNumber: 35
     }
   }, " R$ 79,90")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -24361,7 +25424,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1004,
+      lineNumber: 977,
       columnNumber: 35
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24369,7 +25432,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1005,
+      lineNumber: 978,
       columnNumber: 33
     }
   }, "Taxa de ades\xE3o"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24377,7 +25440,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1006,
+      lineNumber: 979,
       columnNumber: 35
     }
   }, " R$ 0,00")))), __jsx(_material_ui_core_ExpansionPanel__WEBPACK_IMPORTED_MODULE_16___default.a, {
@@ -24387,7 +25450,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1010,
+      lineNumber: 983,
       columnNumber: 31
     }
   }, __jsx(_material_ui_core_ExpansionPanelSummary__WEBPACK_IMPORTED_MODULE_17___default.a, {
@@ -24395,7 +25458,7 @@ function CustomizedSteppers() {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 1012,
+        lineNumber: 985,
         columnNumber: 47
       }
     }),
@@ -24404,7 +25467,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1011,
+      lineNumber: 984,
       columnNumber: 33
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24412,7 +25475,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1016,
+      lineNumber: 989,
       columnNumber: 35
     }
   }, "3\xAA Cobran\xE7a"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24420,7 +25483,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1017,
+      lineNumber: 990,
       columnNumber: 35
     }
   }, " R$ 79,90")), __jsx(_material_ui_core_ExpansionPanelDetails__WEBPACK_IMPORTED_MODULE_18___default.a, {
@@ -24431,7 +25494,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1021,
+      lineNumber: 994,
       columnNumber: 33
     }
   }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -24449,7 +25512,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1022,
+      lineNumber: 995,
       columnNumber: 33
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24457,7 +25520,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1023,
+      lineNumber: 996,
       columnNumber: 33
     }
   }, "Mensalidade"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24465,7 +25528,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1024,
+      lineNumber: 997,
       columnNumber: 35
     }
   }, " R$ 79,90")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -24483,7 +25546,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1026,
+      lineNumber: 999,
       columnNumber: 35
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24491,7 +25554,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1027,
+      lineNumber: 1000,
       columnNumber: 33
     }
   }, "Taxa de ades\xE3o"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24499,7 +25562,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1028,
+      lineNumber: 1001,
       columnNumber: 35
     }
   }, " R$ 0,00")))), __jsx(_material_ui_core_ExpansionPanel__WEBPACK_IMPORTED_MODULE_16___default.a, {
@@ -24509,7 +25572,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1032,
+      lineNumber: 1005,
       columnNumber: 31
     }
   }, __jsx(_material_ui_core_ExpansionPanelSummary__WEBPACK_IMPORTED_MODULE_17___default.a, {
@@ -24517,7 +25580,7 @@ function CustomizedSteppers() {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 1034,
+        lineNumber: 1007,
         columnNumber: 47
       }
     }),
@@ -24526,7 +25589,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1033,
+      lineNumber: 1006,
       columnNumber: 33
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24534,7 +25597,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1038,
+      lineNumber: 1011,
       columnNumber: 35
     }
   }, "4\xAA Cobran\xE7a"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24542,7 +25605,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1039,
+      lineNumber: 1012,
       columnNumber: 35
     }
   }, " R$ 79,90")), __jsx(_material_ui_core_ExpansionPanelDetails__WEBPACK_IMPORTED_MODULE_18___default.a, {
@@ -24553,7 +25616,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1043,
+      lineNumber: 1016,
       columnNumber: 33
     }
   }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -24571,7 +25634,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1044,
+      lineNumber: 1017,
       columnNumber: 33
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24579,7 +25642,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1045,
+      lineNumber: 1018,
       columnNumber: 33
     }
   }, "Mensalidade"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24587,7 +25650,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1046,
+      lineNumber: 1019,
       columnNumber: 35
     }
   }, " R$ 79,90")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -24605,7 +25668,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1048,
+      lineNumber: 1021,
       columnNumber: 35
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24613,7 +25676,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1049,
+      lineNumber: 1022,
       columnNumber: 33
     }
   }, "Taxa de ades\xE3o"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24621,7 +25684,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1050,
+      lineNumber: 1023,
       columnNumber: 35
     }
   }, " R$ 0,00")))), __jsx(_material_ui_core_ExpansionPanel__WEBPACK_IMPORTED_MODULE_16___default.a, {
@@ -24631,7 +25694,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1054,
+      lineNumber: 1027,
       columnNumber: 31
     }
   }, __jsx(_material_ui_core_ExpansionPanelSummary__WEBPACK_IMPORTED_MODULE_17___default.a, {
@@ -24639,7 +25702,7 @@ function CustomizedSteppers() {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 1056,
+        lineNumber: 1029,
         columnNumber: 47
       }
     }),
@@ -24648,7 +25711,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1055,
+      lineNumber: 1028,
       columnNumber: 33
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24656,7 +25719,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1060,
+      lineNumber: 1033,
       columnNumber: 35
     }
   }, "5\xAA Cobran\xE7a"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24664,7 +25727,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1061,
+      lineNumber: 1034,
       columnNumber: 35
     }
   }, " R$ 79,90")), __jsx(_material_ui_core_ExpansionPanelDetails__WEBPACK_IMPORTED_MODULE_18___default.a, {
@@ -24675,7 +25738,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1065,
+      lineNumber: 1038,
       columnNumber: 33
     }
   }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -24693,7 +25756,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1066,
+      lineNumber: 1039,
       columnNumber: 33
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24701,7 +25764,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1067,
+      lineNumber: 1040,
       columnNumber: 33
     }
   }, "Mensalidade"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24709,7 +25772,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1068,
+      lineNumber: 1041,
       columnNumber: 35
     }
   }, " R$ 79,90")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -24727,7 +25790,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1070,
+      lineNumber: 1043,
       columnNumber: 35
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24735,7 +25798,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1071,
+      lineNumber: 1044,
       columnNumber: 33
     }
   }, "Taxa de ades\xE3o"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24743,7 +25806,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1072,
+      lineNumber: 1045,
       columnNumber: 35
     }
   }, " R$ 0,00")))), __jsx(_material_ui_core_ExpansionPanel__WEBPACK_IMPORTED_MODULE_16___default.a, {
@@ -24753,7 +25816,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1076,
+      lineNumber: 1049,
       columnNumber: 31
     }
   }, __jsx(_material_ui_core_ExpansionPanelSummary__WEBPACK_IMPORTED_MODULE_17___default.a, {
@@ -24761,7 +25824,7 @@ function CustomizedSteppers() {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 1078,
+        lineNumber: 1051,
         columnNumber: 47
       }
     }),
@@ -24770,7 +25833,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1077,
+      lineNumber: 1050,
       columnNumber: 33
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24778,7 +25841,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1082,
+      lineNumber: 1055,
       columnNumber: 35
     }
   }, "6\xAA Cobran\xE7a"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24786,7 +25849,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1083,
+      lineNumber: 1056,
       columnNumber: 35
     }
   }, " R$ 79,90")), __jsx(_material_ui_core_ExpansionPanelDetails__WEBPACK_IMPORTED_MODULE_18___default.a, {
@@ -24797,7 +25860,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1087,
+      lineNumber: 1060,
       columnNumber: 33
     }
   }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -24815,7 +25878,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1088,
+      lineNumber: 1061,
       columnNumber: 33
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24823,7 +25886,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1089,
+      lineNumber: 1062,
       columnNumber: 33
     }
   }, "Mensalidade"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24831,7 +25894,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1090,
+      lineNumber: 1063,
       columnNumber: 35
     }
   }, " R$ 79,90")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -24849,7 +25912,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1092,
+      lineNumber: 1065,
       columnNumber: 35
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24857,7 +25920,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1093,
+      lineNumber: 1066,
       columnNumber: 33
     }
   }, "Taxa de ades\xE3o"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24865,7 +25928,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1094,
+      lineNumber: 1067,
       columnNumber: 35
     }
   }, " R$ 0,00")))), __jsx(_material_ui_core_ExpansionPanel__WEBPACK_IMPORTED_MODULE_16___default.a, {
@@ -24875,7 +25938,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1098,
+      lineNumber: 1071,
       columnNumber: 31
     }
   }, __jsx(_material_ui_core_ExpansionPanelSummary__WEBPACK_IMPORTED_MODULE_17___default.a, {
@@ -24883,7 +25946,7 @@ function CustomizedSteppers() {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 1100,
+        lineNumber: 1073,
         columnNumber: 47
       }
     }),
@@ -24892,7 +25955,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1099,
+      lineNumber: 1072,
       columnNumber: 33
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24900,7 +25963,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1104,
+      lineNumber: 1077,
       columnNumber: 35
     }
   }, "7\xAA Cobran\xE7a"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24908,7 +25971,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1105,
+      lineNumber: 1078,
       columnNumber: 35
     }
   }, " R$ 79,90")), __jsx(_material_ui_core_ExpansionPanelDetails__WEBPACK_IMPORTED_MODULE_18___default.a, {
@@ -24919,7 +25982,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1109,
+      lineNumber: 1082,
       columnNumber: 33
     }
   }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -24937,7 +26000,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1110,
+      lineNumber: 1083,
       columnNumber: 33
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24945,7 +26008,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1111,
+      lineNumber: 1084,
       columnNumber: 33
     }
   }, "Mensalidade"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24953,7 +26016,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1112,
+      lineNumber: 1085,
       columnNumber: 35
     }
   }, " R$ 79,90")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -24971,7 +26034,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1114,
+      lineNumber: 1087,
       columnNumber: 35
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24979,7 +26042,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1115,
+      lineNumber: 1088,
       columnNumber: 33
     }
   }, "Taxa de ades\xE3o"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -24987,7 +26050,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1116,
+      lineNumber: 1089,
       columnNumber: 35
     }
   }, " R$ 0,00")))), __jsx(_material_ui_core_ExpansionPanel__WEBPACK_IMPORTED_MODULE_16___default.a, {
@@ -24997,7 +26060,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1120,
+      lineNumber: 1093,
       columnNumber: 31
     }
   }, __jsx(_material_ui_core_ExpansionPanelSummary__WEBPACK_IMPORTED_MODULE_17___default.a, {
@@ -25005,7 +26068,7 @@ function CustomizedSteppers() {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 1122,
+        lineNumber: 1095,
         columnNumber: 47
       }
     }),
@@ -25014,7 +26077,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1121,
+      lineNumber: 1094,
       columnNumber: 33
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -25022,7 +26085,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1126,
+      lineNumber: 1099,
       columnNumber: 35
     }
   }, "8\xAA Cobran\xE7a"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -25030,7 +26093,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1127,
+      lineNumber: 1100,
       columnNumber: 35
     }
   }, " R$ 79,90")), __jsx(_material_ui_core_ExpansionPanelDetails__WEBPACK_IMPORTED_MODULE_18___default.a, {
@@ -25041,10 +26104,166 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1131,
+      lineNumber: 1104,
       columnNumber: 33
     }
   }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
+    md: 12,
+    sm: 12,
+    xs: 12,
+    style: {
+      display: 'flex',
+      flex: 1,
+      flexDirection: 'row',
+      margin: 0,
+      padding: 0,
+      paddingRight: '33px'
+    },
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1105,
+      columnNumber: 33
+    }
+  }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
+    className: classes.heading2,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1106,
+      columnNumber: 33
+    }
+  }, "Mensalidade"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
+    className: classes.secondaryHeading2,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1107,
+      columnNumber: 35
+    }
+  }, " R$ 79,90")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
+    md: 12,
+    sm: 12,
+    xs: 12,
+    style: {
+      display: 'flex',
+      flex: 1,
+      flexDirection: 'row',
+      margin: 0,
+      padding: 0,
+      paddingRight: '33px'
+    },
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1109,
+      columnNumber: 35
+    }
+  }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
+    className: classes.heading2,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1110,
+      columnNumber: 33
+    }
+  }, "Taxa de ades\xE3o"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
+    className: classes.secondaryHeading2,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1111,
+      columnNumber: 35
+    }
+  }, " R$ 0,00")))), __jsx(_material_ui_core_ExpansionPanel__WEBPACK_IMPORTED_MODULE_16___default.a, {
+    className: classes.MuiAccordionroot,
+    expanded: expanded === 'panel9',
+    onChange: handleChange('panel9'),
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1116,
+      columnNumber: 31
+    }
+  }, __jsx(_material_ui_core_ExpansionPanelSummary__WEBPACK_IMPORTED_MODULE_17___default.a, {
+    expandIcon: __jsx(_material_ui_icons_ExpandMore__WEBPACK_IMPORTED_MODULE_19___default.a, {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 1118,
+        columnNumber: 47
+      }
+    }),
+    "aria-controls": "panel9bh-content",
+    id: "panel9bh-header",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1117,
+      columnNumber: 33
+    }
+  }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
+    className: classes.heading,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1122,
+      columnNumber: 35
+    }
+  }, "9\xAA Cobran\xE7a"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
+    className: classes.secondaryHeading,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1123,
+      columnNumber: 35
+    }
+  }, " R$ 79,90")), __jsx(_material_ui_core_ExpansionPanelDetails__WEBPACK_IMPORTED_MODULE_18___default.a, {
+    style: {
+      display: 'flex',
+      flexDirection: 'column'
+    },
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1127,
+      columnNumber: 33
+    }
+  }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
+    md: 12,
+    sm: 12,
+    xs: 12,
+    style: {
+      display: 'flex',
+      flex: 1,
+      flexDirection: 'row',
+      margin: 0,
+      padding: 0,
+      paddingRight: '33px'
+    },
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1128,
+      columnNumber: 33
+    }
+  }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
+    className: classes.heading2,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1129,
+      columnNumber: 33
+    }
+  }, "Mensalidade"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
+    className: classes.secondaryHeading2,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1130,
+      columnNumber: 35
+    }
+  }, " R$ 79,90")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
     md: 12,
     sm: 12,
     xs: 12,
@@ -25060,7 +26279,7 @@ function CustomizedSteppers() {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 1132,
-      columnNumber: 33
+      columnNumber: 35
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
     className: classes.heading2,
@@ -25070,7 +26289,7 @@ function CustomizedSteppers() {
       lineNumber: 1133,
       columnNumber: 33
     }
-  }, "Mensalidade"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
+  }, "Taxa de ades\xE3o"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
     className: classes.secondaryHeading2,
     __self: this,
     __source: {
@@ -25078,7 +26297,61 @@ function CustomizedSteppers() {
       lineNumber: 1134,
       columnNumber: 35
     }
-  }, " R$ 79,90")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
+  }, " R$ 0,00")))), __jsx(_material_ui_core_ExpansionPanel__WEBPACK_IMPORTED_MODULE_16___default.a, {
+    className: classes.MuiAccordionroot,
+    expanded: expanded === 'panel10',
+    onChange: handleChange('panel10'),
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1139,
+      columnNumber: 31
+    }
+  }, __jsx(_material_ui_core_ExpansionPanelSummary__WEBPACK_IMPORTED_MODULE_17___default.a, {
+    expandIcon: __jsx(_material_ui_icons_ExpandMore__WEBPACK_IMPORTED_MODULE_19___default.a, {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 1141,
+        columnNumber: 47
+      }
+    }),
+    "aria-controls": "panel10bh-content",
+    id: "panel10bh-header",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1140,
+      columnNumber: 33
+    }
+  }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
+    className: classes.heading,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1145,
+      columnNumber: 35
+    }
+  }, "10\xAA Cobran\xE7a"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
+    className: classes.secondaryHeading,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1146,
+      columnNumber: 35
+    }
+  }, " R$ 79,90")), __jsx(_material_ui_core_ExpansionPanelDetails__WEBPACK_IMPORTED_MODULE_18___default.a, {
+    style: {
+      display: 'flex',
+      flexDirection: 'column'
+    },
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1150,
+      columnNumber: 33
+    }
+  }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
     md: 12,
     sm: 12,
     xs: 12,
@@ -25093,80 +26366,26 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1136,
-      columnNumber: 35
+      lineNumber: 1151,
+      columnNumber: 33
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
     className: classes.heading2,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1137,
+      lineNumber: 1152,
       columnNumber: 33
     }
-  }, "Taxa de ades\xE3o"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
+  }, "Mensalidade"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
     className: classes.secondaryHeading2,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1138,
+      lineNumber: 1153,
       columnNumber: 35
     }
-  }, " R$ 0,00")))), __jsx(_material_ui_core_ExpansionPanel__WEBPACK_IMPORTED_MODULE_16___default.a, {
-    className: classes.MuiAccordionroot,
-    expanded: expanded === 'panel9',
-    onChange: handleChange('panel9'),
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1143,
-      columnNumber: 31
-    }
-  }, __jsx(_material_ui_core_ExpansionPanelSummary__WEBPACK_IMPORTED_MODULE_17___default.a, {
-    expandIcon: __jsx(_material_ui_icons_ExpandMore__WEBPACK_IMPORTED_MODULE_19___default.a, {
-      __self: this,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 1145,
-        columnNumber: 47
-      }
-    }),
-    "aria-controls": "panel9bh-content",
-    id: "panel9bh-header",
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1144,
-      columnNumber: 33
-    }
-  }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
-    className: classes.heading,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1149,
-      columnNumber: 35
-    }
-  }, "9\xAA Cobran\xE7a"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
-    className: classes.secondaryHeading,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1150,
-      columnNumber: 35
-    }
-  }, " R$ 79,90")), __jsx(_material_ui_core_ExpansionPanelDetails__WEBPACK_IMPORTED_MODULE_18___default.a, {
-    style: {
-      display: 'flex',
-      flexDirection: 'column'
-    },
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1154,
-      columnNumber: 33
-    }
-  }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
+  }, " R$ 79,90")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
     md: 12,
     sm: 12,
     xs: 12,
@@ -25182,7 +26401,7 @@ function CustomizedSteppers() {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 1155,
-      columnNumber: 33
+      columnNumber: 35
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
     className: classes.heading2,
@@ -25192,7 +26411,7 @@ function CustomizedSteppers() {
       lineNumber: 1156,
       columnNumber: 33
     }
-  }, "Mensalidade"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
+  }, "Taxa de ades\xE3o"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
     className: classes.secondaryHeading2,
     __self: this,
     __source: {
@@ -25200,7 +26419,61 @@ function CustomizedSteppers() {
       lineNumber: 1157,
       columnNumber: 35
     }
-  }, " R$ 79,90")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
+  }, " R$ 0,00")))), __jsx(_material_ui_core_ExpansionPanel__WEBPACK_IMPORTED_MODULE_16___default.a, {
+    className: classes.MuiAccordionroot,
+    expanded: expanded === 'panel11',
+    onChange: handleChange('panel11'),
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1162,
+      columnNumber: 31
+    }
+  }, __jsx(_material_ui_core_ExpansionPanelSummary__WEBPACK_IMPORTED_MODULE_17___default.a, {
+    expandIcon: __jsx(_material_ui_icons_ExpandMore__WEBPACK_IMPORTED_MODULE_19___default.a, {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 1164,
+        columnNumber: 47
+      }
+    }),
+    "aria-controls": "panel11bh-content",
+    id: "panel11bh-header",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1163,
+      columnNumber: 33
+    }
+  }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
+    className: classes.heading,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1168,
+      columnNumber: 35
+    }
+  }, "11\xAA Cobran\xE7a"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
+    className: classes.secondaryHeading,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1169,
+      columnNumber: 35
+    }
+  }, " R$ 79,90")), __jsx(_material_ui_core_ExpansionPanelDetails__WEBPACK_IMPORTED_MODULE_18___default.a, {
+    style: {
+      display: 'flex',
+      flexDirection: 'column'
+    },
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 1173,
+      columnNumber: 33
+    }
+  }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
     md: 12,
     sm: 12,
     xs: 12,
@@ -25215,80 +26488,26 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1159,
-      columnNumber: 35
+      lineNumber: 1174,
+      columnNumber: 33
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
     className: classes.heading2,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1160,
+      lineNumber: 1175,
       columnNumber: 33
     }
-  }, "Taxa de ades\xE3o"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
+  }, "Mensalidade"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
     className: classes.secondaryHeading2,
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1161,
+      lineNumber: 1176,
       columnNumber: 35
     }
-  }, " R$ 0,00")))), __jsx(_material_ui_core_ExpansionPanel__WEBPACK_IMPORTED_MODULE_16___default.a, {
-    className: classes.MuiAccordionroot,
-    expanded: expanded === 'panel10',
-    onChange: handleChange('panel10'),
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1166,
-      columnNumber: 31
-    }
-  }, __jsx(_material_ui_core_ExpansionPanelSummary__WEBPACK_IMPORTED_MODULE_17___default.a, {
-    expandIcon: __jsx(_material_ui_icons_ExpandMore__WEBPACK_IMPORTED_MODULE_19___default.a, {
-      __self: this,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 1168,
-        columnNumber: 47
-      }
-    }),
-    "aria-controls": "panel10bh-content",
-    id: "panel10bh-header",
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1167,
-      columnNumber: 33
-    }
-  }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
-    className: classes.heading,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1172,
-      columnNumber: 35
-    }
-  }, "10\xAA Cobran\xE7a"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
-    className: classes.secondaryHeading,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1173,
-      columnNumber: 35
-    }
-  }, " R$ 79,90")), __jsx(_material_ui_core_ExpansionPanelDetails__WEBPACK_IMPORTED_MODULE_18___default.a, {
-    style: {
-      display: 'flex',
-      flexDirection: 'column'
-    },
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1177,
-      columnNumber: 33
-    }
-  }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
+  }, " R$ 79,90")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
     md: 12,
     sm: 12,
     xs: 12,
@@ -25304,7 +26523,7 @@ function CustomizedSteppers() {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 1178,
-      columnNumber: 33
+      columnNumber: 35
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
     className: classes.heading2,
@@ -25314,168 +26533,12 @@ function CustomizedSteppers() {
       lineNumber: 1179,
       columnNumber: 33
     }
-  }, "Mensalidade"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
+  }, "Taxa de ades\xE3o"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
     className: classes.secondaryHeading2,
     __self: this,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 1180,
-      columnNumber: 35
-    }
-  }, " R$ 79,90")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
-    md: 12,
-    sm: 12,
-    xs: 12,
-    style: {
-      display: 'flex',
-      flex: 1,
-      flexDirection: 'row',
-      margin: 0,
-      padding: 0,
-      paddingRight: '33px'
-    },
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1182,
-      columnNumber: 35
-    }
-  }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
-    className: classes.heading2,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1183,
-      columnNumber: 33
-    }
-  }, "Taxa de ades\xE3o"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
-    className: classes.secondaryHeading2,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1184,
-      columnNumber: 35
-    }
-  }, " R$ 0,00")))), __jsx(_material_ui_core_ExpansionPanel__WEBPACK_IMPORTED_MODULE_16___default.a, {
-    className: classes.MuiAccordionroot,
-    expanded: expanded === 'panel11',
-    onChange: handleChange('panel11'),
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1189,
-      columnNumber: 31
-    }
-  }, __jsx(_material_ui_core_ExpansionPanelSummary__WEBPACK_IMPORTED_MODULE_17___default.a, {
-    expandIcon: __jsx(_material_ui_icons_ExpandMore__WEBPACK_IMPORTED_MODULE_19___default.a, {
-      __self: this,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 1191,
-        columnNumber: 47
-      }
-    }),
-    "aria-controls": "panel11bh-content",
-    id: "panel11bh-header",
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1190,
-      columnNumber: 33
-    }
-  }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
-    className: classes.heading,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1195,
-      columnNumber: 35
-    }
-  }, "11\xAA Cobran\xE7a"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
-    className: classes.secondaryHeading,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1196,
-      columnNumber: 35
-    }
-  }, " R$ 79,90")), __jsx(_material_ui_core_ExpansionPanelDetails__WEBPACK_IMPORTED_MODULE_18___default.a, {
-    style: {
-      display: 'flex',
-      flexDirection: 'column'
-    },
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1200,
-      columnNumber: 33
-    }
-  }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
-    md: 12,
-    sm: 12,
-    xs: 12,
-    style: {
-      display: 'flex',
-      flex: 1,
-      flexDirection: 'row',
-      margin: 0,
-      padding: 0,
-      paddingRight: '33px'
-    },
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1201,
-      columnNumber: 33
-    }
-  }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
-    className: classes.heading2,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1202,
-      columnNumber: 33
-    }
-  }, "Mensalidade"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
-    className: classes.secondaryHeading2,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1203,
-      columnNumber: 35
-    }
-  }, " R$ 79,90")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
-    md: 12,
-    sm: 12,
-    xs: 12,
-    style: {
-      display: 'flex',
-      flex: 1,
-      flexDirection: 'row',
-      margin: 0,
-      padding: 0,
-      paddingRight: '33px'
-    },
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1205,
-      columnNumber: 35
-    }
-  }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
-    className: classes.heading2,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1206,
-      columnNumber: 33
-    }
-  }, "Taxa de ades\xE3o"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
-    className: classes.secondaryHeading2,
-    __self: this,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 1207,
       columnNumber: 35
     }
   }, " R$ 0,00")))), __jsx(_material_ui_core_ExpansionPanel__WEBPACK_IMPORTED_MODULE_16___default.a, {
@@ -25485,7 +26548,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1213,
+      lineNumber: 1186,
       columnNumber: 31
     }
   }, __jsx(_material_ui_core_ExpansionPanelSummary__WEBPACK_IMPORTED_MODULE_17___default.a, {
@@ -25493,7 +26556,7 @@ function CustomizedSteppers() {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 1215,
+        lineNumber: 1188,
         columnNumber: 47
       }
     }),
@@ -25502,7 +26565,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1214,
+      lineNumber: 1187,
       columnNumber: 33
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -25510,7 +26573,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1219,
+      lineNumber: 1192,
       columnNumber: 35
     }
   }, "12\xAA Cobran\xE7a"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -25518,7 +26581,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1220,
+      lineNumber: 1193,
       columnNumber: 35
     }
   }, " R$ 79,90")), __jsx(_material_ui_core_ExpansionPanelDetails__WEBPACK_IMPORTED_MODULE_18___default.a, {
@@ -25529,7 +26592,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1224,
+      lineNumber: 1197,
       columnNumber: 33
     }
   }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -25547,7 +26610,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1225,
+      lineNumber: 1198,
       columnNumber: 33
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -25555,7 +26618,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1226,
+      lineNumber: 1199,
       columnNumber: 33
     }
   }, "Mensalidade"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -25563,7 +26626,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1227,
+      lineNumber: 1200,
       columnNumber: 35
     }
   }, " R$ 79,90")), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
@@ -25581,7 +26644,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1229,
+      lineNumber: 1202,
       columnNumber: 35
     }
   }, __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -25589,7 +26652,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1230,
+      lineNumber: 1203,
       columnNumber: 33
     }
   }, "Taxa de ades\xE3o"), __jsx(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_25___default.a, {
@@ -25597,7 +26660,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1231,
+      lineNumber: 1204,
       columnNumber: 35
     }
   }, " R$ 0,00"))))))))), __jsx(components_Grid_GridContainer_js__WEBPACK_IMPORTED_MODULE_29__["default"], {
@@ -25609,14 +26672,14 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1242,
+      lineNumber: 1215,
       columnNumber: 21
     }
   }, __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1243,
+      lineNumber: 1216,
       columnNumber: 23
     }
   }, __jsx(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_24___default.a, {
@@ -25635,7 +26698,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1245,
+      lineNumber: 1218,
       columnNumber: 29
     }
   }, isLoading ? __jsx(_material_ui_core_CircularProgress__WEBPACK_IMPORTED_MODULE_22___default.a, {
@@ -25646,14 +26709,14 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1255,
+      lineNumber: 1228,
       columnNumber: 35
     }
-  }) : activeStep === steps.length - 1 ? 'FINALIZAR' : 'CONTINUAR')), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
+  }) : activeStep === steps.length - 2 ? 'FINALIZAR' : 'CONTINUAR')), __jsx(components_Grid_GridItem_js__WEBPACK_IMPORTED_MODULE_30__["default"], {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1263,
+      lineNumber: 1236,
       columnNumber: 23
     }
   }, __jsx(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_24___default.a, {
@@ -25669,7 +26732,7 @@ function CustomizedSteppers() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 1264,
+      lineNumber: 1237,
       columnNumber: 25
     }
   }, "VOLTAR")))))))))));

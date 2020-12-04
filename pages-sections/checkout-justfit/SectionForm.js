@@ -41,6 +41,54 @@ import TagManager from 'react-gtm-module';
 import { bool } from "prop-types";
 
 
+setLocale({  
+  mixed: {
+    notType: function notType(_ref) {
+      switch (_ref.type) {
+        case 'number':
+          return 'deve ser um número';
+        case 'string':
+          return 'deve ser um texto';
+        default:
+          return 'formato errado';
+      }
+    },
+    default: 'é inválido',
+    required: 'Desculpe, este campo é obrigatório',
+    oneOf: 'deve ser um dos seguintes valores: ${values}',
+    notOneOf: 'não pode ser um dos seguintes valores: ${values}',
+  },
+  string: {
+      length: 'deve ter exatamente ${length} caracteres',
+      min: 'deve ter pelo menos ${min} caracteres',
+      max: 'deve ter no máximo ${max} caracteres',
+      email: 'Por favor, informe um e-mail inválido',
+      url: 'deve ter um formato de URL válida',
+      trim: 'não deve conter espaços no início ou no fim.',
+      lowercase: 'deve estar em maiúsculo',
+      uppercase: 'deve estar em minúsculo',
+  },
+  number: {
+      min: 'deve ser no mínimo ${min}',
+      max: 'deve ser no máximo ${max}',
+      lessThan: 'deve ser menor que ${less}',
+      moreThan: 'deve ser maior que ${more}',
+      notEqual: 'não pode ser igual à ${notEqual}',
+      positive: 'deve ser um número posítivo',
+      negative: 'deve ser um número negativo',
+      integer: 'deve ser um número inteiro',      
+  },
+      date: {
+      min: 'deve ser maior que a data ${min}',
+      max: 'deve ser menor que a data ${max}',
+  },
+      array: {
+      min: 'deve ter no mínimo ${min} itens',
+      max: 'deve ter no máximo ${max} itens',
+  }
+});
+
+
 function isValidCPF(cpf) {
   if (typeof cpf !== "string") return false
   cpf = cpf.replace(/[\s.-]*/igm, '')
@@ -204,11 +252,14 @@ export default function SectionForm(props) {
   const validateForm = async () => {
     // var result = await trigger();
 
-    var identificationForm = getValues();
-    console.log(identificationForm);    
+    
     // var result = await trigger([ "name", "email", "cpf", "sex", "birthDate", "phone" ]);
     var result = await trigger();
     if(result){
+
+      var identificationForm = getValues();
+      console.log("identificationForm");    
+      console.log(identificationForm);    
 
       var resultCpf = await validateCpf(identificationForm.cpf);
       console.log("resultCpf");
@@ -217,7 +268,34 @@ export default function SectionForm(props) {
         var resultEmail = await validateEmail(identificationForm.email);
         console.log("resultEmail");
         console.log(resultEmail);
-        if(resultEmail){
+        if(resultEmail){          
+
+          props.setDataSale( prevDataSale => {
+            return {  
+              customer: { 
+                ...prevDataSale.customer,
+                name: identificationForm.firstName.toUpperCase(),
+                email: identificationForm.email,
+                document: identificationForm.cpf.replace(/[^\d]+/g,''),   
+                sex: identificationForm.sex,
+                birthDate: identificationForm.birthDate,
+                financeResponsible: {
+                  ...prevDataSale.customer.financeResponsible,
+                  name: identificationForm.firstName.toUpperCase(),
+                  document: identificationForm.cpf.replace(/[^\d]+/g,''), 
+                  email: identificationForm.email,
+                  phone: identificationForm.phone.replace(/\s+/g, '')                                  
+                }, 
+                phones: [
+                  {
+                    type: "cellphone",
+                    number: identificationForm.phone.replace(/\s+/g, ''),  
+                  }
+                ],                               
+              }               
+            }
+          });  
+
           props.setActiveStep((prevActiveStep) => prevActiveStep + 1);
         }
       }
