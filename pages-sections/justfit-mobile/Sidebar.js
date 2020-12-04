@@ -59,7 +59,7 @@ const handleChange = (panel) => (event, isExpanded) => {
 };
   return (
     <Menu>
-      <GridContainer  className={classes.contentMobile} style={{padding:0,margin:0}} justify="center" align='center' >        
+      <GridContainer  className={classes.contentMobile} style={{padding:0,margin:0, marginTop: '50px !important'}} justify="center" align='center' >        
         <GridItem xs={12} sm={12} md={12} align='center' justify='center'>
             
              <h5 style={{padding:0,margin:0,color:'#787878',fontSize:'16px',marginTop:'20px',}}>PLANO <strong style={{color:'#484848'}} >FIT+ </strong></h5>

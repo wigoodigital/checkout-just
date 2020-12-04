@@ -114,7 +114,7 @@ export default function SectionPlans() {
                 </PlanHorizontal>
               </GridItem>
             </GridItem>
-            <GridItem xs={12} sm={12} md={10} style={{ marginTop: '20px' }} align='left'>
+            <GridItem xs={12} sm={12} md={10} style={{ marginTop: '20px', display: 'none' }} align='left'>
               <h4 className={classes.SubtitleText}>Quer complementar seu plano?</h4>
               <GridItem>
                 <PlanHorizontal theme='whitePlan' >

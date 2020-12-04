@@ -27,6 +27,7 @@ import 'perfect-scrollbar-react/dist/style.min.css';
 //LATERAL END
 
 
+import CircularProgress from '@material-ui/core/CircularProgress';
 import StepConnector from '@material-ui/core/StepConnector';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -35,6 +36,7 @@ import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
+
 
 import Grow from '@material-ui/core/Grow';
 
@@ -411,6 +413,10 @@ export default function CustomizedSteppers() {
   const [activeAnamnese, setActiveAnamnese] = React.useState(0);
 
   const [showModal, setShowModal] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+  
+  const [validationForm, setValidationForm] = React.useState(false);
+  
 
   const [dataSale, setDataSale] = React.useState({
 
@@ -506,22 +512,25 @@ export default function CustomizedSteppers() {
 
 
 
-  const handleNext = (type) => {
+  const handleNext = (step) => {
+    
 
-    switch (type) {
-      case "Checkout":
+    switch (step) {
+      case 0:
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
         return
-      case "Anamnese":
-        if (activeAnamnese === 4) {
-          setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        } else {
-          setActiveAnamnese((prevActiveStep) => prevActiveStep + 1);
-        }
+      case 1:
+        setValidationForm(true);        
         return
+      case 2:
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);       
+        return
+      case 3:
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);        
+        return  
       default:
         return
-    }
+    } 
   };
 
   const handleBack = (type) => {
@@ -555,11 +564,11 @@ export default function CustomizedSteppers() {
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return <SectionPlans setDataSale={setDataSale} setStepCheckout={setActiveStep} />;
+        return <SectionPlans setDataSale={setDataSale} setActiveStep={setActiveStep} />;
       case 1:
-        return <SectionForm setDataSale={setDataSale} setStepCheckout={setActiveStep} />;
+        return <SectionForm setDataSale={setDataSale} setActiveStep={setActiveStep} setIsLoading={setIsLoading} setValidationForm={setValidationForm}  validationForm={validationForm} />;
       case 2:
-        return <SectionPayment setDataSale={setDataSale} setStepCheckout={setActiveStep} />
+        return <SectionPayment setDataSale={setDataSale} setActiveStep={setActiveStep} />
       case 3:
         return <SectionSummary dataSale={dataSale} />
       case 4:
@@ -1232,15 +1241,24 @@ export default function CustomizedSteppers() {
                     </GridItem>
                     <GridContainer justify='center' align='center' style={{ marginTop: '20px' }}>
                       <GridItem>
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          onClick={() => handleNext("Checkout")}
-                          className={classes.button}
-                          style={{ width: '280px', height: '50px', color: 'white', backgroundColor: '#484848', marginBottom: '20px' }}
-                        >
-                          {activeStep === steps.length - 1 ? 'FINALIZAR' : 'CONTINUAR'}
-                        </Button>
+                       
+                            <Button
+                              disabled={isLoading ? true : false}
+                              variant="contained"
+                              color="primary"
+                              onClick={() => handleNext(activeStep)}
+                              className={classes.button}
+                              style={{ width: '280px', height: '50px', color: 'white', backgroundColor: '#484848', marginBottom: '20px' }}
+                            >
+                               {
+                                isLoading ? (
+                                  <CircularProgress style={{ color: "#ccd900" }} size={30}/>
+                                ) : 
+                                  activeStep === steps.length - 1 ? 'FINALIZAR' : 'CONTINUAR'                                      
+                                }
+                            </Button>
+                          
+                                                
                       </GridItem>
                       <GridItem>
                         <Button disabled={activeStep === 0} onClick={() => handleBack("Checkout")} className={classes.button} style={{ width: '280px', color: '#484848', height: '50px', backgroundColor: '#d3d3d3' }}>

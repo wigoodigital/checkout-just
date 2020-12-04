@@ -248,15 +248,15 @@ const style = {
   },
 
   formInputItem: {
-    "& input": {
+    "& input": {      
       width: '100%',
       color: '#484848',
       background: '#FEFEFE',
       borderRadius: '5px',
-      fontSize: '15px',
-      textTransform: 'capitalize !important',
+      fontSize: '15px',      
       padding: '10px',
       border: '2px solid #D1D1D170',
+      textTransform: 'none !important',
     },
     "& h2": {
       color: '#8E8E8E',
@@ -272,15 +272,23 @@ const style = {
     color: whiteColor,
     fontSize: '18px'    
    },
+  
+  formInputItemError: {  
+    "& h2": {
+      color: '#c85a5f',
+    },  
+    "& input": {
+      border: '1.25px solid #c85a5f',
+    }
+   },
 
    formInputItem: {
-     "& input": {
+     "& input, & select": {
        width:'100%',
        color: '#484848',
        background: '#FEFEFE',
        borderRadius: '5px',
-       fontSize: '20px',
-       textTransform: 'capitalize !important',
+       fontSize: '20px',       
        padding: '10px',
        border: '1.25px solid #D1D1D1',
      },
@@ -293,8 +301,17 @@ const style = {
        marginBottom:'1px',
      },
      "& span": {
+       display: 'flex',
+       marginTop: '5px',
+       alignItems: 'center',
        color: '#c85a5f',
-       fontSize: '13px',
+       fontSize: '5px',
+       "& label": {
+        color: '#c85a5f',
+        fontSize: '13px',
+        margin: '0',
+        padding: '4px'
+       }
      }
    },
 
@@ -364,7 +381,7 @@ const style = {
     alignItems: 'center',
     flexDirection: 'row',
     cursor: 'pointer',
-    width: '280px',
+    width: '250px',
     height: '70px',
     border: 0,
     borderRadius: '5px',
@@ -455,6 +472,19 @@ const style = {
       fontSize: '12px',
       fontWeight: 600,
       color: "#8E8E8E"
+    },
+    "& span": {
+      display: 'flex',
+      marginTop: '5px',
+      alignItems: 'center',
+      color: '#c85a5f',
+      fontSize: '5px',
+      "& label": {
+       color: '#c85a5f',
+       fontSize: '13px',
+       margin: '0',
+       padding: '4px'
+      }
     }
   },
 
@@ -789,15 +819,6 @@ TextContentBenefit:{
    fontWeight:600,
   },
 },
-
-
-FormGroup: {
-
-
-},
-
-
-
 
    '@media (max-wdith: 747px)': {
     complementValue: {

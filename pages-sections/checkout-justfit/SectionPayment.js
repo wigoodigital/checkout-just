@@ -49,7 +49,7 @@ export default function SectionPayment() {
   return (
 
     <GridContainer className={classes.content} justify="center" >
-      <GridItem xs={10} sm={10} md={10}>
+      <GridItem xs={12} sm={12} md={10}>
         <Justfit
           theme="white"
           className={classes.jusfit}
@@ -59,14 +59,14 @@ export default function SectionPayment() {
             <GridItem xs={12} sm={12} md={12}>
               <GridContainer justify='center' align='left'>
 
-                <GridItem xs={12} sm={12} md={10} style={{ marginBottom: '20px' }}>
+                <GridItem xs={12} sm={12} md={12} style={{ marginBottom: '20px' }}>
                   <h1 style={{ fontSize: '40px', fontWeight: 600, color: "#484848", maxWidth: '500px' }}>ESCOLHA SEU MEIO DE PAGAMENTO</h1>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={10}>
+                <GridItem xs={12} sm={12} md={12}>
                   <h1 style={{ fontSize: '14px', fontWeight: 600, color: "#484848", maxWidth: '500px', paddingBottom: '20px' }}>Selecione uma das opções de pagamento e preencha os campos abaixo</h1>
                 </GridItem>
 
-                <GridItem xs={12} sm={12} md={10}>
+                <GridItem xs={12} sm={12} md={12}>
                   <GridContainer justify="space-between" align='center' style={{ display: 'flex', flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
 
                     <button className={classes.btnCardChecked} style={{ backgroundColor: firstCardColor, color: firstCardTextColor, marginLeft: 10, marginRight: 10 }} onClick={() => { setFirstCardColor("#484848"); setFirstCardTextColor('#FFF'); setSecondCardColor('#F2F2F2'); setSecondCardTextColor('#484848'); setThirdCardColor("#F2F2F2"); setThirdCardTextColor('#484848'); setDisplayDebit('none'); setDisplayPayment('block'); }}>
@@ -124,7 +124,7 @@ export default function SectionPayment() {
                   </GridContainer>
                 </GridItem>
 
-                <GridItem xs={12} sm={12} md={10} justify='center' style={{ marginBottom: '20px' }}>
+                <GridItem xs={12} sm={12} md={12} justify='center' style={{ marginBottom: '20px' }}>
 
                   <GridContainer justify='center'>
                     <GridItem xs={12} sm={12} md={6} style={{ marginTop: '50px', display: displayPayment }} >
