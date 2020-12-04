@@ -409,7 +409,7 @@ function getSteps() {
 
 export default function CustomizedSteppers() {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = React.useState(4);
   const [activeAnamnese, setActiveAnamnese] = React.useState(0);
 
   const [showModal, setShowModal] = React.useState(false);
@@ -417,6 +417,11 @@ export default function CustomizedSteppers() {
   
   const [validationForm, setValidationForm] = React.useState(false);
   const [validationPayment, setValidationPayment] = React.useState(false);
+
+  const [messageReturn, setMessageReturn] = React.useState({
+    code: "000",
+    msg: "Erro ao enviar dados. Tente mais tarde"
+  })
   
 
   const [dataSale, setDataSale] = React.useState({
@@ -462,6 +467,7 @@ export default function CustomizedSteppers() {
         nrParcelasPagamento: 12
       },    
       card: {
+        // number: "4551789978997899",
         number: "",
         name: "",
         valid: "",
@@ -469,6 +475,11 @@ export default function CustomizedSteppers() {
         bandeira:""
       },
       dcc: {
+        // conta:"86786876",
+        // contaCorrenteDV:"23",
+        // agencia:"213123",
+        // agenciaDV:"123",
+        // banco:"1"
         conta:"",
         contaCorrenteDV:"",
         agencia:"",
@@ -499,7 +510,8 @@ export default function CustomizedSteppers() {
         setValidationPayment(true);        
         return
       case 3:
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);        
+        saleSend(dataSale);
+        // setActiveStep((prevActiveStep) => prevActiveStep + 1);        
         return  
       default:
         return
@@ -528,11 +540,7 @@ export default function CustomizedSteppers() {
     setActiveAnamnese(0);
   };
 
-  const sendDataForm = () => {
-
-    fetchData(dataSale);
-
-  };
+  
 
   const getStepContent = (step) => {
     switch (step) {
@@ -543,7 +551,7 @@ export default function CustomizedSteppers() {
       case 2:
         return <SectionPayment setDataSale={setDataSale} setActiveStep={setActiveStep} setIsLoading={setIsLoading} setValidationPayment={setValidationPayment}  validationPayment={validationPayment} />
       case 3:
-        return <SectionSummary dataSale={dataSale} />
+        return <SectionSummary dataSale={dataSale} setActiveStep={setActiveStep} />
       case 4:
         return <SectionFinish dataSale={dataSale} />
       default:
@@ -553,29 +561,36 @@ export default function CustomizedSteppers() {
 
 
 
-  const fetchData = async (dataSend) => {
-    axios.defaults.headers.post['Content-Type'] = 'application/json';
-    // await axios.post(`https://admin.justfit.com.br/homologacao/api/LoadPersonalOnline/Post`, dataSend )
-    await axios.post(`https://admin.justfit.com.br/app.justfit/api/LoadPersonalOnline/Post`, dataSend)
+  const saleSend = async (dataSend) => {
+    axios.defaults.headers.post['Content-Type'] = 'application/json';   
+    var result = false;
+    setIsLoading(true);
+    result = await axios.post(`https://admin.justfit.com.br/app.justfit//api/LoadPersonalOnline/CheckoutJust`, dataSend)
       .then(res => {
         console.log(res);
         try {
           if (res.data.code == "0") {
-            setActiveStep(3);
+            setActiveStep(4);
           } else {
+            setMessageReturn( prev => {
+              return {
+                code: res.data.code,
+                msg: res.data.msg
+              }
+            });
             setDataLog(dataSend);
             setShowModal(true);
           }
         } catch (error) {
           console.log(error);
         }
-
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error);        
       })
       .finally(() => {
         console.log("finally");
+        setIsLoading(false);
       });
   };
 
@@ -593,158 +608,7 @@ export default function CustomizedSteppers() {
       });
   };
 
-  const fetchDataTest = async () => {
-    // await axios.get(`https://api.fale.justfit.com.br/fechamentounidade/consultaExtrato?cpf=${cpf} 389.727.318-70`)
-    // await axios.get(`https://api.fale.justfit.com.br/fechamentounidade/consultaExtrato?cpf=${cpf}`)
-    // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-    axios.defaults.headers.post['Content-Type'] = 'application/json';
-    // await axios.post(`https://admin.justfit.com.br/homologacao/api/LoadPersonalOnline/Register`, {
-    await axios.post(`https://admin.justfit.com.br/homologacao/api/LoadPersonalOnline/Post`, {
-      "customer": {
-        "companyBranchId": 15956,
-        "name": "Undefined",
-        "birthDate": "1994-02-20",
-        "sex": "F",
-        "email": "LETICIACLUG@HOTMAIL.COM",
-        "document": "41410072851",
-        "isForeigner": false,
-        "phones": [
-          {
-            "type": "cellphone",
-            "number": "1199911-2140"
-          }
-        ],
-        "address": {
-          "address": "Rua Marcelino",
-          "number": "243",
-          "complement": "",
-          "district": "Santo andré",
-          "city": "São Paulo",
-          "state": "SP",
-          "postalCode": "09180020"
-        },
-        "financeResponsible": {
-
-          "name": "LETICIA CLUG BASTOS GAMA",
-          "document": "41410072851",
-          "email": "LETICIACLUG@HOTMAIL.COM",
-          "phone": "1199911-2140",
-          "active": true
-        },
-        "planData": {
-          "companyBranchId": 15956,
-          "planId": 344912,
-          "consultantId": 10044113,
-          "promotionId": 0,
-          "startDate": "2020-07-31",
-          "dueDate": "2020-07-31"
-        },
-        "paymentMethod": "creditCard",
-        "card": {
-          "number": "41410072851",
-          "name": "LETICIA CLUG BASTOS GAMA",
-          "valid": "12/20",
-          "cvv": "782"
-        },
-        "anamnese": {
-          "idade": "25",
-          "altura": "1.75",
-          "objetivo": "teste",
-          "habitotreino": "teste",
-          "frequenciatreino": "teste",
-          "fazmusculacao": "teste",
-          "fazaulas": "TESTE",
-          "sedentario": "TESTE",
-          "sedentariotempo": "TESTE",
-          "reclusaotreino": "TESTE",
-          "tempoporDia": "TESTE",
-          "periodo": "TESTE",
-          "peso": "60",
-          "patologia": "TESTE",
-          "outropatologia": "TESTE",
-          "osseoarticular": "TESTE",
-          "qualosseoArticular": "TESTE",
-          "cirurgia": "TESTE",
-          "qualCirurgia": "TESTE",
-          "internacao": "TESTE",
-          "qualInternacao": "TESTE",
-          "medicamento": "TESTE",
-          "qualMedicamento": "TESTE",
-          "fuma": "TESTE",
-          "nutricionista": "TESTE",
-          "peronalTrainer": "TESTE",
-          "equipamentos": "TESTE",
-          "status": "TESTE",
-          "unidade": "TESTE",
-          "aluno": "TESTE"
-        }
-      }
-    })
-      .then(res => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        console.log("finally");
-      });
-  };
-
-  const fetchDataJust = async (cpf) => {
-    await axios.get(`https://api.fale.justfit.com.br/fechamentounidade/consultaExtrato?cpf=${cpf}`)
-      .then(res => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        console.log("finally");
-      });
-  };
-
-  const fetchDataClicou = async () => {
-    await axios.get(`https://admin.justfit.com.br/homologacao/api/LoadPersonalOnline/getItem`)
-      .then(res => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        console.log("finally");
-      });
-  };
-  const fetchDataClicouRegister = async () => {
-    // await axios.post(`https://admin.justfit.com.br/homologacao/api/LoadPersonalOnline/Post`, {
-
-    //   "teste": "teste"
-
-    // })
-    await axios.post(`https://api.fale.justfit.com.br/solicitacoes`, {
-      teste: "teste"
-    })
-      .then(res => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        console.log("finally");
-      });
-  };
-
-
-  // React.useEffect(() => {
-  // fetchData();
-  // fetchDataClicou();
-  // fetchDataJust("389.727.318-70");
-  // fetchDataClicouRegister();
-  // setDataLog(dataSale);
-  // }, []);
-
+  
 
   const tagManagerArgs = {
     gtmId: 'GTM-WPLTJG8'
@@ -783,7 +647,7 @@ export default function CustomizedSteppers() {
     console.log(activeStep);
 
     // if(activeStep == 3){
-    //   fetchData(dataSale);
+    //   saleSend(dataSale);
     // }
 
   }, [activeStep]);
@@ -828,7 +692,7 @@ export default function CustomizedSteppers() {
             </GridContainer>
 
             <div style={{display:'flex',flex:1,flexDirection:'column'}}>
-            <SectionModal setActive={0} setShowModal={setShowModal} showModal={showModal} />
+            <SectionModal setActive={0} setShowModal={setShowModal} showModal={showModal} messageReturn={messageReturn} />
 
 
 

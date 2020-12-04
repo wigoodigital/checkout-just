@@ -375,7 +375,14 @@ export default function SectionPayment(props) {
                 valid: identificationCredit.valid,
                 cvv: identificationCredit.cvv,
                 bandeira: codBrand,
-              }                              
+              },
+              dcc: {
+                conta:"",
+                contaCorrenteDV:"",
+                agencia:"",
+                agenciaDV:"",
+                banco:""
+              }                                
             }               
           }
         });  
@@ -422,7 +429,14 @@ export default function SectionPayment(props) {
                 agencia: identificationDebit.agencia,
                 agenciaDV: identificationDebit.agenciaDV,
                 banco: identificationDebit.banco
-              }                                
+              },
+              card: {
+                number: "",
+                name: "",
+                valid: "",
+                cvv: "",
+                bandeira:""
+              }                               
             }               
           }
         });  

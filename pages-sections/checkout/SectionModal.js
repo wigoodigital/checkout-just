@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme =>
   ({
     ...modalStyle(theme),
     modalIcon: {
-      color: "#425CC7",
+      color: "#ccd900",
       fontSize: "6.1875rem"
     },
     modalFooter: {
@@ -108,10 +108,12 @@ export default function ModalOffer(props) {
           <div style={{ textAlign: "center" }}>
             <ErrorIcon color="primary" className={classes.modalIcon} />
             <br/>
-            <h4 className={classes.modalTitle}>Erro ao enviar dados</h4>
+            <div style={{ maxWidth: "240px", margin: "0 auto" }}>
+              <h4 className={classes.modalTitle}>{props.messageReturn.msg}</h4>
+            </div>
             <br/>
 
-            <p>Verique os dados preenchidos e tente novamente 
+            <p>Erro <b>{props.messageReturn.code}</b>
               {/* <h3 style={{ color: "#c9d302", fontWeight: "900", marginTop: 0 }}>DIAMANTE</h3> */}
             </p>
                          
