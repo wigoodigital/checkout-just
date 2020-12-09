@@ -23,7 +23,26 @@ import nextstep3 from "assets/img/nextstep-3.png";
 import nextstep4 from "assets/img/nextstep-4.png";
 
 import planofit from "assets/img/planofit.png";
+
 import mastercard from "assets/img/mastercard.png";
+
+import amex from "assets/img/icon-cartoes/icon-amex.png";
+import aura from "assets/img/icon-cartoes/icon-aura.png";
+import chip from "assets/img/icon-cartoes/icon-chip.png";
+import diners from "assets/img/icon-cartoes/icon-diners.png";
+import discover from "assets/img/icon-cartoes/icon-discover.png";
+import elo from "assets/img/icon-cartoes/icon-elo.png";
+import hipercard from "assets/img/icon-cartoes/icon-hipercard.png";
+import jcb from "assets/img/icon-cartoes/icon-jcb.png";
+import nocard from "assets/img/icon-cartoes/icon-nocard.png";
+import reverse from "assets/img/icon-cartoes/icon-reverse.png";
+import visa from "assets/img/icon-cartoes/icon-visa.png";
+
+import bancodobrasil from "assets/img/icon-cartoes/icon-bancodobrasil.png";
+import bradesco from "assets/img/icon-cartoes/icon-bradesco.png";
+import itau from "assets/img/icon-cartoes/icon-itau.png";
+import santander from "assets/img/icon-cartoes/icon-santander.png";
+
 
 
 import styles from "assets/jss/nextjs-material-kit-pro/pages/justfit/justfit.js";
@@ -33,10 +52,67 @@ import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles(styles);
 
-export default function SectionFinish() {
+export default function SectionFinish(props) {
   const classes = useStyles();
 
   const dotCheck = <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0)"><path d="M5.43192 10.0652C4.88786 10.6092 4.00508 10.6092 3.46128 10.0652L0.408044 7.01195C-0.136015 6.46816 -0.136015 5.58538 0.408044 5.04158C0.951839 4.49752 1.83462 4.49752 2.37868 5.04158L4.19781 6.86045C4.33514 6.99751 4.55806 6.99751 4.69565 6.86045L9.62132 1.93478C10.1651 1.39072 11.0479 1.39072 11.592 1.93478C11.8532 2.19604 12 2.55052 12 2.91996C12 3.28941 11.8532 3.64389 11.592 3.90515L5.43192 10.0652Z" fill="#CCDA01" /></g><defs><clipPath id="clip0"><rect width="12" height="12" fill="white" /></clipPath></defs></svg>;
+
+
+  const getBrand = (number) => {    
+    switch (number) {
+      case 1:                
+        return visa;
+        break;
+      case 2:        
+        return mastercard;
+        break;      
+      case 3:        
+        return diners;
+        break;  
+      case 4:        
+        return amex;
+        break;    
+      case 8:        
+        return discover;
+        break;    
+      case 9:        
+        return hipercard;
+        break;    
+      case 6:        
+        return elo;
+        break;    
+      case 7:        
+        return jcb;
+        break;    
+      case 5:        
+        return aura;
+        break;      
+      default:
+        return chip;        
+        break    
+      }
+  }
+  
+  const getBanco = (number) => {    
+    switch (number) {
+      case "1":                
+        return bancodobrasil;
+        break;
+      case "341":        
+        return itau;
+        break;      
+      case "237":        
+        return bradesco;
+        break;  
+      case "33":        
+        return santander;
+        break;      
+      default:
+        return chip;        
+        break    
+      }
+  }
+  
 
 
   return (
@@ -49,7 +125,7 @@ export default function SectionFinish() {
         >
           <GridContainer justify='center' align='center' >
             <GridItem xs={12} sm={12} md={10}>
-              <h2 style={{ marginBottom: '40px', marginTop: '20px', fontSize: '40px', fontWeight: '600', color: '#787878' }}>SEJA <strong style={{ fontWeight: '900', color: '#484848', }}>BEM VINDO(A)</strong> À JUSTFIT, <strong style={{ fontWeight: '900', color: '#484848' }}>JOSÉ</strong> </h2>
+              <h2 style={{ marginBottom: '40px', marginTop: '20px', fontSize: '40px', fontWeight: '600', color: '#787878' }}>SEJA <strong style={{ fontWeight: '900', color: '#484848', }}>BEM VINDO(A)</strong> À JUSTFIT, <br/> <strong style={{ fontWeight: '900', color: '#484848' }}>{props.dataSale.customer.name}</strong> </h2>
             </GridItem>
             <GridItem xs={12} sm={12} md={10}>
               <h5 style={{ fontSize: '20px', fontWeight: '900', padding: 0, margin: 0, color: '#484848', marginBottom: '10px' }}>PRÓXIMOS PASSOS</h5>
@@ -96,7 +172,7 @@ export default function SectionFinish() {
                 </GridContainer >
 
               </GridItem>
-              <GridItem style={{ height: '100%', }}>
+              <GridItem style={{ height: '100%'}}>
                 <GridContainer style={{ display: 'flex', flex: 1, height: '100%', border: '2px solid #D8D8D8', padding: 20, borderRadius: 20 }}>
                   <GridItem xs={1} sm={1} md={1} align='center' justify='center' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
@@ -136,19 +212,41 @@ export default function SectionFinish() {
                     <h1 style={{ margin: 0, padding: 0, fontSize: '13px', fontWeight: '700', color: '#FFF' }} >PROMOÇÕES</h1>
                     <h3 style={{ color: '#E3E3E3', fontSize: '12px', fontWeight: '400', listStyleType: 'none', marginTop: '5px', padding: 0, }}>ANUIDADEZERO | <strong>R$ 0,00</strong></h3>
                   </GridItem>
-                  <GridItem align='left' style={{ marginTop: '40px' }}>
-                    <h1 style={{ margin: 0, padding: 0, fontSize: '13px', fontWeight: '700', color: '#FFF' }} >PAGAMENTO COM CARTÃO DE CRÉDITO</h1>
-                    <GridContainer style={{ marginTop: '5px' }}>
-                      <GridItem xs={12} sm={12} md={2}>
-                        <img src={mastercard} />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={10}>
-                        <h3 style={{ color: '#E3E3E3', fontSize: '12px', fontWeight: '400', listStyleType: 'none', margin: 0, padding: 0, }}>JOSÉ EXEMPLO EXEMPLAR </h3>
-                        <h3 style={{ color: '#E3E3E3', fontSize: '12px', fontWeight: '400', listStyleType: 'none', margin: 0, padding: 0, }}>CARTÃO XXXX XXXX XXXX 5859</h3>
-                      </GridItem>
 
-                    </GridContainer>
-                  </GridItem>
+                  {props.dataSale.customer.card.number !== "" ? (
+
+                    <GridItem align='left' style={{ marginTop: '40px' }}>
+                      <h1 style={{ margin: 0, padding: 0, fontSize: '13px', fontWeight: '700', color: '#FFF' }} >PAGAMENTO COM CARTÃO DE CRÉDITO</h1>
+                      <GridContainer style={{ marginTop: '5px' }}>
+                        <GridItem xs={12} sm={12} md={2}>
+                          <img style={{ width: "35px" }} src={getBrand(props.dataSale.customer.card.bandeira)} />
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={10}>
+                          <h3 style={{ color: '#E3E3E3', fontSize: '12px', fontWeight: '400', listStyleType: 'none', margin: 0, padding: 0, }}>{props.dataSale.customer.card.name} </h3>
+                          <h3 style={{ color: '#E3E3E3', fontSize: '12px', fontWeight: '400', listStyleType: 'none', margin: 0, padding: 0, }}>CARTÃO XXXX XXXX XXXX {props.dataSale.customer.card.number.substr(props.dataSale.customer.card.number.length - 4)}</h3>
+                        </GridItem>
+
+                      </GridContainer>
+                    </GridItem>
+
+                  ) : (
+
+                    <GridItem align='left' style={{ marginTop: '40px' }}>
+                      <h1 style={{ margin: 0, padding: 0, fontSize: '13px', fontWeight: '700', color: '#FFF' }} >PAGAMENTO COM DÉBITO EM CONTA</h1>
+                      <GridContainer style={{ marginTop: '5px' }}>
+                        <GridItem xs={12} sm={12} md={2}>
+                          <img style={{ width: "35px" }} src={getBanco(props.dataSale.customer.dcc.banco)} />
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={10}>
+                          <h3 style={{ color: '#E3E3E3', fontSize: '12px', fontWeight: '400', listStyleType: 'none', margin: 0, padding: 0, }}>AGÊNCIA: {props.dataSale.customer.dcc.agencia}-{props.dataSale.customer.dcc.agenciaDV}  </h3>
+                          <h3 style={{ color: '#E3E3E3', fontSize: '12px', fontWeight: '400', listStyleType: 'none', margin: 0, padding: 0, }}>CONTA: {props.dataSale.customer.dcc.conta}-{props.dataSale.customer.dcc.contaCorrenteDV}</h3>
+                        </GridItem>
+
+                      </GridContainer>
+                    </GridItem>
+
+                  )}                  
+                  
 
                 </GridItem>
 

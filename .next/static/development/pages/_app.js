@@ -21968,7 +21968,7 @@ var MyApp = /*#__PURE__*/function (_App) {
           lineNumber: 76,
           columnNumber: 11
         }
-      }, "Just Fit - Checkout")), __jsx(Component, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, pageProps, {
+      }, "  Just Fit - Checkout")), __jsx(Component, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, pageProps, {
         __self: this,
         __source: {
           fileName: _jsxFileName,

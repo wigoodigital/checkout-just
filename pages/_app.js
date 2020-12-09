@@ -59,7 +59,7 @@ export default class MyApp extends App {
     document.insertBefore(comment, document.documentElement);
   }
   static async getInitialProps({ Component, router, ctx }) {
-    let pageProps = {};
+    let pageProps = {};    
 
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
@@ -73,7 +73,7 @@ export default class MyApp extends App {
     return (
       <React.Fragment>
         <Head>
-          <title>Just Fit - Checkout</title>
+          <title>  Just Fit - Checkout</title>
         </Head>
         <Component {...pageProps} />
       </React.Fragment>

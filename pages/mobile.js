@@ -384,6 +384,12 @@ export default function CustomizedSteppers() {
 
   const [showModal, setShowModal] = React.useState(false);
 
+  const [messageReturn, setMessageReturn] = React.useState({
+    code: "000",
+    msg: "Erro ao enviar dados. Tente mais tarde"
+  })
+  
+
   const [dataSale, setDataSale] = React.useState({
     
     customer: {
@@ -816,7 +822,7 @@ export default function CustomizedSteppers() {
         </GridContainer>
     
 
-      <SectionModal setActive={0} setShowModal={setShowModal} showModal={showModal} />
+      <SectionModal setActive={0} setShowModal={setShowModal} showModal={showModal} messageReturn={messageReturn} />
         
 
 
@@ -877,26 +883,26 @@ export default function CustomizedSteppers() {
                     </Button>
                   </div> */}
 
-                                 <GridContainer justify='center' align='center' style={{marginTop:'20px'}}>
-               <GridItem>
-               <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => handleNext("Checkout")}
-                      className={activeStep === steps.length - 1 ? classes.colorBtnFinish : classes.colorBtnDefault}
-                      style={{width:'280px', height:'50px',color:'white',backgroundColor:'#484848',marginBottom:'20px'}}
-                    >
-                      {activeStep === steps.length - 1 ? 'FINALIZAR' : 'CONTINUAR'}
-                    </Button>
-                   </GridItem>
-                   <GridItem>
-                   <Button disabled={activeStep === 0} onClick={() => handleBack("Checkout")}     className={activeStep === steps.length - 1 ? classes.disabledBurger : classes.enabledBurger} style={{width:'280px',color:'#484848',height:'50px',backgroundColor:'#d3d3d3'}}>
-                      VOLTAR
-                    </Button>
+                  <GridContainer justify='center' align='center' style={{marginTop:'20px'}}>
+                    <GridItem>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => handleNext("Checkout")}
+                        className={activeStep === steps.length - 1 ? classes.colorBtnFinish : classes.colorBtnDefault}
+                        style={{width:'280px', height:'50px',color:'white',backgroundColor:'#484848',marginBottom:'20px'}}
+                      >
+                        {activeStep === steps.length - 1 ? 'FINALIZAR' : 'CONTINUAR'}
+                      </Button>
+                    </GridItem>
+                    <GridItem>
+                    <Button disabled={activeStep === 0} onClick={() => handleBack("Checkout")}     className={activeStep === steps.length - 1 ? classes.disabledBurger : classes.enabledBurger} style={{width:'280px',color:'#484848',height:'50px',backgroundColor:'#d3d3d3'}}>
+                        VOLTAR
+                      </Button>
 
-                  
-                   </GridItem>
-                   </GridContainer>
+                    
+                    </GridItem>
+                  </GridContainer>
                 </div>
 
               )}
