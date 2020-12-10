@@ -26,6 +26,9 @@ import creditWhite from "assets/img/credit-card-white.png";
 import debitDark from "assets/img/debit-bank-dark.png";
 
 
+import stepMobile3 from "assets/img/mobilestep3.png";
+
+
 import styles from "assets/jss/nextjs-material-kit-pro/pages/justfit/justfit.js";
 import Justfit from "../../components/Justfit/justfit";
 import PlanHorizontal from "../../components/Justfit/JustfitPlans/PlanHorizontal";
@@ -292,20 +295,73 @@ export default function SectionPayment(props) {
   })
 
 
-  const { register, trigger, control, getValues, errors } = useForm({
+  const { register, trigger, control, getValues, setValue, errors } = useForm({
     resolver: yupResolver(SignupSchema),
     mode: "onBlur"    
   });
   
-  const { register: registerCredit, trigger: triggerCredit, control: controlCredit, getValues: getValuesCredit, errors: errorsCredit } = useForm({
+  const { register: registerCredit, trigger: triggerCredit, control: controlCredit, getValues: getValuesCredit, setValue: setValueCredit,  errors: errorsCredit } = useForm({
     resolver: yupResolver(creditCardSchema),
     mode: "onBlur"    
   });
   
-  const { register: registerDebit, trigger: triggerDebit, control: controlDebit, getValues: getValuesDebit, errors: errorsDebit } = useForm({
+  const { register: registerDebit, trigger: triggerDebit, control: controlDebit, getValues: getValuesDebit, setValue: setValueDebit, errors: errorsDebit } = useForm({
     resolver: yupResolver(debitAccountSchema),
     mode: "onBlur"    
   });
+  
+  React.useEffect( () => {
+    console.log("setValue");
+
+    if(props.dataSale.customer.address.postalCode != ""){
+            
+      setValueDebit("acceptTermsDebit", true);
+      setValueCredit("acceptTermsCredit", true);
+
+    }
+
+    if( props.dataSale.customer.dcc.conta != "" ) {
+      setFirstCardColor("#F2F2F2"); 
+      setFirstCardTextColor('#484848'); 
+      setSecondCardColor('#F2F2F2'); 
+      setSecondCardTextColor('#484848'); 
+      setThirdCardColor("#484848"); 
+      setThirdCardTextColor('#FFF'); 
+      setDisplayDebit('block'); 
+      setDisplayPayment('none');
+    }
+
+    setValueCredit("nameCredit", props.dataSale.customer.card.name);
+    setValueCredit("number", props.dataSale.customer.card.number);
+    setValueCredit("valid", props.dataSale.customer.card.valid);
+    setValueCredit("cvv", props.dataSale.customer.card.cvv);
+    setValueCredit("cpfCredit", props.dataSale.customer.financeResponsible.document);
+
+
+    setValueDebit("conta", props.dataSale.customer.dcc.conta);
+    setValueDebit("contaDV", props.dataSale.customer.dcc.contaCorrenteDV);
+    setValueDebit("agencia", props.dataSale.customer.dcc.agencia);
+    setValueDebit("agenciaDV", props.dataSale.customer.dcc.agenciaDV);
+    setValueDebit("banco", props.dataSale.customer.dcc.banco);
+    setValueDebit("cpfDebit", props.dataSale.customer.financeResponsible.document);
+    setValueDebit("nameDebit", props.dataSale.customer.financeResponsible.name);
+
+    setValue("numero", props.dataSale.customer.address.number);
+    setValue("complemento", props.dataSale.customer.address.complement);    
+    setAddress( (prevAddress) => {
+      return {
+        ...prevAddress,
+        cep: props.dataSale.customer.address.postalCode,
+        endereco: props.dataSale.customer.address.address,
+        bairro: props.dataSale.customer.address.district,
+        estado: props.dataSale.customer.address.state,
+        cidade: props.dataSale.customer.address.city,
+      }
+    });   
+
+
+    
+  }, []);
   
   
 
@@ -357,18 +413,18 @@ export default function SectionPayment(props) {
               ...prevDataSale.customer,              
               financeResponsible: {
                 ...prevDataSale.customer.financeResponsible,
-                name: identificationCredit.nameCredit,
+                name: removeAcento( identificationCredit.nameCredit ),
                 document: identificationCredit.cpfCredit,                
-              }, 
+              },    
               address: {
-                address: identificationForm.endereco,
+                address: removeAcento(identificationForm.endereco),
                 number: identificationForm.numero,
-                complement: identificationForm.complemento,
-                district: identificationForm.bairro,
-                city: identificationForm.cidade,
+                complement: removeAcento(identificationForm.complemento),
+                district: removeAcento(identificationForm.bairro),
+                city: removeAcento(identificationForm.cidade),
                 state: identificationForm.estado,
-                postalCode: identificationForm.cep.replace(/[^\d]+/g,'')
-              },
+                postalCode: identificationForm.cep
+              },   
               card: {
                 number: identificationCredit.number.replace(/\s+/g, ''),
                 name: identificationCredit.nameCredit,
@@ -411,17 +467,17 @@ export default function SectionPayment(props) {
               ...prevDataSale.customer,              
               financeResponsible: {
                 ...prevDataSale.customer.financeResponsible,
-                name: identificationDebit.nameDebit,
+                name: removeAcento( identificationDebit.nameDebit ),
                 document: identificationDebit.cpfDebit,                
               }, 
               address: {
-                address: identificationForm.endereco,
+                address: removeAcento(identificationForm.endereco),
                 number: identificationForm.numero,
-                complement: identificationForm.complemento,
-                district: identificationForm.bairro,
-                city: identificationForm.cidade,
+                complement: removeAcento(identificationForm.complemento),
+                district: removeAcento(identificationForm.bairro),
+                city: removeAcento(identificationForm.cidade),
                 state: identificationForm.estado,
-                postalCode: identificationForm.cep.replace(/[^\d]+/g,'')
+                postalCode: identificationForm.cep
               },           
               dcc: {
                 conta: identificationDebit.conta,
@@ -446,6 +502,18 @@ export default function SectionPayment(props) {
     }
 
     props.setIsLoading(false);    
+  }
+
+  const removeAcento = (text) => {
+    text = text.toLowerCase();                                                         
+    text = text.replace(new RegExp('[ÁÀÂÃ]','gi'), 'a');
+    text = text.replace(new RegExp('[ÉÈÊ]','gi'), 'e');
+    text = text.replace(new RegExp('[ÍÌÎ]','gi'), 'i');
+    text = text.replace(new RegExp('[ÓÒÔÕ]','gi'), 'o');
+    text = text.replace(new RegExp('[ÚÙÛ]','gi'), 'u');
+    text = text.replace(new RegExp('[Ç]','gi'), 'c');
+    text = text.toUpperCase()
+    return text;    
   }
 
 
@@ -565,11 +633,26 @@ export default function SectionPayment(props) {
         >
           <GridContainer justify='center' style={{ marginBottom: '30px', }}>
 
+          {
+              props.isMobile && (
+                <>
+                  <GridItem align='left' justify='center' xs={6} sm={6} md={8}>
+                    <h2 style={{fontSize: '17px', fontWeight:600,color:'#484848',minWidth:'150px'}}>ESCOLHA SEU MEIO DE PAGAMENTO</h2>
+                    <p style={{minWidth:'160px',color:'#484848',fontWeight:500,fontSize:'12px'}}>UNIDADE <strong>BARRETOS</strong></p>
+                  </GridItem>
+                  <GridItem className={classes.stepMobile} xs={6} sm={6} md={4} align='right'>
+                    <img src={stepMobile3} />
+                  </GridItem>
+                </>
+
+              )
+            }
+
             <GridItem xs={12} sm={12} md={12}>
               <GridContainer justify='center' align='left'>
 
                 <GridItem xs={12} sm={12} md={12} style={{ marginBottom: '20px' }}>
-                  <h1 style={{ fontSize: '40px', fontWeight: 600, color: "#484848", maxWidth: '500px' }}>ESCOLHA SEU MEIO DE PAGAMENTO</h1>
+                  <h1 style={{ fontSize: '40px', fontWeight: 600, color: "#484848", maxWidth: '500px', display: props.isMobile && "none" }}>ESCOLHA SEU MEIO DE PAGAMENTO</h1>
                 </GridItem>
                 <GridItem xs={12} sm={12} md={12}>
                   <h1 style={{ fontSize: '14px', fontWeight: 600, color: "#484848", maxWidth: '500px', paddingBottom: '20px' }}>Selecione uma das opções de pagamento e preencha os campos abaixo</h1>
@@ -854,10 +937,11 @@ export default function SectionPayment(props) {
 
                           <InputMask
                             name="cep"
+                            type="tel"
                             mask={"99999-999"}
                             maskPlaceholder={""}                            
                             inputRef={register()}
-                            // defaultValue={""}
+                            defaultValue={props.dataSale.customer.address.postalCode}
                             onBlur={(e) => {
                               // console.log(e.target.value);   
                               console.log(getValues("cep"));  

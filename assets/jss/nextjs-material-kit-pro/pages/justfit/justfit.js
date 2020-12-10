@@ -211,6 +211,14 @@ const style = {
     "& img": {
       width: "100%"
     }
+  },  
+  logoTop: {
+    maxWidth: "180px",
+    '@media (max-width: 747px)': {
+      maxWidth: "120px",
+      marginTop: "10px"
+    }
+
   },
 
 
@@ -369,6 +377,28 @@ const style = {
       content: '',
       position: 'relative',
       background: '#757575'
+    },
+    '@media (max-width: 747px)': {
+      margin: "0 auto !important"
+    }
+
+  },
+
+  cardSummary: {
+    '@media (max-width: 747px)': {
+      // padding: "20px 10px"
+    }
+
+  },
+
+  titleFinish: {
+    marginBottom: '40px', 
+    marginTop: '20px', 
+    fontSize: '40px', 
+    fontWeight: '600', 
+    color: '#787878',
+    '@media (max-width: 747px)': {
+      fontSize: '25px', 
     }
   },
 
@@ -404,6 +434,9 @@ const style = {
       content: '',
       position: 'relative',
       background: '#FFF'
+    },
+    '@media (max-width: 747px)': {
+      margin: "0 auto !important"
     }
 
 
@@ -460,7 +493,22 @@ const style = {
 
   fixGridPlan: {
     position: 'relative',
-    top: '40px'
+    top: '40px',
+    '@media (max-width: 747px)': {
+      padding: "25px",      
+    }
+  },
+  
+  itemPricePlan: {        
+    '@media (max-width: 747px)': {
+      padding: "15px",      
+    }
+  },
+
+  priceNew: {
+    '@media (max-width: 747px)': {
+      right: "0 !important",      
+    }
   },
 
 
@@ -774,6 +822,11 @@ const style = {
     color: '#484848',
     borderRadius: '20px',
     width: '100%',
+  },
+
+  imgPlano: {
+    maxWidth: "100%",
+    maxHeight: "50px",
   },
 
   TextContentBenefit: {

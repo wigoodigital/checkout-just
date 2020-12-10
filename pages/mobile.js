@@ -58,8 +58,8 @@ import { Grid } from '@material-ui/core';
 import SectionProgressBarMobile from '../pages-sections/justfit-mobile/SectionProgressBar';
 import Sidebar from '../pages-sections/justfit-mobile/Sidebar';
 import SectionPlansMobile from '../pages-sections/justfit-mobile/SectionPlans';
-// import SectionFormMobile from '../pages-sections/justfit-mobile/SectionForm';
-import SectionFormMobile from '../pages-sections/checkout-justfit/SectionForm';
+import SectionFormMobile from '../pages-sections/justfit-mobile/SectionForm';
+// import SectionFormMobile from '../pages-sections/checkout-justfit/SectionForm';
 import SectionPaymentMobile from '../pages-sections/justfit-mobile/SectionPayment';
 import SectionSummaryMobile from '../pages-sections/justfit-mobile/SectionSummary';
 import SectionFinishMobile from '../pages-sections/justfit-mobile/SectionFinish';
@@ -379,7 +379,7 @@ function getSteps() {
 
 export default function CustomizedSteppers() {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = React.useState(4);
   const [activeAnamnese, setActiveAnamnese] = React.useState(0);
 
   const [showModal, setShowModal] = React.useState(false);

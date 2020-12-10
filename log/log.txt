@@ -10,3 +10,15 @@
 {"customer":{"companyBranchId":"34","name":"GUILHERME","birthDate":"22/02/1993","sex":"M","email":"ribeiro-guilherme@outlook.com","document":"40079423825","isForeigner":false,"phones":[{"type":"cellphone","number":"(11)96085-6066"}],"address":{"address":"Rua Germano Augusto","number":"174","complement":"","district":"Vila Ema","city":"São Paulo","state":"SP","postalCode":"03277110"},"financeResponsible":{"name":"Guilherme P Ribeiro","document":"400.794.238-25","email":"ribeiro-guilherme@outlook.com","phone":"(11)96085-6066","active":true},"planData":{"companyBranchId":"34","planId":602,"consultantId":11650531,"promotionId":0,"startDate":"2020-07-31","dueDate":"2020-07-31","cupom":"","nrParcelasPagamento":12},"card":{"number":"5502098286405036","name":"Guilherme P Ribeiro","valid":"11/2028","cvv":"229","bandeira":2},"dcc":{"conta":"","contaCorrenteDV":"","agencia":"","agenciaDV":"","banco":""}}}
 
 
+
+
+
+{"customer":{"companyBranchId":"25","name":"TESTE CHECK","birthDate":"08/12/1984","sex":"M","email":"bruno.souza@justfit.com.br","document":"38758432400","isForeigner":false,"phones":[{"type":"cellphone","number":"(11)98570-5674"}],"address":{"address":"Avenida Bunduki","number":"865","complement":"","district":"Assunção","city":"São Bernardo do Campo","state":"SP","postalCode":"09812580"},"financeResponsible":{"name":"GUILHERME P RIBEIRO","document":"400.794.238-25","email":"bruno.souza@justfit.com.br","phone":"(11)98570-5674","active":true},"planData":{"companyBranchId":"25","planId":600,"consultantId":11650531,"promotionId":0,"startDate":"2020-07-31","dueDate":"2020-07-31","cupom":"","nrParcelasPagamento":12},"card":{"number":"5502098286405036","name":"GUILHERME P RIBEIRO","valid":"11/2028","cvv":"229","bandeira":2},"dcc":{"conta":"","contaCorrenteDV":"","agencia":"","agenciaDV":"","banco":""}}}
+
+
+
+
+
+{"customer":{"companyBranchId":"25","name":"TESTE","birthDate":"22/02/1993","sex":"M","email":"ribeiro-guilherme@outlook.com","document":"35633570057","isForeigner":false,"phones":[{"type":"cellphone","number":"(11)96085-6066"}],"address":{"address":"Rua Germano Augusto","number":"174","complement":"","district":"Vila Ema","city":"São Paulo","state":"SP","postalCode":"03277110"},"financeResponsible":{"name":"Guilherme P Ribeiro","document":"400.794.238-25","email":"ribeiro-guilherme@outlook.com","phone":"(11)96085-6066","active":true},"planData":{"companyBranchId":"25","planId":599,"consultantId":11650531,"promotionId":0,"startDate":"2020-07-31","dueDate":"2020-07-31","cupom":"","nrParcelasPagamento":12},"card":{"number":"5502098286405036","name":"Guilherme P Ribeiro","valid":"08/2020","cvv":"229","bandeira":2},"dcc":{"conta":"","contaCorrenteDV":"","agencia":"","agenciaDV":"","banco":""}}}
+
+

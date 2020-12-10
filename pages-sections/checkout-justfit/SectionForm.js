@@ -24,6 +24,8 @@ import Footer from "components/Footer/Footer.js";
 import googleIcon from "assets/img/google-icon.png";
 import facebookIcon from "assets/img/facebook-icon.png";
 
+import stepMobile2 from "assets/img/mobilestep2.png";
+
 import styles from "assets/jss/nextjs-material-kit-pro/pages/justfit/justfit.js";
 import Justfit from "../../components/Justfit/justfit";
 import PlanHorizontal from "../../components/Justfit/JustfitPlans/PlanHorizontal";
@@ -190,12 +192,9 @@ const SignupSchema = yup.object().shape({
   cpf: yup
     .string()
     .cpf("Por favor, informe um CPF válido"),  
-  firstName: yup
+  name: yup
     .string()
-    .required(),  
-  lastName: yup
-    .string()
-    .required(),  
+    .required(),   
   sex: yup
     .string()
     .required(),  
@@ -235,12 +234,31 @@ export default function SectionForm(props) {
   const classes = useStyles();
 
 
-  const { register, trigger, control, getValues, errors } = useForm({
+  const { register, trigger, control, getValues, setValue, errors } = useForm({
     resolver: yupResolver(SignupSchema),
     mode: "onBlur"    
   });
 
 
+  React.useEffect( () => {
+    console.log("setValue");
+
+    if(props.dataSale.customer.name != ""){
+      
+      setValue("optinPhone", true);
+      setValue("optinEmail", true);
+
+    }
+
+    setValue("name", props.dataSale.customer.name);
+    setValue("email", props.dataSale.customer.email);
+    setValue("cpf", props.dataSale.customer.document);
+    setValue("sex", props.dataSale.customer.sex);
+    setValue("birthDate", props.dataSale.customer.birthDate);
+    setValue("phone", props.dataSale.customer.phones[0].number);
+
+  }, []);
+  
   React.useEffect( () => {
     if(props.validationForm){            
       validateForm();       
@@ -274,14 +292,14 @@ export default function SectionForm(props) {
             return {  
               customer: { 
                 ...prevDataSale.customer,
-                name: identificationForm.firstName.toUpperCase(),
+                name:  removeAcento( identificationForm.name ),
                 email: identificationForm.email,
                 document: identificationForm.cpf.replace(/[^\d]+/g,''),   
                 sex: identificationForm.sex,
                 birthDate: identificationForm.birthDate,
                 financeResponsible: {
                   ...prevDataSale.customer.financeResponsible,
-                  name: identificationForm.firstName.toUpperCase(),
+                  name: removeAcento( identificationForm.name ),
                   document: identificationForm.cpf.replace(/[^\d]+/g,''), 
                   email: identificationForm.email,
                   phone: identificationForm.phone.replace(/\s+/g, '')                                  
@@ -362,6 +380,19 @@ export default function SectionForm(props) {
       return result;
   };
 
+  const removeAcento = (text) => {
+    text = text.toLowerCase();                                                         
+    text = text.replace(new RegExp('[ÁÀÂÃ]','gi'), 'a');
+    text = text.replace(new RegExp('[ÉÈÊ]','gi'), 'e');
+    text = text.replace(new RegExp('[ÍÌÎ]','gi'), 'i');
+    text = text.replace(new RegExp('[ÓÒÔÕ]','gi'), 'o');
+    text = text.replace(new RegExp('[ÚÙÛ]','gi'), 'u');
+    text = text.replace(new RegExp('[Ç]','gi'), 'c');
+    text = text.toUpperCase()
+    return text;    
+  }
+
+
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -385,9 +416,27 @@ export default function SectionForm(props) {
             className={classes.jusfit}
           >
           <GridContainer justify='center' align='left'>
-            <GridItem xs={10} sm={10} md={10} style={{marginBottom:'40px'}}>
+
+
+            {
+              props.isMobile && (
+                <>
+                  <GridItem align='left' justify='center' xs={6} sm={6} md={8}>
+                    <h2 style={{fontSize: '17px', fontWeight:600,color:'#484848',minWidth:'160px'}}>IDENTIFIQUE-SE PARA CONTINUAR</h2>
+                    <p style={{minWidth:'160px',color:'#484848',fontWeight:500,fontSize:'12px'}}>UNIDADE <strong>BARRETOS</strong></p>
+                  </GridItem>
+                  <GridItem className={classes.stepMobile} xs={6} sm={6} md={4} align='right'>
+                    <img src={stepMobile2} />
+                  </GridItem>
+                </>
+
+              )
+            }
+            
+
+            <GridItem xs={12} sm={12} md={10} style={{marginBottom:'40px'}}>
             {/* <h1 style={{fontSize:'40px',fontWeight:600,color:"#484848",maxWidth:'500px'}}>FAÇA LOGIN PARA CONTINUAR</h1> */}
-            <h1 style={{fontSize:'40px',fontWeight:600,color:"#484848",maxWidth:'500px'}}>IDENTIFIQUE-SE PARA CONTINUAR</h1>
+            <h1 style={{fontSize:'40px',fontWeight:600,color:"#484848",maxWidth:'500px', display: props.isMobile && "none" }}>IDENTIFIQUE-SE PARA CONTINUAR</h1>
             </GridItem>
 
             {/* <GridItem xs={11} sm={11} md={11}>              
@@ -421,31 +470,23 @@ export default function SectionForm(props) {
 
             <GridItem xs={12} sm={12} md={12} style={{marginBottom:'20px'}}>
             <GridContainer justify='center'>
-              <GridItem xs={10} sm={10} md={10}> 
+              <GridItem xs={12} sm={12} md={10}> 
                   {/* <h5 style={{color:"#484848",fontSize:'15px',fontWeight:600,paddingTop:'50px',}}>Preencha os campos abaixo para se cadastrar</h5> */}
                   <h5 style={{color:"#484848",fontSize:'15px',fontWeight:600,paddingTop:'0px',}}>Preencha os campos abaixo para se cadastrar</h5>
               </GridItem>
 
               
 
-              <GridContainer justify='left' xs={10} sm={10} md={10} >
-                  <GridItem xs={12} sm={12} md={6} className={ errors.firstName ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
+              <GridContainer justify='left' xs={12} sm={12} md={10} >
+                  <GridItem xs={12} sm={12} md={6} className={ errors.name ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
                     <h2 >Nome</h2>
-                    <input ref={register} name="firstName" id="firstName"></input>                      
-                    { errors.firstName && (                      
-                      <span><ErrorOutlineIcon/><label>{errors.firstName.message}</label></span>                      
+                    <input ref={register} name="name" id="name"></input>                      
+                    { errors.name && (                      
+                      <span><ErrorOutlineIcon/><label>{errors.name.message}</label></span>                      
                       )
                     }
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={6} className={ errors.lastName ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
-                    <h2>Sobrenome</h2>
-                    <input ref={register} name="lastName" id="lastName"></input>
-                    { errors.lastName && (                      
-                      <span><ErrorOutlineIcon/><label>{errors.lastName.message}</label></span>                      
-                      )
-                    }
-                  </GridItem>
-                  <GridItem xs={12} sm={12} md={12} className={ errors.email ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
+                  <GridItem xs={12} sm={12} md={6} className={ errors.email ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
                     <h2>E-mail</h2>                  
                     <input name="email" id="email" type="email" ref={register}></input>                      
                     { errors.email && (                      

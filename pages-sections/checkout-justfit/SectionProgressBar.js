@@ -39,7 +39,7 @@ export default function SectionProgressBar() {
           
           <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
-           <img src={justfitLogo} style={{ maxWidth: "180px" }} />
+           <img className={ classes.logoTop } src={justfitLogo} />
           </GridItem>    
               <GridItem xs={12} sm={12} md={10}>
                   

@@ -23,6 +23,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PaymentIcon from '@material-ui/icons/Payment';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import CloseIcon from '@material-ui/icons/Close';
 
 //LATERAL 
 import Accordion from '@material-ui/core/ExpansionPanel';
@@ -63,6 +64,7 @@ import SectionContacts from "pages-sections/checkout/SectionContacts.js";
 import SectionIdentification from "pages-sections/checkout/SectionIdentification.js";
 import SectionAnamnese from "pages-sections/checkout/SectionAnamnese.js";
 import SectionModal from "pages-sections/checkout/SectionModal.js";
+
 
 
 
@@ -405,7 +407,43 @@ const useStyles = makeStyles((theme) => ({
   containerTopo: {
     padding: 0,
     margin: 0
-  }
+  },
+  formInputItem: {
+    "& input": {      
+      width: '100%',
+      color: '#484848',
+      background: '#FEFEFE',
+      borderRadius: '5px',
+      fontSize: '15px',      
+      padding: '10px',
+      border: '2px solid #D1D1D170',
+      textTransform: 'none !important',
+    },
+    "& h2": {
+      color: '#8E8E8E',
+      fontWeight: 600,
+      letterSpacing: '10%',
+      fontSize: '14px',
+      marginTop: '10px',
+      marginBottom: '1px',
+    }
+  },
+  sideMobile: {
+    position: "fixed",
+    zIndex: "2",
+    overflow: "scroll",
+    height: "100vh"
+  },
+  iconSideBar: {
+    background: "transparent",
+    position: "fixed",
+    right: 0,
+    top: 0,
+    padding: "35px",
+    zIndex: 2,
+    border: "none"
+  },
+
 }));
 
 function getSteps() {
@@ -429,6 +467,9 @@ export default function CustomizedSteppers() {
   
   const [validationForm, setValidationForm] = React.useState(false);
   const [validationPayment, setValidationPayment] = React.useState(false);
+
+  const [isMobile, setisMobile] = React.useState(false);
+  const [isOpenSide, setIsOpenSide] = React.useState(false);
 
   const [activePlan, setActivePlan] = React.useState(0);
 
@@ -493,34 +534,94 @@ export default function CustomizedSteppers() {
 
   const [dataSale, setDataSale] = React.useState({
 
+
+    // customer: {
+    //   companyBranchId: 26,
+    //   name: "Teste Name",
+    //   birthDate: "01/01/2000",
+    //   sex: "M",
+    //   email: "teste@teste.com",
+    //   document: "29838096091",
+    //   isForeigner: false,
+    //   phones: [
+    //     {
+    //       type: "cellphone",
+    //       number: "(11) 99999-9999"
+    //     }
+    //   ],
+    //   address: {
+    //     address: "Rua Marcelino",
+    //     number: "243",
+    //     complement: "",
+    //     district: "Santo andré",
+    //     city: "São Paulo",
+    //     state: "SP",
+    //     postalCode: "09180020"
+    //   },
+    //   financeResponsible: {
+    //     name: "LETICIA CLUG BASTOS GAMA",
+    //     document: "41410072851",
+    //     email: "LETICIACLUG@HOTMAIL.COM",
+    //     phone: "1199911-2140",
+    //     active: true,        
+    //   },        
+    //   planData: {
+    //     companyBranchId: 26,
+    //     planId: 600,
+    //     consultantId: 11650531,
+    //     promotionId: 0,
+    //     startDate: "2020-07-31",
+    //     dueDate: "2020-07-31",
+    //     cupom:"",
+    //     nrParcelasPagamento: 12
+    //   },    
+    //   card: {        
+    //     number: "4551789978997899",
+    //     name: "teste de cartao",
+    //     valid: "09/2021",
+    //     cvv: "123",        
+    //     bandeira: 7
+    //   },
+    //   dcc: {
+    //     conta:"86786876",
+    //     contaCorrenteDV:"23",
+    //     agencia:"213123",
+    //     agenciaDV:"123",
+    //     banco:"1"        
+        
+    //   }      
+    // }
+
+
+
     customer: {
       companyBranchId: 26,
-      name: "LETICIA CLUG BASTOS GAMA",
-      birthDate: "1994-02-20",
-      sex: "F",
-      email: "LETICIACLUG@HOTMAIL.COM",
-      document: "41410072851",
+      name: "",
+      birthDate: "",
+      sex: "M",
+      email: "",
+      document: "",
       isForeigner: false,
       phones: [
         {
           type: "cellphone",
-          number: "1199911-2140"
+          number: ""
         }
       ],
       address: {
-        address: "Rua Marcelino",
-        number: "243",
+        address: "",
+        number: "",
         complement: "",
-        district: "Santo andré",
-        city: "São Paulo",
-        state: "SP",
-        postalCode: "09180020"
+        district: "",
+        city: "",
+        state: "",
+        postalCode: ""
       },
       financeResponsible: {
-        name: "LETICIA CLUG BASTOS GAMA",
-        document: "41410072851",
-        email: "LETICIACLUG@HOTMAIL.COM",
-        phone: "1199911-2140",
+        name: "",
+        document: "",
+        email: "",
+        phone: "",
         active: true,        
       },        
       planData: {
@@ -540,27 +641,14 @@ export default function CustomizedSteppers() {
         valid: "",
         cvv: "",
         bandeira: "",
-
-        // number: "4551789978997899",
-        // name: "teste de cartao",
-        // valid: "09/2021",
-        // cvv: "123",        
-        // bandeira: 7
       },
       dcc: {
 
-        // conta:"",
-        // contaCorrenteDV:"",
-        // agencia:"",
-        // agenciaDV:"",
-        // banco:"",
-
-        conta:"86786876",
-        contaCorrenteDV:"23",
-        agencia:"213123",
-        agenciaDV:"123",
-        banco:"1"
-        
+        conta:"",
+        contaCorrenteDV:"",
+        agencia:"",
+        agenciaDV:"",
+        banco:"",        
         
       }      
     }
@@ -576,6 +664,7 @@ export default function CustomizedSteppers() {
 
   const handleNext = (step) => {
     
+    console.log(dataSale);
 
     switch (step) {
       case 0:
@@ -617,21 +706,25 @@ export default function CustomizedSteppers() {
     setActiveStep(0);
     setActiveAnamnese(0);
   };
+  
+  const handleSideBar = () => {
+    setIsOpenSide(!isOpenSide);    
+  };
 
   
 
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return <SectionPlans setDataSale={setDataSale} setActiveStep={setActiveStep} setActivePlan={setActivePlan} plans={plans} />;
+        return <SectionPlans setDataSale={setDataSale} setActiveStep={setActiveStep} setActivePlan={setActivePlan} activePlan={ activePlan } plans={plans} isMobile={isMobile} />;
       case 1:
-        return <SectionForm setDataSale={setDataSale} setActiveStep={setActiveStep} setIsLoading={setIsLoading} setValidationForm={setValidationForm}  validationForm={validationForm} />;
+        return <SectionForm setDataSale={setDataSale} setActiveStep={setActiveStep} setIsLoading={setIsLoading} setValidationForm={setValidationForm} dataSale={dataSale} validationForm={validationForm} isMobile={isMobile} />;
       case 2:
-        return <SectionPayment setDataSale={setDataSale} setActiveStep={setActiveStep} setIsLoading={setIsLoading} setValidationPayment={setValidationPayment}  validationPayment={validationPayment} />
+        return <SectionPayment setDataSale={setDataSale} setActiveStep={setActiveStep} setIsLoading={setIsLoading} setValidationPayment={setValidationPayment} dataSale={dataSale}  validationPayment={validationPayment} isMobile={isMobile} />
       case 3:
-        return <SectionSummary dataSale={dataSale} setActiveStep={setActiveStep} />
+        return <SectionSummary dataSale={dataSale} setActiveStep={setActiveStep} isMobile={isMobile} />
       case 4:
-        return <SectionFinish dataSale={dataSale} />
+        return <SectionFinish dataSale={dataSale} activePlan={activePlan} plans={plans} isMobile={isMobile} />
       default:
         return 'Unknown step';
     }
@@ -702,6 +795,21 @@ export default function CustomizedSteppers() {
           return
         }
         setPlans(res.data.ret);
+        
+
+        if( params.PL != "NULL" ) {
+
+          res.data.ret.map((plan, i) => {  
+
+            if(plan.descricao.includes(params.PL)){
+              setActivePlan(i);              
+            }
+
+          });
+
+
+        }
+
         setDataSale( prev => {
           return {
             ...prev,
@@ -710,8 +818,7 @@ export default function CustomizedSteppers() {
               companyBranchId: FL.substr(FL.length - 2),
               planData: {
                 ...prev.customer.planData,
-                companyBranchId: FL.substr(FL.length - 2),
-                planId: plans[activePlan].codigoPlano
+                companyBranchId: FL.substr(FL.length - 2)                
               } 
             }           
           }
@@ -756,6 +863,10 @@ export default function CustomizedSteppers() {
     console.log("router");    
     // console.log(queryString.parse(location.search));
 
+    if(window.innerWidth < 747){
+      setisMobile(true);
+    } 
+
     
     setParams(prev => {
       return {
@@ -784,6 +895,28 @@ export default function CustomizedSteppers() {
 
 
   }, [params]);
+  
+  React.useEffect(() => {
+
+    
+    console.log("activePlan");
+    console.log(activePlan);
+
+    setDataSale( prev => {
+      return {
+        ...prev,
+        customer:{
+          ...prev.customer,          
+          planData: {
+            ...prev.customer.planData,            
+            planId: plans[activePlan].codigoPlano
+          } 
+        }           
+      }
+    });
+
+
+  }, [activePlan]);
   
   React.useEffect(() => {
     console.log("plans");
@@ -834,6 +967,8 @@ export default function CustomizedSteppers() {
     console.log("activeStep");
     console.log(activeStep);
 
+    window.scrollTo(0, 0);
+
     // if(activeStep == 3){
     //   saleSend(dataSale);
     // }
@@ -845,6 +980,26 @@ export default function CustomizedSteppers() {
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
+    window.scrollTo(0, 0);
+    
+  };
+  
+  const handleBlurCupom = () => (event) => {
+    console.log("cupom");    
+    console.log(event.target.value);    
+    let setCupom = event.target.value;
+    setDataSale( prev => {
+      return {
+        ...prev,
+        customer:{
+          ...prev.customer,          
+          planData: {
+            ...prev.customer.planData,       
+            cupom: setCupom
+          }  
+        }          
+      }
+    });
   };
 
   const formatValueParcela = (value) => {
@@ -865,10 +1020,10 @@ export default function CustomizedSteppers() {
       <div className={classes.root}>
         <GridContainer style={{ margin: 0, padding: 0, }}>
 
-          <GridItem style={{ margin: 0, padding: 0, }} xs={12} sm={12} md={activeStep === steps.length - 1 ? 12 : 9}>
+          <GridItem style={{ margin: 0, padding: 0, }} xs={12} sm={12} md={activeStep === steps.length - 1 ? 12 : 9}>          
 
             <SectionProgressBar />
-            <GridContainer justify='center' align='center'>
+            <GridContainer justify='center' align='center' style={{ display: isMobile && "none" }}>
               <GridItem justify='center' align='center' xs={12} sm={12} md={8}>
                 <MuiThemeProvider theme={muiTheme}>
                   {
@@ -886,90 +1041,106 @@ export default function CustomizedSteppers() {
             </GridContainer>
 
             <div style={{display:'flex',flex:1,flexDirection:'column'}}>
-            <SectionModal setActive={0} setShowModal={setShowModal} showModal={showModal} messageReturn={messageReturn} />
+              <SectionModal setActive={0} setShowModal={setShowModal} showModal={showModal} messageReturn={messageReturn} />
 
 
-
-
-            <div className={classes.textCenter}>
-              {activeStep === steps.length ? (
-                <div>
-                  <Typography className={classes.instructions}>
-                    All steps completed - you&apos;re finished
-              </Typography>
-                  <Button onClick={handleReset} className={classes.button}>
-                    Reset
-              </Button>
-                </div>
-              ) : (
-                  <>
-                    {activeStep === 10 ? (
-
+              <div className={classes.textCenter}>
+                {activeStep === steps.length ? (
+                  <div>
+                    <Typography className={classes.instructions}>
+                      All steps completed - you&apos;re finished
+                    </Typography>
+                    <Button onClick={handleReset} className={classes.button}>
+                      Reset
+                    </Button>
+                  </div>
+                ) : (
+                    <>
                       <div>
-                        {getStepContent(activeStep)}
-                        <div>
-                          {/* <Button disabled={activeStep === 0} onClick={() => handleBack("Anamnese")} className={classes.button}>
-                      Back
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => handleNext("Anamnese")}
-                      className={classes.button}
-                    >
-                      {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                    </Button> */}
-                        </div>
-                      </div>
 
-                    ) : (
+                        <Grow
+                          in={true}
+                          style={{ transformOrigin: '0 0 0' }}
+                          {...(true ? { timeout: 1000 } : {})}
+                        >
+                          {getStepContent(activeStep)}
+                        </Grow>
 
-                        <div>
+                      </div>                  
+                    </>
 
-                          <Grow
-                            in={true}
-                            style={{ transformOrigin: '0 0 0' }}
-                            {...(true ? { timeout: 1000 } : {})}
-                          >
-                            {getStepContent(activeStep)}
-                          </Grow>
-                          {/* <div>
-                    <Button disabled={activeStep === 0} onClick={() => handleBack("Checkout")} className={classes.button}>
-                      Back
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => handleNext("Checkout")}
-                      className={classes.button}
-                    >
-                      {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                    </Button>
-                  </div> */}
-                        </div>
+                  )}
+              </div>
+              <GridContainer xs={12} sm={12} md={12} justify='center' align='center' style={{ margin: "0 auto" }}>
+                <GridItem xs={12} sm={12} md={12}>
+                  <button style={{width:'100%', maxWidth: "500px" }} className={activeStep === steps.length - 1 ? classes.btnFinish : classes.btnFinishDisabled} onClick={() => window.location.assign("https://justfit.com.br/")}> FINALIZAR E VOLTAR PARA HOME</button>
+                </GridItem>
+              </GridContainer>
 
-                      )}
-                  </>
 
-                )}
-            </div>
-            <GridContainer xs={12} sm={12} md={12} justify='center' align='center'>
-              <GridItem xs={12} sm={12} md={12}>
-                <button style={{width:'500px' }} className={activeStep === steps.length - 1 ? classes.btnFinish : classes.btnFinishDisabled} onClick={() => window.location.assign("https://justfit.com.br/")}> FINALIZAR E VOLTAR PARA HOME</button>
-              </GridItem>
-            </GridContainer>
+              {
+                activeStep !== 4 && (
+                  <GridContainer justify='center' align='center' style={{marginTop:'20px', display: !isMobile && "none"}}>
+                    <GridItem>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={() => handleNext(activeStep)}
+                          className={activeStep === steps.length - 1 ? classes.colorBtnFinish : classes.colorBtnDefault}
+                          style={{width:'280px', height:'50px',color:'white',backgroundColor:'#484848',marginBottom:'20px'}}
+                        >
+                          {
+                            isLoading ? (
+                              <CircularProgress style={{ color: "#ccd900" }} size={30}/>
+                            ) : 
+                              activeStep === steps.length - 2 ? 'FINALIZAR' : 'CONTINUAR'                                      
+                          }
+                        </Button>
+                      </GridItem>
+                      <GridItem>
+                      <Button disabled={activeStep === 0} onClick={() => handleBack("Checkout")}     className={activeStep === steps.length - 1 ? classes.disabledBurger : classes.enabledBurger} style={{width:'280px',color:'#484848',height:'50px',backgroundColor:'#d3d3d3'}}>
+                          VOLTAR
+                      </Button>
+
+                      
+                    </GridItem>
+                  </GridContainer>
+
+                )
+
+          
+              }
+
+              
 
             </div>
 
             <SectionFooter />
           </GridItem>
-          <GridItem style={{ margin: 0, padding: 0, }} xs={12} sm={12} md={activeStep === steps.length - 1 ? 0 : 3} align='right' >
+          <GridItem className={ isMobile &&  isOpenSide && classes.sideMobile }  style={{ margin: 0, padding: 0, }} xs={12} sm={12} md={activeStep === steps.length - 1 ? 0 : 3} align='right'>
             <GridContainer className={activeStep === steps.length - 1 ? classes.lateralFormDisabed : classes.lateralForm} style={{ padding: 0, margin: 0 }} justify="center" >
               <GridItem xs={12} sm={12} md={12}>
                 <Lateral
                   theme="light"
                   className={classes.lateralForm}
                 >
+                  { isMobile &&
+                    <button className={ classes.iconSideBar  } onClick={ () => handleSideBar() }>
+                      {
+                        isOpenSide ? (
+                          <CloseIcon/>
+                        ) : (
+                          <svg width="85" height="13" viewBox="0 0 85 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="59.5" y1="2.5" x2="83.5" y2="2.5" stroke="#484848" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            <line x1="73.5" y1="10.5" x2="83.5" y2="10.5" stroke="#484848" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M3.79094 11H6.69494C9.32294 11 11.0389 9.416 11.0389 6.728C11.0389 4.04 9.32294 2.48 6.69494 2.48H3.79094V11ZM5.33894 9.668V3.812H6.61094C8.31494 3.812 9.44294 4.832 9.44294 6.728C9.44294 8.648 8.33894 9.668 6.61094 9.668H5.33894ZM11.99 7.94C11.99 9.68 13.25 11.144 15.278 11.144C16.802 11.144 17.738 10.268 17.738 10.268L17.15 9.176C17.15 9.176 16.37 9.848 15.386 9.848C14.474 9.848 13.646 9.296 13.55 8.228H17.774C17.774 8.228 17.81 7.82 17.81 7.64C17.81 6.02 16.862 4.736 15.098 4.736C13.274 4.736 11.99 6.056 11.99 7.94ZM13.598 7.184C13.742 6.392 14.282 5.912 15.062 5.912C15.734 5.912 16.25 6.356 16.274 7.184H13.598ZM19.3306 8.756C19.3306 10.808 21.0226 11.06 21.8746 11.06C22.1626 11.06 22.3426 11.024 22.3426 11.024V9.692C22.3426 9.692 22.2346 9.716 22.0666 9.716C21.6466 9.716 20.8546 9.572 20.8546 8.564V6.188H22.2466V4.976H20.8546V3.212H19.3666V4.976H18.5386V6.188H19.3306V8.756ZM23.074 9.236C23.074 10.46 24.058 11.144 25.15 11.144C26.542 11.144 27.022 10.064 27.01 10.064H27.034C27.034 10.064 27.01 10.256 27.01 10.496V11H28.414V7.172C28.414 5.624 27.478 4.736 25.87 4.736C24.418 4.736 23.47 5.492 23.47 5.492L24.046 6.584C24.046 6.584 24.85 5.996 25.726 5.996C26.398 5.996 26.902 6.272 26.902 7.076V7.16H26.698C25.702 7.16 23.074 7.292 23.074 9.236ZM24.61 9.164C24.61 8.312 25.87 8.204 26.65 8.204H26.914V8.348C26.914 9.092 26.338 9.956 25.534 9.956C24.91 9.956 24.61 9.572 24.61 9.164ZM29.9162 9.092C29.9162 10.844 30.9602 11.06 31.8002 11.06C32.0522 11.06 32.2802 11.024 32.2802 11.024V9.692C32.2802 9.692 32.1722 9.704 32.0522 9.704C31.6562 9.704 31.4282 9.536 31.4282 8.864V2.48H29.9162V9.092ZM33.4103 11H34.9343V8.192C34.9343 7.904 34.9583 7.64 35.0303 7.4C35.2583 6.656 35.8823 6.128 36.6863 6.128C37.4663 6.128 37.6583 6.632 37.6583 7.376V11H39.1703V7.064C39.1703 5.444 38.4023 4.736 37.0463 4.736C35.9783 4.736 35.2343 5.36 34.9343 5.948H34.9103C34.9103 5.948 34.9343 5.732 34.9343 5.432V2.48H33.4103V11ZM40.3377 7.94C40.3377 9.68 41.5977 11.144 43.6257 11.144C45.1497 11.144 46.0857 10.268 46.0857 10.268L45.4977 9.176C45.4977 9.176 44.7177 9.848 43.7337 9.848C42.8217 9.848 41.9937 9.296 41.8977 8.228H46.1217C46.1217 8.228 46.1577 7.82 46.1577 7.64C46.1577 6.02 45.2097 4.736 43.4457 4.736C41.6217 4.736 40.3377 6.056 40.3377 7.94ZM41.9457 7.184C42.0897 6.392 42.6297 5.912 43.4097 5.912C44.0817 5.912 44.5977 6.356 44.6217 7.184H41.9457ZM46.8982 10.244C46.8982 10.244 47.7502 11.144 49.2742 11.144C50.7262 11.144 51.6142 10.328 51.6142 9.308C51.6142 7.34 48.6382 7.448 48.6382 6.584C48.6382 6.2 49.0222 6.032 49.4182 6.032C50.3542 6.032 50.9182 6.56 50.9182 6.56L51.4822 5.432C51.4822 5.432 50.8102 4.736 49.4302 4.736C48.1102 4.736 47.0902 5.396 47.0902 6.536C47.0902 8.504 50.0662 8.384 50.0662 9.296C50.0662 9.656 49.6942 9.848 49.2622 9.848C48.2662 9.848 47.5942 9.176 47.5942 9.176L46.8982 10.244Z" fill="#484848"/>
+                          </svg>
+                        )
+
+                      }
+                                          
+                    </button>
+                  }
                   <GridContainer justify='center' style={{ padding: 0, marginTop: '50px' }}>
                     <GridItem align='center'>
                       <h5 style={{ padding: 0, margin: 0, color: '#787878', fontSize: '25px' }}>PLANO <strong style={{ color: '#484848' }} > { plans[activePlan].descricao.includes("FIT") ? "FIT+" : "JUST"  }  </strong></h5>
@@ -977,11 +1148,11 @@ export default function CustomizedSteppers() {
 
                     </GridItem>
 
-                    {/* <GridItem justify='center' xs={12} sm={2} md={10}>
-               <label style={{padding:0,margin:0,fontSize:'10px',fontWeight: 500,textAlign: 'left'}}>INSERIR CUPOM:</label>
-               <input style={{border:'1px solid #D9D9D9', fontSize:'20px', width: '100%'}}></input>
-        
-               </GridItem> */}
+                    <GridItem justify='center' xs={12} sm={2} md={10} className={classes.formInputItem}>
+                      <h2>INSERIR CUPOM:</h2>
+                      <input onBlur={handleBlurCupom()}></input>
+                
+                    </GridItem>
 
                     <GridItem justify='space-between' align='center' style={{ marginTop: '30px' }} xs={12} sm={2} md={12}>
                       <h6 style={{ padding: 10, margin: 0, fontSize: '16px', textAlign: 'left', fontWeight: 600, color:'#292929',textTransform:'none' }}>Informações de Cobrança</h6>
@@ -1008,13 +1179,13 @@ export default function CustomizedSteppers() {
                                     id="panel1bh-header"
                                   >
                                     <Typography className={classes.heading}>{parcela.numero}ª Cobrança</Typography>
-                                    { i < plans[activePlan].parcelasAnuidade.length ? 
+                                    { i < plans[activePlan].parcelasAnuidade.length + 1 ? 
                                       
                                       ( <>
                                         {i == 0 ? (
-                                          <Typography className={classes.secondaryHeading}> R$ { new String(parseFloat(formatValueParcela(plans[activePlan].parcelasAnuidade[i].valor) + formatValueParcela(plans[activePlan].valorMatricula) + formatValueParcela(parcela.valor) ).toFixed(2) ).replace(".", ",")} </Typography> 
+                                          <Typography className={classes.secondaryHeading}> R$ { new String(parseFloat(formatValueParcela(plans[activePlan].valorMatricula) + formatValueParcela(parcela.valor) ).toFixed(2) ).replace(".", ",")} </Typography> 
                                         ) : (
-                                          <Typography className={classes.secondaryHeading}> R$ { new String(parseFloat(formatValueParcela(plans[activePlan].parcelasAnuidade[i].valor) + formatValueParcela(parcela.valor)).toFixed(2) ).replace(".", ",")} </Typography> 
+                                          <Typography className={classes.secondaryHeading}> R$ { new String(parseFloat(formatValueParcela(plans[activePlan].parcelasAnuidade[i - 1].valor) + formatValueParcela(parcela.valor)).toFixed(2) ).replace(".", ",")} </Typography> 
                                         )}                                         
                                         </>
                                       ) : ( 
@@ -1028,9 +1199,9 @@ export default function CustomizedSteppers() {
                                       <Typography className={classes.secondaryHeading2}> R$ {parcela.valor}</Typography>
                                     </GridItem>
                                     <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                      <Typography className={classes.heading2}>Manutenção</Typography>
-                                      { i < plans[activePlan].parcelasAnuidade.length ? (
-                                        <Typography className={classes.secondaryHeading2}>{plans[activePlan].parcelasAnuidade[i].valorApresentar}</Typography>
+                                      <Typography className={classes.heading2}>Manutenção</Typography>                                      
+                                      { i < plans[activePlan].parcelasAnuidade.length + 1 && i != 0 ? (
+                                        <Typography className={classes.secondaryHeading2}>{plans[activePlan].parcelasAnuidade[i - 1].valorApresentar}</Typography>
                                       ) : (
                                         <Typography className={classes.secondaryHeading2}>R$ 0,00</Typography>
                                       )
@@ -1048,270 +1219,6 @@ export default function CustomizedSteppers() {
 
                             })}
 
-
-                              {/* <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-                                <AccordionSummary
-                                  expandIcon={<ExpandMoreIcon />}
-                                  aria-controls="panel1bh-content"
-                                  id="panel1bh-header"
-                                >
-                                  <Typography className={classes.heading}>1ª Cobrança</Typography>
-                                  <Typography className={classes.secondaryHeading}> R$ 59,80</Typography>
-                                </AccordionSummary>
-                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
-                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Mensalidade</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 29,90</Typography>
-                                  </GridItem>
-                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 29,90</Typography>
-                                  </GridItem>
-                                </AccordionDetails>
-                              </Accordion>
-                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-                                <AccordionSummary
-                                  expandIcon={<ExpandMoreIcon />}
-                                  aria-controls="panel2bh-content"
-                                  id="panel2bh-header"
-                                >
-                                  <Typography className={classes.heading}>2ª Cobrança</Typography>
-                                  <Typography className={classes.secondaryHeading}> R$ 79,90</Typography>
-                                </AccordionSummary>
-                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
-                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Mensalidade</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
-                                  </GridItem>
-                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
-                                  </GridItem>
-                                </AccordionDetails>
-                              </Accordion>
-                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-                                <AccordionSummary
-                                  expandIcon={<ExpandMoreIcon />}
-                                  aria-controls="panel3bh-content"
-                                  id="panel3bh-header"
-                                >
-                                  <Typography className={classes.heading}>3ª Cobrança</Typography>
-                                  <Typography className={classes.secondaryHeading}> R$ 79,90</Typography>
-                                </AccordionSummary>
-                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
-                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Mensalidade</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
-                                  </GridItem>
-                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
-                                  </GridItem>
-                                </AccordionDetails>
-                              </Accordion>
-                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
-                                <AccordionSummary
-                                  expandIcon={<ExpandMoreIcon />}
-                                  aria-controls="panel4bh-content"
-                                  id="panel4bh-header"
-                                >
-                                  <Typography className={classes.heading}>4ª Cobrança</Typography>
-                                  <Typography className={classes.secondaryHeading}> R$ 79,90
-                                
-                                </Typography>
-                                </AccordionSummary>
-                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
-                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Mensalidade</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
-                                  </GridItem>
-                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
-                                  </GridItem>
-                                </AccordionDetails>
-                              </Accordion>
-                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
-                                <AccordionSummary
-                                  expandIcon={<ExpandMoreIcon />}
-                                  aria-controls="panel5bh-content"
-                                  id="panel5bh-header"
-                                >
-                                  <Typography className={classes.heading}>5ª Cobrança</Typography>
-                                  <Typography className={classes.secondaryHeading}> R$ 79,90
-                                
-                                </Typography>
-                                </AccordionSummary>
-                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
-                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Mensalidade</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
-                                  </GridItem>
-                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
-                                  </GridItem>
-                                </AccordionDetails>
-                              </Accordion>
-                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
-                                <AccordionSummary
-                                  expandIcon={<ExpandMoreIcon />}
-                                  aria-controls="panel6bh-content"
-                                  id="panel6bh-header"
-                                >
-                                  <Typography className={classes.heading}>6ª Cobrança</Typography>
-                                  <Typography className={classes.secondaryHeading}> R$ 79,90
-                                
-                                </Typography>
-                                </AccordionSummary>
-                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
-                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Mensalidade</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
-                                  </GridItem>
-                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
-                                  </GridItem>
-                                </AccordionDetails>
-                              </Accordion>
-                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel7'} onChange={handleChange('panel7')}>
-                                <AccordionSummary
-                                  expandIcon={<ExpandMoreIcon />}
-                                  aria-controls="panel7bh-content"
-                                  id="panel7bh-header"
-                                >
-                                  <Typography className={classes.heading}>7ª Cobrança</Typography>
-                                  <Typography className={classes.secondaryHeading}> R$ 79,90
-                                
-                                </Typography>
-                                </AccordionSummary>
-                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
-                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Mensalidade</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
-                                  </GridItem>
-                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
-                                  </GridItem>
-                                </AccordionDetails>
-                              </Accordion>
-                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel8'} onChange={handleChange('panel8')}>
-                                <AccordionSummary
-                                  expandIcon={<ExpandMoreIcon />}
-                                  aria-controls="panel8bh-content"
-                                  id="panel8bh-header"
-                                >
-                                  <Typography className={classes.heading}>8ª Cobrança</Typography>
-                                  <Typography className={classes.secondaryHeading}> R$ 79,90
-                                
-                                </Typography>
-                                </AccordionSummary>
-                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
-                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Mensalidade</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
-                                  </GridItem>
-                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
-                                  </GridItem>
-                                </AccordionDetails>
-                              </Accordion>
-
-                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel9'} onChange={handleChange('panel9')}>
-                                <AccordionSummary
-                                  expandIcon={<ExpandMoreIcon />}
-                                  aria-controls="panel9bh-content"
-                                  id="panel9bh-header"
-                                >
-                                  <Typography className={classes.heading}>9ª Cobrança</Typography>
-                                  <Typography className={classes.secondaryHeading}> R$ 79,90
-                                
-                                </Typography>
-                                </AccordionSummary>
-                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
-                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Mensalidade</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
-                                  </GridItem>
-                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
-                                  </GridItem>
-                                </AccordionDetails>
-                              </Accordion>
-
-                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel10'} onChange={handleChange('panel10')}>
-                                <AccordionSummary
-                                  expandIcon={<ExpandMoreIcon />}
-                                  aria-controls="panel10bh-content"
-                                  id="panel10bh-header"
-                                >
-                                  <Typography className={classes.heading}>10ª Cobrança</Typography>
-                                  <Typography className={classes.secondaryHeading}> R$ 79,90
-                                
-                                </Typography>
-                                </AccordionSummary>
-                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
-                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Mensalidade</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
-                                  </GridItem>
-                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
-                                  </GridItem>
-                                </AccordionDetails>
-                              </Accordion>
-
-                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel11'} onChange={handleChange('panel11')}>
-                                <AccordionSummary
-                                  expandIcon={<ExpandMoreIcon />}
-                                  aria-controls="panel11bh-content"
-                                  id="panel11bh-header"
-                                >
-                                  <Typography className={classes.heading}>11ª Cobrança</Typography>
-                                  <Typography className={classes.secondaryHeading}> R$ 79,90
-                                
-                                </Typography>
-                                </AccordionSummary>
-                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
-                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Mensalidade</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
-                                  </GridItem>
-                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
-                                  </GridItem>
-                                </AccordionDetails>
-                              </Accordion>
-
-                              
-                              <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel12'} onChange={handleChange('panel12')}>
-                                <AccordionSummary
-                                  expandIcon={<ExpandMoreIcon />}
-                                  aria-controls="panel12bh-content"
-                                  id="panel12bh-header"
-                                >
-                                  <Typography className={classes.heading}>12ª Cobrança</Typography>
-                                  <Typography className={classes.secondaryHeading}> R$ 79,90
-                                
-                                </Typography>
-                                </AccordionSummary>
-                                <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
-                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Mensalidade</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 79,90</Typography>
-                                  </GridItem>
-                                  <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                <Typography className={classes.heading2}>Taxa de adesão</Typography>
-                                  <Typography className={classes.secondaryHeading2}> R$ 0,00</Typography>
-                                  </GridItem>
-                                </AccordionDetails>
-                              </Accordion> */}
 
                             </div>
                           </Scrollbar>
