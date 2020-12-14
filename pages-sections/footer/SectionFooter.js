@@ -54,13 +54,13 @@ export default function SectionFooter() {
                   <img style={{width:'200px'}} src={imgCard}></img>
                 </div>
               </GridItem>
-              <GridItem xs={6} sm={2} md={4}>
+              <GridItem xs={6} sm={2} md={4} style={{ display: "none" }}>
               <div>
                   <h6 style={{ color: '#8E8E8E' }}>Cartões de débito</h6>
                   <img style={{width:'120px'}} src={imgDebit}></img>
                 </div>
               </GridItem>  
-              <GridItem xs={12} sm={4} md={2}>
+              <GridItem xs={12} sm={4} md={2} style={{ display: "none" }}>
               <div>
                   <h6 style={{ color: '#8E8E8E' }}>Débito</h6>
                   <img style={{width:  '35px'}} src={imgDebito}></img>
@@ -103,43 +103,41 @@ export default function SectionFooter() {
               </GridItem> */}
             </GridContainer>
             <GridContainer style={{marginTop: '3%'}}>
-            <GridItem xs={4} sm={4} md={1} style={{marginTop: '2%'}}>
+            <GridItem xs={12} sm={12} md={1} style={{marginTop: '2%'}}>
               <div >
                   <img style={{width:'50px'}} src={imgSsl}></img>
                  
                 </div>
               </GridItem>  
-              <GridItem xs={4} sm={4} md={3} style={{marginLeft: '1%', marginTop: '0%'}}>
+              <GridItem xs={12} sm={12} md={3} style={{marginLeft: '1%', marginTop: '0%'}}>
               <h6>AMBIENTE SEGURO | CERTIFICADO SSL</h6>
               </GridItem>  
             </GridContainer>
             <GridContainer style={{marginTop:'5%'}}>
               <GridItem style={{marginTop: '2%'}}>
-               <h5>INFORMAÇÕES E CONDIÇÕES</h5>
+               {/* <h5>INFORMAÇÕES E CONDIÇÕES</h5> */}
                 <p style={{marginTop: '2%'}}>
-              - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ac malesuada mi. Vestibulum in ex dui. Integer eleifend malesuada rutrum. Mauris non porttitor augue, vitae sagittis dolor. Duis consequat non urna ac convallis. Praesent iaculis ut felis nec vestibulum. Praesent tellus lacus, rutrum at urna vel, suscipit suscipit nisi. Pellentesque tempus porta libero ut ullamcorper. Sed leo quam, tincidunt quis vestibulum nec, finibus vitae orci. Donec venenatis nisi eu vestibulum egestas. Praesent hendrerit ut augue ac tempor. 
+                  *Promoção Verão Fit:  Ao aderir a Promoção Verão Fit, você irá pagar no primeiro 01 (um) mês o valor de R$ 29,90 (vinte e nove reais e noventa centavos) no Plano Just, e R$ 14,90 (quatorze reais e noventa centavos) no Plano Fit Plus, e terá a isenção da taxa de matrícula em ambos os planos. Condição válida apenas para novas vendas que fizerem adesão nos Planos Just ou Fit Plus, nos termos e demais condições a seguir: 
               </p>
-              <p style={{marginTop: '1%'}}>
-                - Nulla quis lectus enim. Aenean efficitur orci vel tellus sagittis, eget feugiat tortor mattis.
-                </p>
-                <p style={{marginTop: '1%'}}>
-               - Ut scelerisque ante sed facilisis sagittis. Praesent vehicula rhoncus eros, in aliquam ex dictum id.
-               </p>
-               <p style={{marginTop: '1%'}}>
-                  - Cras accumsan nulla lacus, quis cursus nisl interdum eu.
-
-                  </p>
               </GridItem>
 
               <GridItem style={{marginTop: '3%'}}>
-              <p style={{marginTop: '1%'}}>
-                <strong>Lorem ipsum dolor sit amet,</strong> consectetur adipiscing elit. Integer ac malesuada mi. Vestibulum in ex dui. Integer eleifend malesuada rutrum. Mauris non porttitor augue, vitae sagittis dolor. Duis consequat non urna ac convallis. Praesent iaculis ut felis nec vestibulum. Praesent tellus lacus, rutrum at urna vel, suscipit suscipit nisi. Pellentesque tempus porta libero ut ullamcorper. Sed leo quam, tincidunt quis vestibulum nec, finibus vitae orci. Donec venenatis nisi eu vestibulum egestas. Praesent hendrerit ut augue ac tempor. Donec congue erat vel purus feugiat, eu mattis erat euismod.
+                <p style={{marginTop: '1%'}}>
+                  <strong>i)</strong> Promoção com início em 01 de dezembro 2020 e data final em 15 de dezembro 2020, podendo ser prorrogável até 31 de dezembro de 2020 (conforme disponibilização das unidades).
                 </p>
                 <p style={{marginTop: '1%'}}>
-            
-                <strong>  Aenean et ex sit amet augue eleifend pellentesque nec eu dolor.</strong> Duis scelerisque velit a ante scelerisque, nec aliquet erat fermentum. Vivamus viverra mollis congue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet enim porttitor turpis dictum cursus id et ipsum. Phasellus magna orci, finibus sit amet tellus ac, rutrum ornare lacus. Praesent odio lacus, viverra eu magna ultrices, commodo molestie nisi.
-               </p>
- 
+                  <strong>ii)</strong> Todas as demais cobranças previstas em contrato (taxa de manutenção, multas, etc.) serão integralmente mantidas. 
+                </p>
+                <p style={{marginTop: '1%'}}>
+                  <strong>iii)</strong> Promoção não cumulativa e vinculada a permanência mínima de 03 (três) meses. Esse prazo mínimo é uma condição ao benefício, e não se confunde com o prazo contratual que é de 12 (doze) meses.
+                </p>
+                <p style={{marginTop: '1%'}}>
+                  <strong>iv)</strong> Caso haja cancelamento durante o período de permanência mínima de 03 (três) meses, o valor do benefício (taxa de matrícula e desconto concedido na primeira mensalidade do plano contratado) será cobrado juntamente com quaisquer outros valores devidos no momento do cancelamento (taxa de manutenção, multa, etc.). 
+                </p>
+                <p style={{marginTop: '1%'}}>
+                  <strong>v)</strong> Essa promoção não é válida para clientes com débito anterior em aberto ou que tiveram seu plano cancelado por violação do Regulamento Interno. Consulte unidades participantes.
+                </p>
+
               </GridItem>
             </GridContainer>
           </Footer>

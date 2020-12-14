@@ -24,6 +24,8 @@ import editIcon from "assets/img/edit.png";
 
 import stepMobile4 from "assets/img/mobilestep4.png";
 
+import TagManager from 'react-gtm-module';
+
 
 import styles from "assets/jss/nextjs-material-kit-pro/pages/justfit/justfit.js";
 import Justfit from "../../components/Justfit/justfit";
@@ -31,10 +33,85 @@ import PlanHorizontal from "../../components/Justfit/JustfitPlans/PlanHorizontal
 import { Grid } from "@material-ui/core";
 import JustfitSummary from "../../components/Justfit/JustfitSummary/JustfitSummary";
 
+const formatValueParcela = (value) => {
+  let returnValue =  new String(value).replace(",", ".")
+  let returnDecimal = parseFloat(returnValue).toFixed(2);      
+  return  parseFloat(returnDecimal);    
+}
+
+function dataAtualFormatada(){
+  var data = new Date(),
+      dia  = data.getDate().toString(),
+      diaF = (dia.length == 1) ? '0'+dia : dia,
+      mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+      mesF = (mes.length == 1) ? '0'+mes : mes,
+      anoF = data.getFullYear();
+  return diaF+"/"+mesF+"/"+anoF;
+}
+
+function formataCPF(cpf){
+  //retira os caracteres indesejados...
+  cpf = new String(cpf).replace(/[^\d]/g, "");
+
+  //realizar a formatação...
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+}
+
 const useStyles = makeStyles(styles);
 
 export default function SectionSummary(props) {
   const classes = useStyles();
+
+  let priceTransaction = parseFloat( formatValueParcela(props.plans[props.activePlan].parcelas[0].valor) +  props.plans[props.activePlan].valorMatricula );
+
+  React.useEffect( () => {
+
+    let priceTransaction = parseFloat( formatValueParcela(props.plans[props.activePlan].parcelas[0].valor) +  props.plans[props.activePlan].valorMatricula );
+
+    TagManager.dataLayer({
+      dataLayer: {
+        'event': 'addSummary',
+        'ecommerce': {
+          'checkout': {
+            'actionField': {
+              'step': 4
+            },
+            "products": [
+              {
+                  'id': props.plans[props.activePlan].codigoPlano,   
+                  'name': props.plans[props.activePlan].descricao.includes("FIT") ? "Plano Fit Plus " + props.activeUnidade : "Plano Just " + props.activeUnidade,
+                  'sku': props.dataSale.customer.companyBranchId,
+                  'category': props.plans[props.activePlan].descricao.includes("FIT") ? "Plano Fit Plus" : "Plano Just",
+                  'price': priceTransaction,
+                  'quantity': '1',
+                  'currency': 'BRL'
+              }
+            ]
+          }
+        },
+        'plano': {
+          "codigo": props.plans[props.activePlan].codigoPlano,
+          "nome": props.plans[props.activePlan].descricao.includes("FIT") ? "Plano Fit Plus" : "Plano Just",
+          "preco-mat": props.plans[props.activePlan].valorMatricula,
+          "preco-pp": formatValueParcela(props.plans[props.activePlan].parcelas[0].valor),				
+          "preco-anuidade": props.plans[props.activePlan].valorAnuidade,
+          "data-matricula": dataAtualFormatada()
+        },
+        'unidade': {
+          "id": props.dataSale.customer.companyBranchId,
+          "title": props.activeUnidade,          
+        },
+        'cliente': {
+          "nome": props.dataSale.customer.name,
+          "email": props.dataSale.customer.email,
+          "cpf": formataCPF(props.dataSale.customer.document),
+        }
+      },          
+    })
+
+
+  }, []);
+
   return (
       
       <GridContainer className={classes.content} justify="center" >        

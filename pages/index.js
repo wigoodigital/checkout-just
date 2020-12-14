@@ -69,12 +69,13 @@ import SectionModal from "pages-sections/checkout/SectionModal.js";
 
 
 
-
+import unidadesJson from 'components/Justfit/Unidades.js';
 
 
 
 // import logo from "assets/img/logo.png";
 import logo from "assets/img/logo-white.png";
+
 
 import {
   primaryColor,
@@ -93,8 +94,8 @@ import SectionProgressBar from '../pages-sections/checkout-justfit/SectionProgre
 
 
 const QontoConnector = withStyles({
-  alternativeLabel: {
-    top: 10,
+  alternativeLabel: {    
+    top: 45,
     left: 'calc(-50% + 16px)',
     right: 'calc(50% + 16px)',
   },
@@ -110,7 +111,7 @@ const QontoConnector = withStyles({
   },
   line: {
     borderColor: '#D3D3D3',
-    borderTopWidth: 3,
+    borderTopWidth: 1.3,
     borderRadius: 1,
   },
 })(StepConnector);
@@ -120,14 +121,19 @@ const useQontoStepIconStyles = makeStyles({
     color: '#D3D3D3',
     display: 'flex',
     height: 22,
-    alignItems: 'center'
+    alignItems: 'center',    
   },
   active: {
-    color: '#CCDA01',
+    color: '#CCDA01',            
+    '& $circle': {
+      width: 15,
+      height: 15,
+    }
+    
   },
   circle: {
-    width: 20,
-    height: 20,
+    width: 10,
+    height: 10,
     borderRadius: '50%',
     backgroundColor: 'currentColor',
   },
@@ -136,8 +142,12 @@ const useQontoStepIconStyles = makeStyles({
     backgroundColor: '#CCDA01',
     borderRadius: '50%',
     zIndex: 1,
-    fontSize: 20,
-    fontWeight: 900
+    fontSize: 15,
+    fontWeight: 900,
+    '& $circle': {
+      width: 15,
+      height: 15,
+    }
   },
 });
 
@@ -266,8 +276,14 @@ ColorlibStepIcon.propTypes = {
 
 const muiTheme = createMuiTheme({
   overrides: {
-    MuiStepIcon: {
+    MuiStepper: {
       root: {
+        paddingTop: "0 !important",
+        paddingBottom: "0 !important"
+      }
+    },
+    MuiStepIcon: {
+      root: {        
         color: '#000000', // or 'rgba(0, 0, 0, 1)'
         '&$active': {
           color: '#000000',
@@ -277,6 +293,15 @@ const muiTheme = createMuiTheme({
         },
       },
     },
+    MuiStepLabel: {
+      root: {        
+        flexDirection: "column-reverse !important"
+      },
+      label: {
+        fontSize: "12px"
+      }
+
+    }
   }
 });
 
@@ -298,16 +323,20 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#d3d3d3',
     },
   },
-  MuiAccordionroot: {
+  MuiAccordionroot: {    
     "&.MuiAccordion-root:before": {
       backgroundColor: "white",
       height:0,
       display:'none',
-    }
+    },
+    "&.MuiStepper-alternativeLabel": {
+      flexDirection: "column-reverse"
+    },
   },
+ 
   heading:{
     fontWeight:800,
-    fontSize:15,
+    fontSize:"12px",
     color:'#484848 !important',
     flex:1,
     display:'flex',
@@ -317,13 +346,13 @@ const useStyles = makeStyles((theme) => ({
     textAlign:'right',
     justifyContent:'flex-end',
     fontWeight:700,
-    fontSize:15,
+    fontSize:"12px",
     color:'#484848 !important',
 
   },
   heading2:{
     fontWeight:600,
-    fontSize:14,
+    fontSize:"12px",
     color:'#B0B0B0!important',
     flex:1,
     display:'flex',
@@ -334,7 +363,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign:'right',
     justifyContent:'flex-end',
     fontWeight:600,
-    fontSize:14,
+    fontSize:"12px",
     color:'#B0B0B0 !important',
 
   },
@@ -346,7 +375,11 @@ const useStyles = makeStyles((theme) => ({
   btnFinishDisabled: { display: 'none' },
   lateralForm: {
     height: '100%',
-    backgroundColor: "#F2F2F2"
+    backgroundColor: "#F2F2F2",
+    "@media (max-width: 747px)": {
+      height: 'auto',
+    }
+
   },
 
   lateralFormDisabed: {
@@ -379,8 +412,9 @@ const useStyles = makeStyles((theme) => ({
     },
     backgroundColor: primaryColor[0],
     '& .MuiStepLabel-label.MuiStepLabel-alternativeLabel': {
-      ...defaultFont,
+      ...defaultFont,      
       color: "#ccc",
+      flexDirection: "column-reverse",
       // visibility: "hidden",
       fontWeight: 500,
       // wordBreak: "break-all",
@@ -443,6 +477,11 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 2,
     border: "none"
   },
+  sideMobileNone: { 
+    display: "none"
+  }  
+
+
 
 }));
 
@@ -451,7 +490,13 @@ function getSteps() {
 }
 
 
+function formataCPF(cpf){
+  //retira os caracteres indesejados...
+  cpf = new String(cpf).replace(/[^\d]/g, "");
 
+  //realizar a formatação...
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+}
 
 
 
@@ -472,6 +517,8 @@ export default function CustomizedSteppers() {
   const [isOpenSide, setIsOpenSide] = React.useState(false);
 
   const [activePlan, setActivePlan] = React.useState(0);
+  
+  const [activeUnidade, setActiveUnidade] = React.useState("");
 
   const [messageReturn, setMessageReturn] = React.useState({
     code: "000",
@@ -538,7 +585,7 @@ export default function CustomizedSteppers() {
     // customer: {
     //   companyBranchId: 26,
     //   name: "Teste Name",
-    //   birthDate: "01/01/2000",
+    //   birthDate: "01/01/2005",
     //   sex: "M",
     //   email: "teste@teste.com",
     //   document: "29838096091",
@@ -660,6 +707,8 @@ export default function CustomizedSteppers() {
   const theme = useTheme();
 
 
+  
+
 
 
   const handleNext = (step) => {
@@ -671,7 +720,7 @@ export default function CustomizedSteppers() {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
         return
       case 1:
-        setValidationForm(true);        
+        setValidationForm(true);           
         return
       case 2:
         setValidationPayment(true);        
@@ -716,19 +765,21 @@ export default function CustomizedSteppers() {
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return <SectionPlans setDataSale={setDataSale} setActiveStep={setActiveStep} setActivePlan={setActivePlan} activePlan={ activePlan } plans={plans} isMobile={isMobile} />;
+        return <SectionPlans setDataSale={setDataSale} setActiveStep={setActiveStep} setActivePlan={setActivePlan} activePlan={ activePlan } plans={plans} dataSale={dataSale} isMobile={isMobile} activeUnidade={activeUnidade} />;
       case 1:
-        return <SectionForm setDataSale={setDataSale} setActiveStep={setActiveStep} setIsLoading={setIsLoading} setValidationForm={setValidationForm} dataSale={dataSale} validationForm={validationForm} isMobile={isMobile} />;
+        return <SectionForm setDataSale={setDataSale} setActiveStep={setActiveStep} setIsLoading={setIsLoading} setValidationForm={setValidationForm} dataSale={dataSale} validationForm={validationForm} isMobile={isMobile} activeUnidade={activeUnidade} activePlan={ activePlan } plans={plans}  />;
       case 2:
-        return <SectionPayment setDataSale={setDataSale} setActiveStep={setActiveStep} setIsLoading={setIsLoading} setValidationPayment={setValidationPayment} dataSale={dataSale}  validationPayment={validationPayment} isMobile={isMobile} />
+        return <SectionPayment setDataSale={setDataSale} setActiveStep={setActiveStep} setIsLoading={setIsLoading} setValidationPayment={setValidationPayment} dataSale={dataSale}  validationPayment={validationPayment} isMobile={isMobile} activeUnidade={activeUnidade} activePlan={ activePlan } plans={plans} />
       case 3:
-        return <SectionSummary dataSale={dataSale} setActiveStep={setActiveStep} isMobile={isMobile} />
+        return <SectionSummary dataSale={dataSale} setActiveStep={setActiveStep} isMobile={isMobile} activeUnidade={activeUnidade} activePlan={ activePlan } plans={plans} />
       case 4:
-        return <SectionFinish dataSale={dataSale} activePlan={activePlan} plans={plans} isMobile={isMobile} />
+        return <SectionFinish dataSale={dataSale} activePlan={activePlan} plans={plans} isMobile={isMobile} activeUnidade={activeUnidade} />
       default:
         return 'Unknown step';
     }
   }
+
+  
 
 
 
@@ -743,6 +794,7 @@ export default function CustomizedSteppers() {
           if (res.data.code == "0") {
             setActiveStep(4);
             setDataLog(dataSend);
+            setDataLead(dataSend);
           } else {
             setMessageReturn( prev => {
               return {
@@ -750,7 +802,7 @@ export default function CustomizedSteppers() {
                 msg: res.data.msg
               }
             });
-            setDataLog(dataSend);
+            setDataLog(dataSend);            
             setShowModal(true);
           }
         } catch (error) {
@@ -780,13 +832,42 @@ export default function CustomizedSteppers() {
       });
   };
 
+  const setDataLead = async (dataSend) => {    
 
-  const getPlans = async (params) => {        
+    const lead = {      
+      name: dataSend.customer.name,
+      email: dataSend.customer.email,
+      sex: dataSend.customer.sex,
+      birthDate: dataSend.customer.birthDate,
+      phone: dataSend.customer.phones[0].number,
+      cpf: formataCPF(dataSend.customer.document),      
+      unidade: activeUnidade,
+      plano: plans[activePlan].descricao,
+      finalizadoVenda: true
+    }
 
-    const { FL, PL } = params;
+    console.log(lead);
+
+    axios.defaults.headers.put['Content-Type'] = 'application/json';
+    await axios.put('/checkout/setLead.php', lead)
+      .then(res => {
+        console.log(res)
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        console.log("finally");
+      });
+  };
+  
+  
 
 
-    await axios.post(`https://admin.justfit.com.br/app.justfit/api/LoadPersonalOnline/GetPlanByEmpresa?codEmpresa=${FL.substr(FL.length - 2)}`)
+  const getPlans = async (codigo) => {        
+
+    
+    await axios.post(`https://admin.justfit.com.br/app.justfit/api/LoadPersonalOnline/GetPlanByEmpresa?codEmpresa=${codigo}`)
       .then(res => {
 
         if(res.data.error){
@@ -794,6 +875,12 @@ export default function CustomizedSteppers() {
           console.log(res.data.error);
           return
         }
+
+        if(res.data.ret.length == 0){
+          console.log(res.data.ret);
+          return
+        }
+
         setPlans(res.data.ret);
         
 
@@ -814,11 +901,9 @@ export default function CustomizedSteppers() {
           return {
             ...prev,
             customer:{
-              ...prev.customer,
-              companyBranchId: FL.substr(FL.length - 2),
+              ...prev.customer,              
               planData: {
-                ...prev.customer.planData,
-                companyBranchId: FL.substr(FL.length - 2)                
+                ...prev.customer.planData,                
               } 
             }           
           }
@@ -840,7 +925,7 @@ export default function CustomizedSteppers() {
   
 
   const tagManagerArgs = {
-    // gtmId: 'GTM-WPLTJG8'
+    gtmId: 'GTM-57XJ865'
   }
 
   React.useEffect(() => {
@@ -849,10 +934,7 @@ export default function CustomizedSteppers() {
       await TagManager.initialize(tagManagerArgs);
       TagManager.dataLayer({
         dataLayer: {
-          event: "teste",
-          userId: '001',
-          userProject: 'project',
-          page: 'home'
+          event: "initiateCheckout",          
         },
       })
     }
@@ -878,7 +960,33 @@ export default function CustomizedSteppers() {
     // console.log(queryString.parse(location.search));
     console.log(params);
 
+    
+    // getUnidade(26);
+    
+
   }, []);
+
+  const getUnidade = async (cod) => {         
+    let unidadeSelected =  await unidadesJson(cod);
+    setActiveUnidade(unidadeSelected.nome);
+
+    setDataSale( prev => {
+      return {
+        ...prev,
+        customer:{
+          ...prev.customer,
+          companyBranchId: unidadeSelected.codigo,
+          planData: {
+            ...prev.customer.planData,            
+            companyBranchId: unidadeSelected.codigo,
+          } 
+        }          
+      }
+    });
+    setActiveUnidade(unidadeSelected.nome);
+
+    getPlans(unidadeSelected.codigo);
+  };
 
 
   React.useEffect(() => {
@@ -887,8 +995,8 @@ export default function CustomizedSteppers() {
     console.log("params");
     console.log(params);
 
-    if(params.FL != "00000"){
-      getPlans(params);
+    if(params.FL != "00000"){      
+      getUnidade(params.FL);
     }
 
 
@@ -926,8 +1034,7 @@ export default function CustomizedSteppers() {
       return {
         ...prev,
         customer:{
-          ...prev.customer,
-          companyBranchId: params.FL.substr(params.FL.length - 2),
+          ...prev.customer,          
           planData: {
             ...prev.customer.planData,       
             planId: plans[activePlan].codigoPlano
@@ -1013,7 +1120,7 @@ export default function CustomizedSteppers() {
 
 
       <Head>
-        <title>Justfit Checkout</title>
+        <title>Just Fit - Checkout</title>
         {/* <meta name="viewport" content="initial-scale=1.0, width=device-width" /> */}
       </Head>
 
@@ -1117,7 +1224,7 @@ export default function CustomizedSteppers() {
 
             <SectionFooter />
           </GridItem>
-          <GridItem className={ isMobile &&  isOpenSide && classes.sideMobile }  style={{ margin: 0, padding: 0, }} xs={12} sm={12} md={activeStep === steps.length - 1 ? 0 : 3} align='right'>
+          <GridItem className={ isMobile &&  isOpenSide && classes.sideMobile  }  style={{ margin: 0, padding: 0, }} xs={12} sm={12} md={activeStep === steps.length - 1 ? 0 : 3} align='right'>
             <GridContainer className={activeStep === steps.length - 1 ? classes.lateralFormDisabed : classes.lateralForm} style={{ padding: 0, margin: 0 }} justify="center" >
               <GridItem xs={12} sm={12} md={12}>
                 <Lateral
@@ -1141,14 +1248,16 @@ export default function CustomizedSteppers() {
                                           
                     </button>
                   }
-                  <GridContainer justify='center' style={{ padding: 0, marginTop: '50px' }}>
+                  
+
+                  <GridContainer className={ isMobile &&  !isOpenSide && classes.sideMobileNone } justify='center' style={{ padding: 0, marginTop: '20px' }}>
                     <GridItem align='center'>
                       <h5 style={{ padding: 0, margin: 0, color: '#787878', fontSize: '25px' }}>PLANO <strong style={{ color: '#484848' }} > { plans[activePlan].descricao.includes("FIT") ? "FIT+" : "JUST"  }  </strong></h5>
-                      <h5 style={{ padding: 0, margin: 0, marginBottom: '30px', fontSize: '25px' }}>UNIDADE BARRETOS</h5>
+                <h5 style={{ padding: 0, margin: 0, marginBottom: '0px', fontSize: '18px' }}>UNIDADE <br/> { activeUnidade }</h5>
 
                     </GridItem>
 
-                    <GridItem justify='center' xs={12} sm={2} md={10} className={classes.formInputItem}>
+                    <GridItem justify='center' xs={12} sm={2} md={10} className={classes.formInputItem} style={{ display: "none" }}>
                       <h2>INSERIR CUPOM:</h2>
                       <input onBlur={handleBlurCupom()}></input>
                 
@@ -1172,7 +1281,8 @@ export default function CustomizedSteppers() {
 
                             {plans[activePlan].parcelas.map((parcela, i) => {                                
                               return (
-                                <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel' + i} onChange={handleChange('panel' + i)}>
+                                <Accordion className={classes.MuiAccordionroot}  onChange={handleChange('panel' + i)} defaultExpanded>
+                                {/* <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel' + i} onChange={handleChange('panel' + i)}> */}
                                   <AccordionSummary
                                     expandIcon={<ExpandMoreIcon />}
                                     aria-controls="panel1bh-content"

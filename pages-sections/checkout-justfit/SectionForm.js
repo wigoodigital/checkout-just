@@ -207,14 +207,31 @@ const SignupSchema = yup.object().shape({
     .phone("Por favor, informe um número de celular válido"),  
   birthDate: yup   
     .string()   
-    .dateNasc()
-    .test('maiorIdade', 'Para continuar, você deve ter no mínimo 18 anos', 
-      function(value) {
-          return isMaiorIdade(value);
-      }),        
+    .dateNasc(),
+    // .dateNasc()
+    // .test('maiorIdade', 'Para continuar, você deve ter no mínimo 18 anos', 
+    //   function(value) {
+    //       return isMaiorIdade(value);
+    //   }),  
+      
+  cpfResp: yup
+    .string()
+    .cpf("Por favor, informe um CPF válido"),  
+  nameResp: yup
+    .string()
+    .required(),     
+  emailResp: yup
+    .string()
+    .required()    
+    .email(),  
+  phoneResp: yup
+    .string()
+    .phone("Por favor, informe um número de celular válido"),  
+    
   
-  optinPhone: yup.bool().oneOf([true], 'O aceite dos termos é obrigatório'),    
-  optinEmail: yup.bool().oneOf([true], 'O aceite dos termos é obrigatório'),    
+  
+  // optinPhone: yup.bool().oneOf([true], 'O aceite dos termos é obrigatório'),    
+  // optinEmail: yup.bool().oneOf([true], 'O aceite dos termos é obrigatório'),    
 
 });
 
@@ -222,11 +239,28 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
+function dataAtualFormatada(){
+  var data = new Date(),
+      dia  = data.getDate().toString(),
+      diaF = (dia.length == 1) ? '0'+dia : dia,
+      mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+      mesF = (mes.length == 1) ? '0'+mes : mes,
+      anoF = data.getFullYear();
+  return diaF+"/"+mesF+"/"+anoF;
+}
+
+const formatValueParcela = (value) => {
+  let returnValue =  new String(value).replace(",", ".")
+  let returnDecimal = parseFloat(returnValue).toFixed(2);      
+  return  parseFloat(returnDecimal);    
+}
+
 
 const useStyles = makeStyles(styles);
 
 export default function SectionForm(props) {
   const [showError, setShowError] = React.useState(false);
+  const [menorIdade, setMenorIdade] = React.useState(true);
   const [messageReturn, setMessageReturn] = React.useState({
     code: "000",
     msg: "Erro ao enviar dados. Tente mais tarde"
@@ -240,14 +274,16 @@ export default function SectionForm(props) {
   });
 
 
+
+
   React.useEffect( () => {
     console.log("setValue");
 
-    if(props.dataSale.customer.name != ""){
-      
-      setValue("optinPhone", true);
-      setValue("optinEmail", true);
+    setValue("optinPhone", true);
+    setValue("optinEmail", true);
 
+    if( isMaiorIdade(props.dataSale.customer.birthDate) || props.dataSale.customer.birthDate == "" ){
+      setMenorIdade(false);
     }
 
     setValue("name", props.dataSale.customer.name);
@@ -257,7 +293,53 @@ export default function SectionForm(props) {
     setValue("birthDate", props.dataSale.customer.birthDate);
     setValue("phone", props.dataSale.customer.phones[0].number);
 
+    setValue("cpfResp", props.dataSale.customer.financeResponsible.document);
+    setValue("nameResp", props.dataSale.customer.financeResponsible.name);
+    setValue("emailResp", props.dataSale.customer.financeResponsible.email);
+    setValue("phoneResp", props.dataSale.customer.financeResponsible.phone);      
+
+    let priceTransaction = parseFloat( formatValueParcela(props.plans[props.activePlan].parcelas[0].valor) +  props.plans[props.activePlan].valorMatricula );
+    
+    TagManager.dataLayer({
+      dataLayer: {
+        'event': 'addPersonalInfo',
+        'ecommerce': {
+          'checkout': {
+            'actionField': {
+              'step': 2
+            },
+            "products": [
+              {
+                  'id': props.plans[props.activePlan].codigoPlano,   
+                  'name': props.plans[props.activePlan].descricao.includes("FIT") ? "Plano Fit Plus " + props.activeUnidade : "Plano Just " + props.activeUnidade,
+                  'sku': props.dataSale.customer.companyBranchId,
+                  'category': props.plans[props.activePlan].descricao.includes("FIT") ? "Plano Fit Plus" : "Plano Just",
+                  'price': priceTransaction,
+                  'quantity': '1',
+                  'currency': 'BRL'
+              }
+            ]
+          }
+        },
+        'plano': {
+          "codigo": props.plans[props.activePlan].codigoPlano,
+          "nome": props.plans[props.activePlan].descricao.includes("FIT") ? "Plano Fit Plus" : "Plano Just",
+          "preco-mat": props.plans[props.activePlan].valorMatricula,
+          "preco-pp": formatValueParcela(props.plans[props.activePlan].parcelas[0].valor),				
+          "preco-anuidade": props.plans[props.activePlan].valorAnuidade,
+          "data-matricula": dataAtualFormatada()
+        },
+        'unidade': {
+          "id": props.dataSale.customer.companyBranchId,
+          "title": props.activeUnidade,          
+        }
+      },          
+    })
+
+    
+
   }, []);
+  
   
   React.useEffect( () => {
     if(props.validationForm){            
@@ -267,11 +349,17 @@ export default function SectionForm(props) {
     }            
   }, [props.validationForm]);
 
+
+
   const validateForm = async () => {
     // var result = await trigger();
 
     
     // var result = await trigger([ "name", "email", "cpf", "sex", "birthDate", "phone" ]);
+
+    setDataLead(getValues());
+    
+
     var result = await trigger();
     if(result){
 
@@ -286,7 +374,8 @@ export default function SectionForm(props) {
         var resultEmail = await validateEmail(identificationForm.email);
         console.log("resultEmail");
         console.log(resultEmail);
-        if(resultEmail){          
+        if(resultEmail){        
+
 
           props.setDataSale( prevDataSale => {
             return {  
@@ -299,10 +388,10 @@ export default function SectionForm(props) {
                 birthDate: identificationForm.birthDate,
                 financeResponsible: {
                   ...prevDataSale.customer.financeResponsible,
-                  name: removeAcento( identificationForm.name ),
-                  document: identificationForm.cpf.replace(/[^\d]+/g,''), 
-                  email: identificationForm.email,
-                  phone: identificationForm.phone.replace(/\s+/g, '')                                  
+                  name: menorIdade ? removeAcento( identificationForm.nameResp ) : removeAcento( identificationForm.name ) ,
+                  document: menorIdade ? identificationForm.cpfResp.replace(/[^\d]+/g,'') : identificationForm.cpf.replace(/[^\d]+/g,'') , 
+                  email: menorIdade ? identificationForm.emailResp : identificationForm.email ,
+                  phone: menorIdade ? identificationForm.phoneResp.replace(/\s+/g, '') : identificationForm.phone.replace(/\s+/g, '')
                 }, 
                 phones: [
                   {
@@ -322,6 +411,30 @@ export default function SectionForm(props) {
     props.setIsLoading(false);
     console.log(result);    
   }
+
+  const setDataLead = async (dataSend) => {    
+
+    const lead = {
+      ...dataSend,      
+      unidade: props.activeUnidade,
+      plano: props.plans[props.activePlan].descricao,
+      finalizadoVenda: false
+    }
+
+    console.log(lead);
+
+    axios.defaults.headers.post['Content-Type'] = 'application/json';
+    await axios.post('/checkout/setLead.php', lead)
+      .then(res => {
+        console.log(res)
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        console.log("finally");
+      });
+  };
   
   // const validateCpf = async (cpf) => {    
   async function validateCpf(cpf) {    
@@ -434,7 +547,7 @@ export default function SectionForm(props) {
             }
             
 
-            <GridItem xs={12} sm={12} md={10} style={{marginBottom:'40px'}}>
+            <GridItem xs={12} sm={12} md={10} style={{marginBottom:'0px'}}>
             {/* <h1 style={{fontSize:'40px',fontWeight:600,color:"#484848",maxWidth:'500px'}}>FAÇA LOGIN PARA CONTINUAR</h1> */}
             <h1 style={{fontSize:'40px',fontWeight:600,color:"#484848",maxWidth:'500px', display: props.isMobile && "none" }}>IDENTIFIQUE-SE PARA CONTINUAR</h1>
             </GridItem>
@@ -479,7 +592,7 @@ export default function SectionForm(props) {
 
               <GridContainer justify='left' xs={12} sm={12} md={10} >
                   <GridItem xs={12} sm={12} md={6} className={ errors.name ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
-                    <h2 >Nome</h2>
+                    <h2 >Nome Completo</h2>
                     <input ref={register} name="name" id="name"></input>                      
                     { errors.name && (                      
                       <span><ErrorOutlineIcon/><label>{errors.name.message}</label></span>                      
@@ -491,6 +604,23 @@ export default function SectionForm(props) {
                     <input name="email" id="email" type="email" ref={register}></input>                      
                     { errors.email && (                      
                       <span><ErrorOutlineIcon/><label>{errors.email.message}</label></span>                      
+                      )
+                    } 
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={6} className={ errors.phone ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
+                    <h2>Celular</h2>                    
+
+                    <Controller
+                      as={InputMask}
+                      control={control}
+                      mask="(99) 99999-9999"
+                      name="phone"
+                      type="tel"
+                      defaultValue={""}
+                    />
+
+                    { errors.phone && (                      
+                      <span><ErrorOutlineIcon/><label>{errors.phone.message}</label></span>                      
                       )
                     } 
                   </GridItem>
@@ -526,39 +656,120 @@ export default function SectionForm(props) {
                   <GridItem xs={12} sm={12} md={6} className={ errors.birthDate ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
                     <h2>Data de nascimento</h2>
                     {/* <input ref={register} name="birthDate" id="birthDate"></input>                       */}
-                    <Controller
+
+                    <InputMask
+                        name="birthDate"
+                        type="tel"
+                        mask="99/99/9999"
+                        maskPlaceholder={""}                            
+                        inputRef={register()}
+                        defaultValue={props.dataSale.customer.birthDate}
+                        onBlur={(e) => {                          
+                          console.log(getValues("birthDate")); 
+                          console.log(isMaiorIdade(getValues("birthDate")));
+
+                          if( !isMaiorIdade(getValues("birthDate")) ){                            
+                            setMenorIdade(true);
+                            setValue("cpfResp", "");
+                            setValue("nameResp", "");
+                            setValue("emailResp", "");
+                            setValue("phoneResp", "");    
+                          } else {
+                            setMenorIdade(false);
+                            setValue("cpfResp", getValues("cpf"));
+                            setValue("nameResp", getValues("name"));
+                            setValue("emailResp", getValues("email"));
+                            setValue("phoneResp", getValues("phone"));     
+                          }
+
+                        }}
+                      />
+
+                    {/* <Controller
                       as={InputMask}
                       control={control}
                       mask="99/99/9999"
                       name="birthDate"
                       type="tel"
-                      defaultValue={""}
-                      // onClick={(event) => {                        
-                      //   event.target.select();                    
-                      // }}
-                    />
+                      defaultValue={""}     
+                    /> */}
                     { errors.birthDate && (                      
                       <span><ErrorOutlineIcon/><label>{errors.birthDate.message}</label></span>                      
                       )
-                    }                 
-                  </GridItem>
-                  <GridItem xs={12} sm={12} md={6} className={ errors.phone ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
-                    <h2>Celular</h2>                    
-
-                    <Controller
-                      as={InputMask}
-                      control={control}
-                      mask="(99) 99999-9999"
-                      name="phone"
-                      type="tel"
-                      defaultValue={""}
-                    />
-
-                    { errors.phone && (                      
-                      <span><ErrorOutlineIcon/><label>{errors.phone.message}</label></span>                      
+                    }      
+                    {
+                      menorIdade && (
+                        <span><ErrorOutlineIcon/><label>Identificamos que você é menor de idade. Insira abaixo os dados do seu responsável para continuar</label></span>                                 
                       )
-                    } 
+                    }
+                    
                   </GridItem>
+                  
+
+                  {
+                    menorIdade && (
+                      <>
+                        <GridItem xs={12} sm={12} md={10}> 
+                          {/* <h5 style={{color:"#484848",fontSize:'15px',fontWeight:600,paddingTop:'50px',}}>Preencha os campos abaixo para se cadastrar</h5> */}
+                          <h5 style={{color:"#484848",fontSize:'15px',fontWeight:600,paddingTop:'0px',}}>Preencha os campos abaixo com as informações do seu responsável legal</h5>
+                        </GridItem>
+                        
+                        <GridItem xs={12} sm={12} md={6} className={ errors.nameResp ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>                    
+                          <h2 >Nome Completo</h2>
+                          <input ref={register} name="nameResp" id="nameResp"></input>                      
+                          { errors.nameResp && (                      
+                            <span><ErrorOutlineIcon/><label>{errors.nameResp.message}</label></span>                      
+                            )
+                          }
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={6} className={ errors.cpfResp ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
+                          <h2>CPF</h2>                    
+                          <Controller                      
+                            
+                            as={InputMask}
+                            control={control}
+                            mask="999.999.999-99"
+                            name="cpfResp"     
+                            type="tel"     
+                            defaultValue={""}                                                                     
+                                              
+                          />                   
+                          { errors.cpfResp && (                      
+                            <span><ErrorOutlineIcon/><label>{errors.cpfResp.message}</label></span>                      
+                            )
+                          } 
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={6} className={ errors.emailResp ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
+                          <h2>E-mail</h2>                  
+                          <input name="emailResp" id="emailResp" type="email" ref={register}></input>                      
+                          { errors.emailResp && (                      
+                            <span><ErrorOutlineIcon/><label>{errors.emailResp.message}</label></span>                      
+                            )
+                          } 
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={6} className={ errors.phoneResp ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
+                          <h2>Celular</h2>                    
+
+                          <Controller
+                            as={InputMask}
+                            control={control}
+                            mask="(99) 99999-9999"
+                            name="phoneResp"
+                            type="tel"
+                            defaultValue={""}
+                          />
+
+                          { errors.phoneResp && (                      
+                            <span><ErrorOutlineIcon/><label>{errors.phoneResp.message}</label></span>                      
+                            )
+                          } 
+                        </GridItem>
+                  
+                      </>
+                    )
+                  }
+                  
+
               </GridContainer>
                   <GridItem xs={12} sm={12} md={10} className={classes.checkboxItem} style={{ marginTop: "25px" }}>
                     <div style={{display: 'flex', flexDirection: 'row', alignItems:'center',margin:0,padding:0}}>
@@ -576,7 +787,7 @@ export default function SectionForm(props) {
                   <GridItem xs={12} sm={12} md={10} className={classes.checkboxItem}>
                     <div style={{display: 'flex', flexDirection: 'row', alignItems:'center',margin:0,padding:0}}>
                             <label className={classes.containerCheckboxT}>
-                        <input type='checkbox' name="optinEmail" ref={register}></input>
+                        <input type='checkbox' name="optinEmail" ref={register} selected></input>
                         <span className={classes.checkmarkT}  ></span>
                       </label>
                     <h2>Aceito receber notícias e comunicados da JustFit por Newsletter.</h2>

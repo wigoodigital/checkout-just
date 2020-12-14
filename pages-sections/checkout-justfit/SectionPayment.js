@@ -36,6 +36,8 @@ import { Grid } from "@material-ui/core";
 
 import InputMask from "react-input-mask";
 
+import TagManager from 'react-gtm-module';
+
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers';
 import * as yup from "yup";
@@ -267,6 +269,29 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
+function dataAtualFormatada(){
+  var data = new Date(),
+      dia  = data.getDate().toString(),
+      diaF = (dia.length == 1) ? '0'+dia : dia,
+      mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+      mesF = (mes.length == 1) ? '0'+mes : mes,
+      anoF = data.getFullYear();
+  return diaF+"/"+mesF+"/"+anoF;
+}
+
+const formatValueParcela = (value) => {
+  let returnValue =  new String(value).replace(",", ".")
+  let returnDecimal = parseFloat(returnValue).toFixed(2);      
+  return  parseFloat(returnDecimal);    
+}
+
+function formataCPF(cpf){
+  //retira os caracteres indesejados...
+  cpf = new String(cpf).replace(/[^\d]/g, "");
+
+  //realizar a formatação...
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+}
 
 
 
@@ -359,6 +384,49 @@ export default function SectionPayment(props) {
       }
     });   
 
+    let priceTransaction = parseFloat( formatValueParcela(props.plans[props.activePlan].parcelas[0].valor) +  props.plans[props.activePlan].valorMatricula );
+
+    TagManager.dataLayer({
+      dataLayer: {
+        'event': 'addPaymentInfo',
+        'ecommerce': {
+          'checkout': {
+            'actionField': {
+              'step': 3
+            },
+            "products": [
+              {
+                  'id': props.plans[props.activePlan].codigoPlano,   
+                  'name': props.plans[props.activePlan].descricao.includes("FIT") ? "Plano Fit Plus " + props.activeUnidade : "Plano Just " + props.activeUnidade,
+                  'sku': props.dataSale.customer.companyBranchId,
+                  'category': props.plans[props.activePlan].descricao.includes("FIT") ? "Plano Fit Plus" : "Plano Just",
+                  'price': priceTransaction,
+                  'quantity': '1',
+                  'currency': 'BRL'
+              }
+            ]
+          }
+        },
+        'plano': {
+          "codigo": props.plans[props.activePlan].codigoPlano,
+          "nome": props.plans[props.activePlan].descricao.includes("FIT") ? "Plano Fit Plus" : "Plano Just",
+          "preco-mat": props.plans[props.activePlan].valorMatricula,
+          "preco-pp": formatValueParcela(props.plans[props.activePlan].parcelas[0].valor),				
+          "preco-anuidade": props.plans[props.activePlan].valorAnuidade,
+          "data-matricula": dataAtualFormatada()
+        },
+        'unidade': {
+          "id": props.dataSale.customer.companyBranchId,
+          "title": props.activeUnidade,          
+        },
+        'cliente': {
+          "nome": props.dataSale.customer.name,
+          "email": props.dataSale.customer.email,
+          "cpf": formataCPF(props.dataSale.customer.document),
+        }
+      },          
+    })
+
 
     
   }, []);
@@ -374,15 +442,6 @@ export default function SectionPayment(props) {
     }            
   }, [props.validationPayment]);
 
-  const validateTeste = async () => {
-    var resultCredit = await triggerCredit();
-    console.log(resultCredit);
-    
-    var resultDebit = await triggerDebit();
-    console.log(resultDebit);
-
-    
-  }
 
   const validateForm = async () => {
         
@@ -412,8 +471,7 @@ export default function SectionPayment(props) {
             customer: { 
               ...prevDataSale.customer,              
               financeResponsible: {
-                ...prevDataSale.customer.financeResponsible,
-                name: removeAcento( identificationCredit.nameCredit ),
+                ...prevDataSale.customer.financeResponsible,                
                 document: identificationCredit.cpfCredit,                
               },    
               address: {
@@ -697,7 +755,7 @@ export default function SectionPayment(props) {
                     </button>
 
 
-                    <button className={classes.btnCard} style={{ backgroundColor: thirdCardColor, color: thirdCardTextColor, marginLeft: 10, marginRight: 10 }} onClick={() => { setFirstCardColor("#F2F2F2"); setFirstCardTextColor('#484848'); setSecondCardColor('#F2F2F2'); setSecondCardTextColor('#484848'); setThirdCardColor("#484848"); setThirdCardTextColor('#FFF'); setDisplayDebit('block'); setDisplayPayment('none'); }}>
+                    <button className={classes.btnCard} style={{ backgroundColor: thirdCardColor, color: thirdCardTextColor, marginLeft: 10, marginRight: 10, display: "none" }} onClick={() => { setFirstCardColor("#F2F2F2"); setFirstCardTextColor('#484848'); setSecondCardColor('#F2F2F2'); setSecondCardTextColor('#484848'); setThirdCardColor("#484848"); setThirdCardTextColor('#FFF'); setDisplayDebit('block'); setDisplayPayment('none'); }}>
                       <span style={{ backgroundColor: thirdCardTextColor }}></span>
                       <svg width="31" height="31" viewBox="0 0 31 31" fill="none" style={{ marginRight: 15 }} xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0)">
@@ -809,8 +867,8 @@ export default function SectionPayment(props) {
                             <label className={classes.containerCheckboxT}>
                               <input type='checkbox' name="acceptTermsCredit" ref={registerCredit}></input>
                               <span className={classes.checkmarkT}  ></span>
-                            </label>
-                            <h2>Li e aceito o contrato, o <a>termo de adesão</a> e o <a>regulamento interno</a>.</h2>
+                            </label>                            
+                            <h2>Li e aceito o <a href="https://www.justfit.com.br/wp-content/themes/marty_wp/assets/images/Regulamento_Interno_2019.pdf" target="_blank">regulamento interno</a>, o <a href="https://justfit.com.br/wp-content/uploads/2020/06/TERMO-DE-RESPONSABILIDADE-ALUNOS-PREVEN%C3%87%C3%95ES-E-ORIENTA%C3%87%C3%95ES-COVID-19.pdf" target="_blank">termo de responsabilidade</a> e o termo de adesão (<a href="https://www.justfit.com.br/wp-content/themes/marty_wp/assets/images/Termo_Just.pdf" target="_blank">JUST</a> ou <a href="https://www.justfit.com.br/wp-content/uploads/2019/07/Termo-de-matricula-Fit-Plus-com-taxa-cancelamento.pdf" target="_blank">FIT PLUS</a>)</h2>
                           </div>
                           { errorsCredit.acceptTermsCredit && (                      
                             <span><ErrorOutlineIcon/><label>{errorsCredit.acceptTermsCredit.message}</label></span>                      
@@ -867,7 +925,7 @@ export default function SectionPayment(props) {
                         </GridItem>
                         <GridItem xs={12} sm={12} md={9} className={ errorsDebit.agencia ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
                           <h2>Agência</h2>
-                          <input ref={registerDebit} name="agencia" id="agencia"></input>
+                          <input ref={registerDebit} name="agencia" id="agencia" type="tel"></input>
                           { errorsDebit.agencia && (                      
                             <span><ErrorOutlineIcon/><label>{errorsDebit.agencia.message}</label></span>                      
                             )
@@ -875,7 +933,7 @@ export default function SectionPayment(props) {
                         </GridItem>
                         <GridItem xs={12} sm={12} md={3} className={ errorsDebit.agenciaDV ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
                           <h2>Dígito</h2>
-                          <input ref={registerDebit} name="agenciaDV" id="agenciaDV"></input>
+                          <input ref={registerDebit} name="agenciaDV" id="agenciaDV" type="tel"></input>
                           { errorsDebit.agenciaDV && (                      
                             <span><ErrorOutlineIcon/><label>{errorsDebit.agenciaDV.message}</label></span>                      
                             )
@@ -883,7 +941,7 @@ export default function SectionPayment(props) {
                         </GridItem>
                         <GridItem xs={12} sm={12} md={9} className={ errorsDebit.conta ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
                           <h2>Conta</h2>
-                          <input ref={registerDebit} name="conta" id="conta"></input>
+                          <input ref={registerDebit} name="conta" id="conta" type="tel"></input>
                           { errorsDebit.conta && (                      
                             <span><ErrorOutlineIcon/><label>{errorsDebit.conta.message}</label></span>                      
                             )
@@ -891,7 +949,7 @@ export default function SectionPayment(props) {
                         </GridItem>
                         <GridItem xs={12} sm={12} md={3} className={ errorsDebit.contaDV ? classes.formInputItem + " " + classes.formInputItemError : classes.formInputItem }>
                           <h2>Dígito</h2>
-                          <input ref={registerDebit} name="contaDV" id="contaDV"></input>
+                          <input ref={registerDebit} name="contaDV" id="contaDV" type="tel"></input>
                           { errorsDebit.contaDV && (                      
                             <span><ErrorOutlineIcon/><label>{errorsDebit.contaDV.message}</label></span>                      
                             )

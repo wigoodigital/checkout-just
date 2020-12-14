@@ -52,6 +52,35 @@ import Justfit from "../../components/Justfit/justfit";
 import PlanHorizontal from "../../components/Justfit/JustfitPlans/PlanHorizontal";
 import { Grid } from "@material-ui/core";
 
+import TagManager from 'react-gtm-module';
+
+const formatValueParcela = (value) => {
+  let returnValue =  new String(value).replace(",", ".")
+  let returnDecimal = parseFloat(returnValue).toFixed(2);      
+  return  parseFloat(returnDecimal);    
+}
+
+function dataAtualFormatada(){
+  var data = new Date(),
+      dia  = data.getDate().toString(),
+      diaF = (dia.length == 1) ? '0'+dia : dia,
+      mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+      mesF = (mes.length == 1) ? '0'+mes : mes,
+      anoF = data.getFullYear();
+  return diaF+"/"+mesF+"/"+anoF;
+}
+
+function formataCPF(cpf){
+  //retira os caracteres indesejados...
+  cpf = new String(cpf).replace(/[^\d]/g, "");
+
+  //realizar a formatação...
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+}
+
+
+
+
 const useStyles = makeStyles(styles);
 
 export default function SectionFinish(props) {
@@ -115,6 +144,58 @@ export default function SectionFinish(props) {
         break    
       }
   }
+
+  React.useEffect( () => {
+
+    let priceTransaction = parseFloat( formatValueParcela(props.plans[props.activePlan].parcelas[0].valor) +  props.plans[props.activePlan].valorMatricula );
+
+    TagManager.dataLayer({
+      dataLayer: {
+        'event': 'purchase',
+        'ecommerce': {
+          'purchase': {
+            'actionField': {
+              'id': Math.floor(100000 + Math.random() * 900000),
+              'revenue': priceTransaction,
+              'tax':'0.00',
+              'shipping':'0.00',
+              'step': 5
+            },
+            "products": [
+              {
+                  'id': props.plans[props.activePlan].codigoPlano,   
+                  'name': props.plans[props.activePlan].descricao.includes("FIT") ? "Plano Fit Plus " + props.activeUnidade : "Plano Just " + props.activeUnidade,
+                  'sku': props.dataSale.customer.companyBranchId,
+                  'category': props.plans[props.activePlan].descricao.includes("FIT") ? "Plano Fit Plus" : "Plano Just",
+                  'price': priceTransaction,
+                  'quantity': '1',
+                  'currency': 'BRL'
+              }
+            ]
+          }
+        },
+        'plano': {
+          "codigo": props.plans[props.activePlan].codigoPlano,
+          "nome": props.plans[props.activePlan].descricao.includes("FIT") ? "Plano Fit Plus" : "Plano Just",
+          "preco-mat": props.plans[props.activePlan].valorMatricula,
+          "preco-pp": formatValueParcela(props.plans[props.activePlan].parcelas[0].valor),				
+          "preco-anuidade": props.plans[props.activePlan].valorAnuidade,
+          "data-matricula": dataAtualFormatada()
+        },
+        'unidade': {
+          "id": props.dataSale.customer.companyBranchId,
+          "title": props.activeUnidade,          
+        },
+        'cliente': {
+          "nome": props.dataSale.customer.name,
+          "email": props.dataSale.customer.email,
+          "cpf": formataCPF(props.dataSale.customer.document),
+        }
+      },          
+    })
+
+
+  }, []);
   
 
 
@@ -237,7 +318,7 @@ export default function SectionFinish(props) {
 
                 <GridItem xs={12} sm={12} md={12} align='center'>
                   <GridItem align='left'>
-                    <h1 style={{ margin: 0, padding: 0, fontSize: '20px', fontWeight: '400', color: '#E3E3E3' }}>VÁ ATÉ A <strong>UNIDADE BARRETOS</strong> COM:</h1>
+              <h1 style={{ margin: 0, padding: 0, fontSize: '20px', fontWeight: '400', color: '#E3E3E3' }}>VÁ ATÉ A <strong> UNIDADE {props.activeUnidade}</strong> COM:</h1>
                   </GridItem>
                   <GridItem align='left' >
                     <ul style={{ color: '#E3E3E3', fontSize: '12px', fontWeight: '400', listStyleType: 'none', marginTop: '20px' }}>

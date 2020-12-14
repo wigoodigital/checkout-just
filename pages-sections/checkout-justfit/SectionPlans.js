@@ -22,10 +22,29 @@ import stepMobile1 from "assets/img/mobilestep1.png";
 import planojust from "assets/img/planojust.png";
 import planofit from "assets/img/planofit.png";
 
+import TagManager from 'react-gtm-module';
+
 import styles from "assets/jss/nextjs-material-kit-pro/pages/justfit/justfit.js";
 import Justfit from "../../components/Justfit/justfit";
 import PlanHorizontal from "../../components/Justfit/JustfitPlans/PlanHorizontal";
 import { Grid } from "@material-ui/core";
+
+
+function dataAtualFormatada(){
+  var data = new Date(),
+      dia  = data.getDate().toString(),
+      diaF = (dia.length == 1) ? '0'+dia : dia,
+      mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+      mesF = (mes.length == 1) ? '0'+mes : mes,
+      anoF = data.getFullYear();
+  return diaF+"/"+mesF+"/"+anoF;
+}
+
+const formatValueParcela = (value) => {
+  let returnValue =  new String(value).replace(",", ".")
+  let returnDecimal = parseFloat(returnValue).toFixed(2);      
+  return  parseFloat(returnDecimal);    
+}
 
 const useStyles = makeStyles(styles);
 
@@ -64,6 +83,48 @@ export default function SectionPlans(props) {
 
   }, [props.activePlan]);
 
+  React.useEffect( () => {
+
+    let priceTransaction = parseFloat( formatValueParcela(props.plans[props.activePlan].parcelas[0].valor) +  props.plans[props.activePlan].valorMatricula );
+
+    TagManager.dataLayer({
+      dataLayer: {
+        'event': 'addPlan',        
+        'ecommerce': {
+          'checkout': {
+            'actionField': {
+              'step': 1
+            },
+            "products": [
+              {
+                  'id': props.plans[props.activePlan].codigoPlano,   
+                  'name': props.plans[props.activePlan].descricao.includes("FIT") ? "Plano Fit Plus " + props.activeUnidade : "Plano Just " + props.activeUnidade,
+                  'sku': props.dataSale.customer.companyBranchId,
+                  'category': props.plans[props.activePlan].descricao.includes("FIT") ? "Plano Fit Plus" : "Plano Just",
+                  'price': priceTransaction,
+                  'quantity': '1',
+                  'currency': 'BRL'
+              }
+            ]
+          }
+        },
+        'plano': {
+          "codigo": props.plans[props.activePlan].codigoPlano,
+          "nome": props.plans[props.activePlan].descricao.includes("FIT") ? "Plano Fit Plus" : "Plano Just",
+          "preco-mat": props.plans[props.activePlan].valorMatricula,
+          "preco-pp": formatValueParcela(props.plans[props.activePlan].parcelas[0].valor),				
+          "preco-anuidade": props.plans[props.activePlan].valorAnuidade,
+          "data-matricula": dataAtualFormatada()
+        },
+        'unidade': {
+          "id": props.dataSale.customer.companyBranchId,
+          "title": props.activeUnidade,          
+        }
+      },          
+    })
+
+
+  }, []);
 
   
 
@@ -82,8 +143,8 @@ export default function SectionPlans(props) {
               props.isMobile && (
                 <>
                   <GridItem align='left' justify='center' xs={6} sm={6} md={8}>
-                    <h2 style={{ fontSize: '15px', fontWeight: 600, color: '#484848', minWidth: '160px' }}>VOCÊ ESCOLHEU O PLANO <strong style={{ fontWeight: '900' }}>FIT</strong></h2>
-                    <p style={{ minWidth: '160px', color: '#484848', fontWeight: 500, fontSize: '12px' }}>UNIDADE <strong>BARRETOS</strong></p>
+                    <h2 style={{ fontSize: '15px', fontWeight: 600, color: '#484848', minWidth: '160px' }}>VOCÊ ESCOLHEU O PLANO <strong style={{ fontWeight: '900' }}>{textPlano}</strong></h2>
+                    <p style={{ minWidth: '160px', color: '#484848', fontWeight: 500, fontSize: '12px' }}>UNIDADE <strong>{props.activeUnidade}</strong></p>
                   </GridItem>
                   <GridItem className={classes.stepMobile} xs={6} sm={6} md={4} align='right'>
                     <img src={stepMobile1} />
