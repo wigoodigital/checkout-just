@@ -371,10 +371,10 @@ export default function SectionForm(props) {
       console.log("resultCpf");
       console.log(resultCpf);
       if(resultCpf){
-        var resultEmail = await validateEmail(identificationForm.email);
-        console.log("resultEmail");
-        console.log(resultEmail);
-        if(resultEmail){        
+        // var resultEmail = await validateEmail(identificationForm.email);
+        // console.log("resultEmail");
+        // console.log(resultEmail);
+        // if(resultEmail){        
 
 
           props.setDataSale( prevDataSale => {
@@ -404,7 +404,8 @@ export default function SectionForm(props) {
           });  
 
           props.setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        }
+          
+        // }
       }
 
     }
