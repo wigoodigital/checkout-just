@@ -1,7 +1,7 @@
 .DS_STORE
 node_modules
 .yarn.lock
-.next/
+.next
 scripts/flow/*/.flowconfig
 .flowconfig
 *~
