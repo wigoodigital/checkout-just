@@ -255,6 +255,14 @@ const formatValueParcela = (value) => {
   return  parseFloat(returnDecimal);    
 }
 
+function formataCPF(cpf){
+  //retira os caracteres indesejados...
+  cpf = new String(cpf).replace(/[^\d]/g, "");
+
+  //realizar a formatação...
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+}
+
 
 const useStyles = makeStyles(styles);
 
@@ -416,7 +424,8 @@ export default function SectionForm(props) {
   const setDataLead = async (dataSend) => {    
 
     const lead = {
-      ...dataSend,      
+      ...dataSend,     
+      cpf: formataCPF(dataSend.cpf),  
       unidade: props.activeUnidade,
       plano: props.plans[props.activePlan].descricao,
       finalizadoVenda: false
