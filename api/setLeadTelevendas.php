@@ -1,18 +1,33 @@
 <?php
 
-
+include_once("inc/functions.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'PUT' ) {
 
-	$servername = "localhost";
-	$username = "jflinux_user";
-	$password = "2309sl#ul32@";
-	$dbname = "justfitdb_linux";
+	// $json = file_get_contents('php://input');	
 
-	// $servername = "162.241.61.224";
-	// $username = "clicou84_admin_cp";
-	// $password = "cp@189723";
-	// $dbname = "clicou84_checkout_justfit";
+	// $lead = json_decode($json, true);
+	
+	// if( $finalizado == 0 ) {
+	// 	incluirLeadTelevendas($client, $lead);		
+	// 	echo "Lead incluso no Televendas";		
+	// } else {
+	// 	incluirLeadTelevendasVenda($client, $lead);
+	// 	echo "Venda inclusa no Televendas";		
+	// }
+
+	// return false;
+
+
+	// $servername = "localhost";
+	// $username = "jflinux_user";
+	// $password = "2309sl#ul32@";
+	// $dbname = "justfitdb_linux";
+
+	$servername = "162.241.61.224";
+	$username = "clicou84_admin_cp";
+	$password = "cp@189723";
+	$dbname = "clicou84_checkout_justfit";
 
 
 	// Create connection
@@ -95,6 +110,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'PUT
       }
 
 	$conn->close();
+
+
+	if($optPhone == 1) {
+		if( $finalizado == 0 ) {
+			incluirLeadTelevendas($client, $lead);		
+			echo "Lead incluso no Televendas";		
+		} else {
+			incluirLeadTelevendasVenda($client, $lead);
+			echo "Venda inclusa no Televendas";		
+		}
+	}
+	
 
 
 

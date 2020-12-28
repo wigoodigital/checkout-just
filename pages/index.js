@@ -24,6 +24,8 @@ import PaymentIcon from '@material-ui/icons/Payment';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import CloseIcon from '@material-ui/icons/Close';
+import Snackbar from '@material-ui/core/Snackbar';
+
 
 //LATERAL 
 import Accordion from '@material-ui/core/ExpansionPanel';
@@ -46,10 +48,12 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 
 
+
 import Grow from '@material-ui/core/Grow';
 
 import Lateral from "components/Lateral/Lateral.js";
 import styles from "assets/jss/nextjs-material-kit-pro/pages/lateral/lateralStyle.js";
+import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 
 
 import axios from 'axios';
@@ -516,6 +520,11 @@ export default function CustomizedSteppers() {
   const [isMobile, setisMobile] = React.useState(false);
   const [isOpenSide, setIsOpenSide] = React.useState(false);
 
+  const [isLoadingCupom, setIsLoadingCupom] = React.useState(false);  
+  const [insertCupom, setInsertCupom] = React.useState(false);
+  const [errorCupom, setErrorCupom] = React.useState(false); 
+  const [inputCupom, setInputCupom] = React.useState("");   
+
   const [activePlan, setActivePlan] = React.useState(0);
   
   const [activeUnidade, setActiveUnidade] = React.useState("");
@@ -703,6 +712,37 @@ export default function CustomizedSteppers() {
 
   });
 
+  const [listaPremios, setListaPremios] = React.useState(
+    {
+      numeroCupom: "TESTE",
+      listaPremios: [
+        {
+          percentualDesconto: "10",
+          valorDesconto: "10",
+          descricaoPremio: "PARCELA 1",
+          tipoPremio: "MENSALIDADE",
+          tipo: "men",
+          valorReferente: 2,
+        },
+        {
+          percentualDesconto: "10",
+          valorDesconto: "10",
+          descricaoPremio: "PARCELA 1",
+          tipoPremio: "MENSALIDADE",
+          tipo: "men",
+          valorReferente: 5,
+        },
+        
+        // {
+        //   percentualDesconto: "10",
+        //   valorDesconto: "0",
+        //   descricaoPremio: "PARCELA 3",
+        //   tipoPremio: "MENSALIDADE"
+        // },          
+      ]
+    }
+  );
+
   const steps = getSteps();
   const theme = useTheme();
 
@@ -849,7 +889,7 @@ export default function CustomizedSteppers() {
     console.log(lead);
 
     axios.defaults.headers.put['Content-Type'] = 'application/json';
-    await axios.put('/checkout/setLead.php', lead)
+    await axios.put('/checkout/api/setLeadTelevendas.php', lead)
       .then(res => {
         console.log(res)
       })
@@ -921,6 +961,41 @@ export default function CustomizedSteppers() {
         // setLoading(false);
       });
   };
+
+
+  const getCupom = async (cupom) => {    
+    setIsLoadingCupom(true);  
+    setInsertCupom(false);
+    setErrorCupom(false);  
+  
+    await axios.post(`https://admin.justfit.com.br/app.justfit/api/LoadPersonalOnline/GetCupomInfo?cupom=${cupom}`)
+      .then(res => {
+  
+        if(res.data.code != "0"){
+          console.log("error getCupom");    
+          setErrorCupom(true);    
+          return false;
+        }
+        console.log(res.data);     
+  
+        console.log(res.data.cupom.cupom);     
+        
+        setInsertCupom(true);
+  
+        setListaPremios(res.data.cupom.cupom);          
+        
+      })
+      .catch((error) => {
+        console.log(error);
+        setErrorCupom(true);
+      })
+      .finally(() => {
+        setIsLoadingCupom(false);  
+      });
+  };
+
+
+
 
   
 
@@ -1092,9 +1167,16 @@ export default function CustomizedSteppers() {
   };
   
   const handleBlurCupom = () => (event) => {
-    console.log("cupom");    
-    console.log(event.target.value);    
-    let setCupom = event.target.value;
+
+    setInputCupom(event.target.value);    
+    
+    // getCupom(event.target.value);
+  };
+
+  React.useEffect(() => {
+    console.log("inputCupom");
+    console.log(inputCupom);
+
     setDataSale( prev => {
       return {
         ...prev,
@@ -1102,17 +1184,132 @@ export default function CustomizedSteppers() {
           ...prev.customer,          
           planData: {
             ...prev.customer.planData,       
-            cupom: setCupom
+            cupom: inputCupom
           }  
         }          
       }
     });
+    
+    if(inputCupom == ""){
+      setIsLoadingCupom(false);  
+      setInsertCupom(false);
+      setErrorCupom(false); 
+    } else {
+      getCupom(inputCupom);
+    }
+
+  }, [inputCupom]);
+
+
+  const  getValueCupomParcela = (i) => {
+    return (
+      <>              
+        {i == 0 ? (
+          <Typography className={classes.secondaryHeading}> R$ { new String(parseFloat(formatValueParcela(plans[activePlan].valorMatricula) + descontoParcela( listaPremios.listaPremios[i], parcela.valor ) ).toFixed(2) ).replace(".", ",")} </Typography> 
+        ) : (
+          <Typography className={classes.secondaryHeading}> R$ { new String(parseFloat(formatValueParcela(plans[activePlan].parcelasAnuidade[i - 1].valor) + formatValueParcela( descontoParcela( listaPremios.listaPremios[i], parcela.valor ) ) ).toFixed(2) ).replace(".", ",")} </Typography> 
+          // <Typography className={classes.secondaryHeading}> R$ { new String(parseFloat(formatValueParcela(plans[activePlan].parcelasAnuidade[i - 1].valor) + formatValueParcela(parcela.valor) ).toFixed(2) ).replace(".", ",")} </Typography> 
+          
+        )} 
+      </>    
+    ) 
+  }
+
+
+
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setErrorCupom(false);
   };
 
   const formatValueParcela = (value) => {
     let returnValue =  new String(value).replace(",", ".")
     let returnDecimal = parseFloat(returnValue).toFixed(2);      
     return  parseFloat(returnDecimal);    
+  }
+
+  const descontoParcela = (descontos, parcela) => {
+ 
+    let valorParcela = formatValueParcela(parcela);
+
+    // console.log("valorParcela formatValueParcela(parcela)");
+    // console.log(valorParcela);
+    
+    // console.log("valorParcela descontos.valorDesconto");
+    // console.log(descontos);
+    // console.log(descontos.valorDesconto);
+
+  
+    valorParcela = valorParcela - formatValueParcela(descontos.valorDesconto);
+  
+    valorParcela = valorParcela - ( formatValueParcela(parcela) * ( parseFloat(descontos.percentualDesconto) / 100 ) )
+  
+  
+    // console.log("valorParcela");
+    // console.log(valorParcela);
+
+    if( valorParcela < 0 ){
+      valorParcela = 0;
+    }
+  
+    return parseFloat( valorParcela ).toFixed(2);    
+  }
+  
+  const valorTotalParcelaCupom = (descontos, numeroParcela, valorParcela, parcelaAnuidade, matricula) => {
+    
+    console.log("numeroParcela, valorParcela, parcelaAnuidade, matricula");
+    console.log(numeroParcela, valorParcela, parcelaAnuidade, matricula);
+    descontos = descontos.filter(( desconto ) => {
+      return parseInt(desconto.ValorReferente) == numeroParcela + 1;  
+    });
+
+    function descontaValor( desconto ) {
+      switch (desconto.Tipo) {
+        case "men":
+          valorParcela = formatValueParcela(valorParcela) - formatValueParcela(desconto.valorDesconto); 
+          valorParcela = formatValueParcela(valorParcela) - ( formatValueParcela(valorParcela) * ( parseFloat(desconto.percentualDesconto) / 100 ) ); 
+          return
+        case "mat":
+          matricula = formatValueParcela(matricula) - formatValueParcela(desconto.valorDesconto); 
+          matricula = formatValueParcela(matricula) - ( formatValueParcela(matricula) * ( parseFloat(desconto.percentualDesconto) / 100 ) );           
+          return
+        case "anu":
+          parcelaAnuidade = formatValueParcela(parcelaAnuidade) - formatValueParcela(desconto.valorDesconto); 
+          parcelaAnuidade = formatValueParcela(parcelaAnuidade) - ( formatValueParcela(parcelaAnuidade) * ( parseFloat(desconto.percentualDesconto) / 100 ) );                     
+          return         
+        default:
+          return null;
+      } 
+    }
+
+    if(descontos.length > 0){
+      console.log("encontrado");
+      console.log(descontos);
+
+      descontos.map(( desconto ) => {
+        descontaValor(desconto)
+      });
+    
+    }
+
+
+    valorParcela = formatValueParcela(valorParcela) + formatValueParcela(matricula) + formatValueParcela(parcelaAnuidade);
+    
+  
+  
+    console.log("valorParcela");
+    console.log(valorParcela);
+
+    if( valorParcela < 0 ){
+      valorParcela = 0;
+    }
+  
+    return parseFloat( valorParcela ).toFixed(2);    
+    // return 0;    
   }
 
   return (
@@ -1257,13 +1454,75 @@ export default function CustomizedSteppers() {
 
                     </GridItem>
 
-                    <GridItem justify='center' xs={12} sm={2} md={10} className={classes.formInputItem} style={{ display: "none" }}>
+                    {/* <GridItem justify='center' xs={12} sm={2} md={10} className={classes.formInputItem} style={{ display: "none" }}> */}
+                    <GridItem justify='center' xs={12} sm={12} md={10} className={classes.formInputItem} style={{ marginTop: "15px", marginBottom: "20px" }}>
                       <h2>INSERIR CUPOM:</h2>
-                      <input onBlur={handleBlurCupom()}></input>
+                      <GridContainer>
+                        <GridItem justify='center' xs={8} sm={8} md={8}>
+                          <input onBlur={handleBlurCupom()}></input>                          
+                        </GridItem>
+                        <GridItem justify='center' xs={4} sm={4} md={4}>
+
+                            <Button
+                              disabled={isLoadingCupom ? true : false}
+                              variant="contained"
+                              color="primary"
+                              onClick={() => getCupom(inputCupom)}
+                              className={classes.button}
+                              style={ isMobile ? { color: 'white', backgroundColor: '#484848', marginTop: "1px"  } : { color: 'white', backgroundColor: '#484848', marginTop: "2px"  } } 
+                            >
+                               OK
+                            </Button>
+                          
+                        </GridItem>
+
+                      </GridContainer>
+                      
                 
                     </GridItem>
 
-                    <GridItem justify='space-between' align='center' style={{ marginTop: '30px' }} xs={12} sm={2} md={12}>
+
+                    {
+                      isLoadingCupom ? (
+                        <GridItem justify='center' xs={12} sm={12} md={12} style={{ textAlign: "center" }}>
+                          <CircularProgress style={{ color: "#ccd900" }} size={30}/>
+                        </GridItem>
+
+                      ) : (
+                        <>
+                          {
+                            insertCupom && (
+                              <GridItem justify='center' xs={12} sm={12} md={12} style={{ textAlign: "center", marginBottom: "15px" }}>
+                                <h5 style={{ padding: 0, margin: 0, color: '#787878', fontSize: '18px' }}> <strong style={{ color: '#484848' }} > CUPOM APLICADO </strong> <br/> { listaPremios.numeroCupom } </h5>                                
+                              </GridItem>
+      
+                            )
+      
+                          }
+                        </>
+                      )
+
+                    }  
+
+                      
+                    <Snackbar open={errorCupom} autoHideDuration={6000} onClose={handleClose}>
+                      <SnackbarContent                          
+                        message={
+                          <span>
+                            <b>Cupom não encontrado</b> <br/> Insira um cupom válido
+                          </span>
+                        }
+                        // close
+                        color="danger"
+                        icon="info_outline"
+                      />
+                    </Snackbar>
+                        
+                    
+
+
+
+                    <GridItem justify='space-between' align='center' style={{ marginTop: '0px' }} xs={12} sm={2} md={12}>
                       <h6 style={{ padding: 10, margin: 0, fontSize: '16px', textAlign: 'left', fontWeight: 600, color:'#292929',textTransform:'none' }}>Informações de Cobrança</h6>
                      
                     
@@ -1279,57 +1538,127 @@ export default function CustomizedSteppers() {
                           <Scrollbar>
                             <div className="list-data">
 
-                            {plans[activePlan].parcelas.map((parcela, i) => {                                
-                              return (
-                                <Accordion className={classes.MuiAccordionroot}  onChange={handleChange('panel' + i)} defaultExpanded>
-                                {/* <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel' + i} onChange={handleChange('panel' + i)}> */}
-                                  <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon />}
-                                    aria-controls="panel1bh-content"
-                                    id="panel1bh-header"
-                                  >
-                                    <Typography className={classes.heading}>{parcela.numero}ª Cobrança</Typography>
-                                    { i < plans[activePlan].parcelasAnuidade.length + 1 ? 
-                                      
-                                      ( <>
-                                        {i == 0 ? (
-                                          <Typography className={classes.secondaryHeading}> R$ { new String(parseFloat(formatValueParcela(plans[activePlan].valorMatricula) + formatValueParcela(parcela.valor) ).toFixed(2) ).replace(".", ",")} </Typography> 
-                                        ) : (
-                                          <Typography className={classes.secondaryHeading}> R$ { new String(parseFloat(formatValueParcela(plans[activePlan].parcelasAnuidade[i - 1].valor) + formatValueParcela(parcela.valor)).toFixed(2) ).replace(".", ",")} </Typography> 
-                                        )}                                         
+                              {plans[activePlan].parcelas.map((parcela, i) => {        
+                                
+                                
+                                return (
+                                  <>
+                                    {
+                                      insertCupom ? (
+                                        <>
+                                          <Accordion className={classes.MuiAccordionroot}  onChange={handleChange('panel' + i)} defaultExpanded>                                          
+                                            <AccordionSummary
+                                              expandIcon={<ExpandMoreIcon />}
+                                              aria-controls="panel1bh-content"
+                                              id="panel1bh-header"
+                                            >                                    
+                                              <Typography className={classes.heading}>{parcela.numero}ª Cobrança</Typography>
+                                              
+
+                                              { i < plans[activePlan].parcelasAnuidade.length + 1 ? 
+                                                
+                                                ( <>                                                                                                                                            
+                                                    {i == 0 ? (
+                                                      // <Typography className={classes.secondaryHeading}> R$ { new String(parseFloat(formatValueParcela(plans[activePlan].valorMatricula) + descontoParcela( listaPremios.listaPremios[i], parcela.valor ) ).toFixed(2) ).replace(".", ",")} </Typography> 
+                                                      <Typography className={classes.secondaryHeading}> R$ { new String(valorTotalParcelaCupom( listaPremios.listaPremios, i, parcela.valor, 0, plans[activePlan].valorMatricula )).replace(".", ",")} </Typography> 
+
+                                                    ) : (
+                                                      // <Typography className={classes.secondaryHeading}> R$ { new String(parseFloat(formatValueParcela(plans[activePlan].parcelasAnuidade[i - 1].valor) + formatValueParcela( descontoParcela( listaPremios.listaPremios[i], parcela.valor ) ) ).toFixed(2) ).replace(".", ",")} </Typography> 
+                                                      // <Typography className={classes.secondaryHeading}> R$ { new String(parseFloat(formatValueParcela(plans[activePlan].parcelasAnuidade[i - 1].valor) + formatValueParcela(parcela.valor) ).toFixed(2) ).replace(".", ",")} </Typography> 
+
+                                                      <Typography className={classes.secondaryHeading}> R$ { new String(valorTotalParcelaCupom( listaPremios.listaPremios, i, parcela.valor, plans[activePlan].parcelasAnuidade[i - 1].valor, 0 )).replace(".", ",")} </Typography> 
+                                                      
+                                                    )} 
+                                                  </>                                                                                                          
+                                                ) : ( 
+                                                  // <Typography className={classes.secondaryHeading}>R$ { parcela.valor } </Typography> 
+                                                  <Typography className={classes.secondaryHeading}> R$ { new String(valorTotalParcelaCupom( listaPremios.listaPremios, i, parcela.valor, 0, 0 )).replace(".", ",")} </Typography> 
+                                                )
+                                              }                                    
+                                            </AccordionSummary>
+                                            <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
+                                              {/* Detalhe de cobrança */}
+                                              <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
+                                                <Typography className={classes.heading2}>Mensalidade</Typography>
+
+                                                {/* <Typography className={classes.secondaryHeading2}> R$ { i < listaPremios.listaPremios.length ? new String( descontoParcela( listaPremios.listaPremios[i], parcela.valor ) ).replace(".", ",") :  parcela.valor }</Typography> */}
+                                                <Typography className={classes.secondaryHeading2}> R$ { i < listaPremios.listaPremios.length ? new String( valorTotalParcelaCupom( listaPremios.listaPremios, i, parcela.valor, 0, 0 ) ).replace(".", ",") :  parcela.valor }</Typography>
+
+                                                
+                                              </GridItem>
+                                              <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
+                                                <Typography className={classes.heading2}>Manutenção</Typography>                                      
+                                                { i < plans[activePlan].parcelasAnuidade.length + 1 && i != 0 ? (
+                                                  <Typography className={classes.secondaryHeading2}>{plans[activePlan].parcelasAnuidade[i - 1].valorApresentar}</Typography>
+                                                ) : (
+                                                  <Typography className={classes.secondaryHeading2}>R$ 0,00</Typography>
+                                                )
+                                                }                                      
+                                              </GridItem>
+                                              { i == 0 && (
+                                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
+                                                  <Typography className={classes.heading2}>Matrícula</Typography>
+                                                  <Typography className={classes.secondaryHeading2}> R$  { new String(parseFloat( plans[activePlan].valorMatricula ).toFixed(2) ).replace(".", ",")}</Typography>
+                                                </GridItem>
+                                              )}
+                                            </AccordionDetails>
+                                          </Accordion>                                                                        
                                         </>
-                                      ) : ( 
-                                        <Typography className={classes.secondaryHeading}>R$ { parcela.valor } </Typography> 
+
+                                      ): (
+                                        <>
+                                          <Accordion className={classes.MuiAccordionroot}  onChange={handleChange('panel' + i)} defaultExpanded>
+                                          {/* <Accordion className={classes.MuiAccordionroot}  expanded={expanded === 'panel' + i} onChange={handleChange('panel' + i)}> */}
+                                            <AccordionSummary
+                                              expandIcon={<ExpandMoreIcon />}
+                                              aria-controls="panel1bh-content"
+                                              id="panel1bh-header"
+                                            >                                    
+                                              <Typography className={classes.heading}>{parcela.numero}ª Cobrança</Typography>
+
+                                              { i < plans[activePlan].parcelasAnuidade.length + 1 ? 
+                                                
+                                                ( <>
+                                                  {i == 0 ? (
+                                                    <Typography className={classes.secondaryHeading}> R$ { new String(parseFloat(formatValueParcela(plans[activePlan].valorMatricula) + formatValueParcela(parcela.valor) ).toFixed(2) ).replace(".", ",")} </Typography> 
+                                                  ) : (
+                                                    <Typography className={classes.secondaryHeading}> R$ { new String(parseFloat(formatValueParcela(plans[activePlan].parcelasAnuidade[i - 1].valor) + formatValueParcela(parcela.valor)).toFixed(2) ).replace(".", ",")} </Typography> 
+                                                  )}                                         
+                                                  </>
+                                                ) : ( 
+                                                  <Typography className={classes.secondaryHeading}>R$ { parcela.valor } </Typography> 
+                                                )
+                                              }                                    
+                                            </AccordionSummary>
+                                            <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
+                                              <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
+                                                <Typography className={classes.heading2}>Mensalidade</Typography>
+                                                <Typography className={classes.secondaryHeading2}> R$ {parcela.valor}</Typography>
+                                              </GridItem>
+                                              <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
+                                                <Typography className={classes.heading2}>Manutenção</Typography>                                      
+                                                { i < plans[activePlan].parcelasAnuidade.length + 1 && i != 0 ? (
+                                                  <Typography className={classes.secondaryHeading2}>{plans[activePlan].parcelasAnuidade[i - 1].valorApresentar}</Typography>
+                                                ) : (
+                                                  <Typography className={classes.secondaryHeading2}>R$ 0,00</Typography>
+                                                )
+                                                }                                      
+                                              </GridItem>
+                                              { i == 0 && (
+                                                <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
+                                                  <Typography className={classes.heading2}>Matrícula</Typography>
+                                                  <Typography className={classes.secondaryHeading2}> R$  { new String(parseFloat( plans[activePlan].valorMatricula ).toFixed(2) ).replace(".", ",")}</Typography>
+                                                </GridItem>
+                                              )}
+                                            </AccordionDetails>
+                                          </Accordion>
+                                        </>
+                                        
                                       )
-                                    }                                    
-                                  </AccordionSummary>
-                                  <AccordionDetails style={{display:'flex',flexDirection:'column'}}>
-                                    <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                      <Typography className={classes.heading2}>Mensalidade</Typography>
-                                      <Typography className={classes.secondaryHeading2}> R$ {parcela.valor}</Typography>
-                                    </GridItem>
-                                    <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                      <Typography className={classes.heading2}>Manutenção</Typography>                                      
-                                      { i < plans[activePlan].parcelasAnuidade.length + 1 && i != 0 ? (
-                                        <Typography className={classes.secondaryHeading2}>{plans[activePlan].parcelasAnuidade[i - 1].valorApresentar}</Typography>
-                                      ) : (
-                                        <Typography className={classes.secondaryHeading2}>R$ 0,00</Typography>
-                                      )
-                                      }                                      
-                                    </GridItem>
-                                    { i == 0 && (
-                                      <GridItem md={12} sm={12} xs={12} style={{display:'flex',flex:1,flexDirection:'row',margin:0,padding:0,paddingRight:'33px',}} >
-                                        <Typography className={classes.heading2}>Matrícula</Typography>
-                                        <Typography className={classes.secondaryHeading2}> R$  { new String(parseFloat( plans[activePlan].valorMatricula ).toFixed(2) ).replace(".", ",")}</Typography>
-                                      </GridItem>
-                                    )}
-                                  </AccordionDetails>
-                                </Accordion>
-                              )
-
-                            })}
-
-
+                                    }
+                                  </>                                
+                                )
+                              })}
                             </div>
                           </Scrollbar>
                         </div>

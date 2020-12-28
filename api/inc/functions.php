@@ -656,4 +656,111 @@ function getCompanies($client) {
 	return $arr;
 }
 
+
+
+function incluirLeadTelevendas($client, $lead) {
+
+	$queryLead = [
+		'k' => "4cWzFaQ6NhMPoeLXW7imKZfO4IIXwB4o",
+		'm' => "contatos",				
+		'a' => "adicionar",
+		'operacao_id' => "1",
+		'campanha_id' => "1",
+		'lista_id' => "26",
+		'contato_codigo' => clean($lead['cpf']),		
+		'contato_cpf' => $lead['cpf'],
+		'contato_nome' => $lead['name'],
+		'contato_email' => $lead['email'],
+		'contato_telefone_1' => clean($lead['phone']),
+		'contato_idade' => calcularIdade($lead['birthDate']),
+		'contato_plano' => $lead['plano'],
+		'contato_unidade' => $lead['unidade'],
+	];
+	
+	echo json_encode($queryLead);
+	
+	$response = $client->request(
+		'POST',
+		'http://wigoo-crm.ibridge.net.br/api/v2/',
+		[
+			'query' => $queryLead,
+			'on_stats' => function (TransferStats $stats) use (&$url) {
+		        $url = $stats->getEffectiveUri();
+		    }
+		]
+	);
+
+	writeLog($url);	
+
+	$obj = json_decode($response->getBody());	
+
+	echo "\n\n";
+	echo serialize($obj);
+
+	return $obj;
+}
+
+function incluirLeadTelevendasVenda($client, $lead) {
+
+	$queryLead = [
+		'k' => "4cWzFaQ6NhMPoeLXW7imKZfO4IIXwB4o",
+		'm' => "contatos",				
+		'a' => "adicionar",
+		'operacao_id' => "1",
+		'campanha_id' => "1",
+		'lista_id' => "26",
+		'contato_codigo' => clean($lead['cpf']),		
+		'contato_estado' => "2",
+		'contato_situacao' => "40135"
+	];
+	
+	echo json_encode($queryLead);
+	
+	
+	$response = $client->request(
+		'POST',
+		'http://wigoo-crm.ibridge.net.br/api/v2/',
+		[
+			'query' => $queryLead,
+			'on_stats' => function (TransferStats $stats) use (&$url) {
+		        $url = $stats->getEffectiveUri();
+		    }
+		]
+	);
+
+	writeLog($url);	
+
+	$obj = json_decode($response->getBody());
+	echo "\n\n";
+	echo serialize($obj);
+
+	return $obj;
+}
+
+function clean($string) {
+	$string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+	
+	$string = str_replace('-','', $string); // Replaces all spaces with hyphens.
+ 
+	return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+ }
+
+ function calcularIdade($date){
+    // separando yyyy, mm, ddd
+    list($dia, $mes, $ano) = explode('/', $date);
+
+    // data atual
+    $hoje = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+    // Descobre a unix timestamp da data de nascimento do fulano
+    $nascimento = mktime( 0, 0, 0, $mes, $dia, $ano);
+
+    // cálculo
+    $idade = floor((((($hoje - $nascimento) / 60) / 60) / 24) / 365.25);
+    //  echo "Idade: $idade Anos";
+ 
+    return $idade;
+}
+
+ 
+
 ?>

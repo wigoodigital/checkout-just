@@ -121,9 +121,9 @@ export default function SectionFooter() {
               </p>
               </GridItem>
 
-              <GridItem style={{marginTop: '3%'}}>
+              <GridItem style={{marginTop: '2%'}}>
                 <p style={{marginTop: '1%'}}>
-                  <strong>i)</strong> Promoção com início em 01 de dezembro 2020 e data final em 15 de dezembro 2020, podendo ser prorrogável até 31 de dezembro de 2020 (conforme disponibilização das unidades).
+                  <strong>i)</strong> Promoção com início em 01 de dezembro 2020 e data final em 31 de dezembro 2020.
                 </p>
                 <p style={{marginTop: '1%'}}>
                   <strong>ii)</strong> Todas as demais cobranças previstas em contrato (taxa de manutenção, multas, etc.) serão integralmente mantidas. 

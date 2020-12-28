@@ -434,7 +434,7 @@ export default function SectionForm(props) {
     console.log(lead);
 
     axios.defaults.headers.post['Content-Type'] = 'application/json';
-    await axios.post('/checkout/setLead.php', lead)
+    await axios.post('/checkout/api/setLeadTelevendas.php', lead)
       .then(res => {
         console.log(res)
       })
