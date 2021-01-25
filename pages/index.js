@@ -520,6 +520,8 @@ export default function CustomizedSteppers() {
   const [isMobile, setisMobile] = React.useState(false);
   const [isOpenSide, setIsOpenSide] = React.useState(false);
 
+  const [isLoadingPlan, setIsLoadingPlan] = React.useState(true);   
+  
   const [isLoadingCupom, setIsLoadingCupom] = React.useState(false);  
   const [insertCupom, setInsertCupom] = React.useState(false);
   const [errorCupom, setErrorCupom] = React.useState(false); 
@@ -540,16 +542,16 @@ export default function CustomizedSteppers() {
   })
   
   const [plans, setPlans] = React.useState([{
-    codigoPlano: 600,
+    codigoPlano: 0,
     descricao: "FIT PLUS CSL - MAT 0 E PRIM 14,90 MENS. 129,90",
-    codigoHorario: 542,
+    codigoHorario: 0,
     descricaoHorario: "LIVRE",
     condicaoPagamento: "EM 12 VEZES - CARTAO RECORRENCIA",
     descricaoEncantamento: "",
-    valorMensal: 129.9,
+    valorMensal: 0.0,
     valorMatricula: 0.0,
     taxaAdesao: 0.0,
-    valorAnuidade: 199.9,
+    valorAnuidade: 0.0,
     diaAnuidade: 1,
     mesAnuidade: "Janeiro",
     mesAnuidadeOrdinal: 1,
@@ -573,14 +575,14 @@ export default function CustomizedSteppers() {
     parcelas: [
       {
         numero: "1",
-        valor: "14,90"
+        valor: "0,00"
       }      
     ],
     parcelasAnuidade: [
       {
         numero: "1",
-        valor: "29.98",
-        valorApresentar: "R$ 29,98",
+        valor: "0.00",
+        valorApresentar: "R$ 0,00",
         parcela: "2",
         parcelaApresentar: "Mesma data da PARCELA 2"
       },
@@ -682,7 +684,7 @@ export default function CustomizedSteppers() {
       },        
       planData: {
         companyBranchId: 26,
-        planId: 600,
+        planId: 0,
         consultantId: 11650531,
         promotionId: 0,
         startDate: "2020-07-31",
@@ -721,16 +723,16 @@ export default function CustomizedSteppers() {
           valorDesconto: "10",
           descricaoPremio: "PARCELA 1",
           tipoPremio: "MENSALIDADE",
-          tipo: "men",
-          valorReferente: 2,
+          Tipo: "men",
+          ValorReferente: 2,
         },
         {
           percentualDesconto: "10",
           valorDesconto: "10",
           descricaoPremio: "PARCELA 1",
           tipoPremio: "MENSALIDADE",
-          tipo: "men",
-          valorReferente: 5,
+          Tipo: "men",
+          ValorReferente: 5,
         },
         
         // {
@@ -805,7 +807,7 @@ export default function CustomizedSteppers() {
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return <SectionPlans setDataSale={setDataSale} setActiveStep={setActiveStep} setActivePlan={setActivePlan} activePlan={ activePlan } plans={plans} dataSale={dataSale} isMobile={isMobile} activeUnidade={activeUnidade} />;
+        return <SectionPlans setDataSale={setDataSale} setActiveStep={setActiveStep} setActivePlan={setActivePlan} activePlan={ activePlan } plans={plans} dataSale={dataSale} isMobile={isMobile} activeUnidade={activeUnidade} isLoadingPlan={isLoadingPlan} />;
       case 1:
         return <SectionForm setDataSale={setDataSale} setActiveStep={setActiveStep} setIsLoading={setIsLoading} setValidationForm={setValidationForm} dataSale={dataSale} validationForm={validationForm} isMobile={isMobile} activeUnidade={activeUnidade} activePlan={ activePlan } plans={plans}  />;
       case 2:
@@ -827,7 +829,8 @@ export default function CustomizedSteppers() {
     axios.defaults.headers.post['Content-Type'] = 'application/json';   
     var result = false;
     setIsLoading(true);
-    result = await axios.post(`https://admin.justfit.com.br/app.justfit//api/LoadPersonalOnline/CheckoutJust`, dataSend)
+    // result = await axios.post(`https://admin.justfit.com.br/app.justfit//api/LoadPersonalOnline/CheckoutJust`, dataSend)
+    result = await axios.post(`https://justfit.com.br/checkout/api/setCheckout.php`, dataSend)
       .then(res => {
         console.log(res);
         try {
@@ -842,7 +845,7 @@ export default function CustomizedSteppers() {
                 msg: res.data.msg
               }
             });
-            setDataLog(dataSend);            
+            setDataLogError(dataSend);                        
             setShowModal(true);
           }
         } catch (error) {
@@ -850,7 +853,15 @@ export default function CustomizedSteppers() {
         }
       })
       .catch((error) => {
-        console.log(error);        
+        console.log(error);   
+        setMessageReturn( prev => {
+          return {
+            code: "500",
+            msg: "Erro interno. Por favor, tente novamente mais tarde."
+          }
+        });
+        setDataLogError(dataSend);                        
+        setShowModal(true);     
       })
       .finally(() => {
         console.log("finally");
@@ -861,6 +872,20 @@ export default function CustomizedSteppers() {
   const setDataLog = async (dataSend) => {
     axios.defaults.headers.post['Content-Type'] = 'application/json';
     await axios.post('/checkout/setLog.php', dataSend)
+      .then(res => {
+        console.log(res)
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        console.log("finally");
+      });
+  };
+  
+  const setDataLogError = async (dataSend) => {
+    axios.defaults.headers.post['Content-Type'] = 'application/json';
+    await axios.post('/checkout/setLogError.php', dataSend)
       .then(res => {
         console.log(res)
       })
@@ -883,7 +908,9 @@ export default function CustomizedSteppers() {
       cpf: formataCPF(dataSend.customer.document),      
       unidade: activeUnidade,
       plano: plans[activePlan].descricao,
-      finalizadoVenda: true
+      finalizadoVenda: true,
+      pendenciaCpf: false,
+      pendenciaEmail: false,
     }
 
     console.log(lead);
@@ -906,7 +933,8 @@ export default function CustomizedSteppers() {
 
   const getPlans = async (codigo) => {        
 
-    
+    setIsLoadingPlan(true);
+
     await axios.post(`https://admin.justfit.com.br/app.justfit/api/LoadPersonalOnline/GetPlanByEmpresa?codEmpresa=${codigo}`)
       .then(res => {
 
@@ -922,6 +950,7 @@ export default function CustomizedSteppers() {
         }
 
         setPlans(res.data.ret);
+        setIsLoadingPlan(false);
         
 
         if( params.PL != "NULL" ) {
@@ -959,6 +988,7 @@ export default function CustomizedSteppers() {
       })
       .finally(() => {
         // setLoading(false);
+        setIsLoadingPlan(false);
       });
   };
 
@@ -1037,6 +1067,8 @@ export default function CustomizedSteppers() {
 
     
     // getUnidade(26);
+
+    // saleSend(dataSale);
     
 
   }, []);
@@ -1128,7 +1160,7 @@ export default function CustomizedSteppers() {
         ...prev,
         customer:{
           ...prev.customer,
-          companyBranchId: params.FL.substr(params.FL.length - 2),
+          // companyBranchId: params.FL.substr(params.FL.length - 2),
           planData: {
             ...prev.customer.planData,       
             planId: plans[activePlan].codigoPlano
@@ -1538,6 +1570,13 @@ export default function CustomizedSteppers() {
                           <Scrollbar>
                             <div className="list-data">
 
+                            { isLoadingPlan ? (
+                              <GridItem justify='center' xs={12} sm={12} md={12} style={{ textAlign: "center" }}>
+                                <CircularProgress style={{ color: "#ccd900" }} size={30}/>
+                              </GridItem>
+
+                            ): ( <>
+
                               {plans[activePlan].parcelas.map((parcela, i) => {        
                                 
                                 
@@ -1659,6 +1698,8 @@ export default function CustomizedSteppers() {
                                   </>                                
                                 )
                               })}
+                            </>)}
+                            
                             </div>
                           </Scrollbar>
                         </div>

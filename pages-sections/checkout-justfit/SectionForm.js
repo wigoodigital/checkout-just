@@ -365,7 +365,7 @@ export default function SectionForm(props) {
     
     // var result = await trigger([ "name", "email", "cpf", "sex", "birthDate", "phone" ]);
 
-    setDataLead(getValues());
+    setDataLead(getValues(), false, false);
     
 
     var result = await trigger();
@@ -379,10 +379,11 @@ export default function SectionForm(props) {
       console.log("resultCpf");
       console.log(resultCpf);
       if(resultCpf){
-        // var resultEmail = await validateEmail(identificationForm.email);
-        // console.log("resultEmail");
-        // console.log(resultEmail);
-        // if(resultEmail){        
+        var resultEmail = await validateEmail(identificationForm.email);
+        console.log("resultEmail");
+        console.log(resultEmail);
+
+        if(resultEmail){        
 
 
           props.setDataSale( prevDataSale => {
@@ -413,7 +414,14 @@ export default function SectionForm(props) {
 
           props.setActiveStep((prevActiveStep) => prevActiveStep + 1);
           
-        // }
+        } else {
+          // Error Email
+          setDataLead(getValues(), false, true);
+        }
+      } else {
+        //Error CPF
+        setDataLead(getValues(), true, false);
+
       }
 
     }
@@ -421,14 +429,16 @@ export default function SectionForm(props) {
     console.log(result);    
   }
 
-  const setDataLead = async (dataSend) => {    
+  const setDataLead = async (dataSend, pendenciaCpf, pendenciaEmail) => {    
 
     const lead = {
       ...dataSend,     
       cpf: formataCPF(dataSend.cpf),  
       unidade: props.activeUnidade,
       plano: props.plans[props.activePlan].descricao,
-      finalizadoVenda: false
+      finalizadoVenda: false,
+      pendenciaCpf: pendenciaCpf ? pendenciaCpf : false,
+      pendenciaEmail: pendenciaEmail ? pendenciaEmail : false,
     }
 
     console.log(lead);
@@ -450,7 +460,7 @@ export default function SectionForm(props) {
   async function validateCpf(cpf) {    
 
     let result = false;
-    result = await axios.post(`https://admin.justfit.com.br/app.justfit/api/LoadPersonalOnline/isValidaCpf?cpf=${cpf}`)
+    result = await axios.post(`https://admin.justfit.com.br/app.justfit/api/LoadPersonalOnline/isValidaCpfValue?cpf=${cpf}&limit=50.00`)
       .then(res => {
         console.log(res);        
         if(res.data.code !== "0"){   
@@ -477,7 +487,7 @@ export default function SectionForm(props) {
   
   async function validateEmail(email) {      
     let result = false;
-    result = await axios.post(`https://admin.justfit.com.br/app.justfit/api/LoadPersonalOnline/GetByEmail?email=${email}`)
+    result = await axios.post(`https://admin.justfit.com.br/app.justfit/api/LoadPersonalOnline/GetByEmailValue?email=${email}&limit=50.00`)
       .then(res => {
         console.log(res);
         if(res.data.code !== "0"){

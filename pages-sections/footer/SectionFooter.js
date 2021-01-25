@@ -48,7 +48,7 @@ export default function SectionFooter() {
             className={classes.footer}
           >
             <GridContainer justify="left" style={{marginTop:'80px'}}>
-              <GridItem xs={6} sm={2} md={4}>
+              <GridItem xs={6} sm={4} md={4}>
                 <div>
                   <h6 style={{ color: '#8E8E8E' }}>Cartões de crédito</h6>
                   <img style={{width:'200px'}} src={imgCard}></img>
@@ -60,10 +60,10 @@ export default function SectionFooter() {
                   <img style={{width:'120px'}} src={imgDebit}></img>
                 </div>
               </GridItem>  
-              <GridItem xs={12} sm={4} md={2} style={{ display: "none" }}>
+              <GridItem xs={12} sm={4} md={4}>
               <div>
-                  <h6 style={{ color: '#8E8E8E' }}>Débito</h6>
-                  <img style={{width:  '35px'}} src={imgDebito}></img>
+                  <h6 style={{ color: '#8E8E8E' }}>Débito automático</h6>
+                  <img style={{width:  '115px'}} src={imgDebito}></img>
                 </div>
               </GridItem>  
              
@@ -117,13 +117,13 @@ export default function SectionFooter() {
               <GridItem style={{marginTop: '2%'}}>
                {/* <h5>INFORMAÇÕES E CONDIÇÕES</h5> */}
                 <p style={{marginTop: '2%'}}>
-                  *Promoção Verão Fit:  Ao aderir a Promoção Verão Fit, você irá pagar no primeiro 01 (um) mês o valor de R$ 29,90 (vinte e nove reais e noventa centavos) no Plano Just, e R$ 14,90 (quatorze reais e noventa centavos) no Plano Fit Plus, e terá a isenção da taxa de matrícula em ambos os planos. Condição válida apenas para novas vendas que fizerem adesão nos Planos Just ou Fit Plus, nos termos e demais condições a seguir: 
+                  *Promoção Pague 02 leve 03:  Ao aderir a Promoção Pague 02 leve 03, você pagará a primeira e a terceira mensalidade, equivalente ao valor do plano contratado, conforme descrito nos valores do plano acima. Em contrapartida receberá à isenção do valor equivalente a segunda mensalidade e taxa de matrícula. Condição válida apenas para novas vendas realizadas nos termos e demais condições a seguir: 
               </p>
               </GridItem>
 
               <GridItem style={{marginTop: '2%'}}>
                 <p style={{marginTop: '1%'}}>
-                  <strong>i)</strong> Promoção com início em 01 de dezembro 2020 e data final em 31 de dezembro 2020.
+                  <strong>i)</strong> Promoção com início em 01 de janeiro 2021 e data final em 31 de janeiro 2021 (conforme disponibilização das unidades).
                 </p>
                 <p style={{marginTop: '1%'}}>
                   <strong>ii)</strong> Todas as demais cobranças previstas em contrato (taxa de manutenção, multas, etc.) serão integralmente mantidas. 
@@ -132,10 +132,10 @@ export default function SectionFooter() {
                   <strong>iii)</strong> Promoção não cumulativa e vinculada a permanência mínima de 03 (três) meses. Esse prazo mínimo é uma condição ao benefício, e não se confunde com o prazo contratual que é de 12 (doze) meses.
                 </p>
                 <p style={{marginTop: '1%'}}>
-                  <strong>iv)</strong> Caso haja cancelamento durante o período de permanência mínima de 03 (três) meses, o valor do benefício (taxa de matrícula e desconto concedido na primeira mensalidade do plano contratado) será cobrado juntamente com quaisquer outros valores devidos no momento do cancelamento (taxa de manutenção, multa, etc.). 
+                  <strong>iv)</strong> Caso haja cancelamento durante o período de permanência mínima de 03 (três) meses, os valores das isenções concedidas serão cobrados juntamente com quaisquer outros valores devidos no momento do cancelamento (taxa de manutenção, multa). 
                 </p>
                 <p style={{marginTop: '1%'}}>
-                  <strong>v)</strong> Essa promoção não é válida para clientes com débito anterior em aberto ou que tiveram seu plano cancelado por violação do Regulamento Interno. Consulte unidades participantes.
+                  <strong>v)</strong> Essa promoção não é válida para clientes com débito anterior em aberto ou que tiveram seu plano cancelado por violação das normas de utilização. Consulte unidades participantes.
                 </p>
 
               </GridItem>

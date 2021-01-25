@@ -1,0 +1,80 @@
+
+
+2021-01-12 13:43:55
+{
+   "name":"Gabriel Dos Santos",
+   "email":"gabriel@pamajhon.com.br",
+   "sex":"M",
+   "birthDate":"10/09/1994",
+   "optinPhone":true,
+   "optinEmail":true,
+   "phone":"(11) 98267-7393",
+   "cpf":"469.105.778-17",
+   "unidade":"SHOPPING LIGHT",
+   "plano":"JUST - MAT. 0 PRIM. 29,90 MENS. 89,90",
+   "finalizadoVenda":false
+}
+
+
+2021-01-12 17:09:34
+{"customer":{"companyBranchId":37,"name":"GABRIEL OLIVEIRA DE SOUZA ","birthDate":"08/04/2003","sex":"M","email":"souza.gabrieloliveira03@gmail.com","document":"44661131819","isForeigner":false,"phones":[{"type":"cellphone","number":"(11)94661-2069"}],"address":{"address":"RUA SANTANA DO RIO PRETO","number":"174","complement":"CASA 01","district":"VILA COSMOPOLITA","city":"SAO PAULO","state":"SP","postalCode":"08421-060"},"financeResponsible":{"name":"FABIANA SILVA DE OLIVEIRA SOUZA ","document":"27690622801","email":"fa.souza2911@bol.com.br","phone":"(11)96564-7673","active":true},"planData":{"companyBranchId":37,"planId":620,"consultantId":11650531,"promotionId":0,"startDate":"2020-07-31","dueDate":"2020-07-31","cupom":"","nrParcelasPagamento":12},"card":{"number":"5464529348787702","name":"FABIANA S O SOUZA ","valid":"07/2025","cvv":"648","bandeira":2},"dcc":{"conta":"","contaCorrenteDV":"","agencia":"","agenciaDV":"","banco":""}}}
+
+
+2021-01-12 19:00:38
+{"customer":{"companyBranchId":26,"name":"JEFFERSON OLIVEIRA DE SOUZA","birthDate":"28/06/1986","sex":"M","email":"jeff170415@gmail.com","document":"33711296831","isForeigner":false,"phones":[{"type":"cellphone","number":"(11)91009-4044"}],"address":{"address":"RUA ARGEMIRO JOSE GONCALVES","number":"171","complement":"CASA","district":"JARDIM ROSA","city":"FRANCISCO MORATO","state":"SP","postalCode":"07991-110"},"financeResponsible":{"name":"JEFFERSON OLIVEIRA DE SOUZA","document":"33711296831","email":"jeff170415@gmail.com","phone":"(11)91009-4044","active":true},"planData":{"companyBranchId":26,"planId":620,"consultantId":11650531,"promotionId":0,"startDate":"2020-07-31","dueDate":"2020-07-31","cupom":"","nrParcelasPagamento":12},"card":{"number":"5277890048553944","name":"jefferson souza","valid":"06/2028","cvv":"628","bandeira":2},"dcc":{"conta":"","contaCorrenteDV":"","agencia":"","agenciaDV":"","banco":""}}}
+
+
+2021-01-12 19:22:15
+{"customer":{"companyBranchId":3,"name":"GEISIELE DIAS ANDRADE","birthDate":"17/10/1994","sex":"F","email":"geisy17dias@gmail.com","document":"43263008846","isForeigner":false,"phones":[{"type":"cellphone","number":"(11)98056-4959"}],"address":{"address":"RUA ITACEMA","number":"330","complement":"APTO 103","district":"ITAIM BIBI","city":"SAO PAULO","state":"SP","postalCode":"04530-051"},"financeResponsible":{"name":"GEISIELE DIAS ANDRADE","document":"327.358.648-63","email":"geisy17dias@gmail.com","phone":"(11)98056-4959","active":true},"planData":{"companyBranchId":3,"planId":621,"consultantId":11650531,"promotionId":0,"startDate":"2020-07-31","dueDate":"2020-07-31","cupom":"","nrParcelasPagamento":12},"card":{"number":"5441992246260255","name":"MARIA C D ANDRADE","valid":"04/2028","cvv":"559","bandeira":2},"dcc":{"conta":"","contaCorrenteDV":"","agencia":"","agenciaDV":"","banco":""}}}
+
+
+2021-01-12 21:34:50
+{"customer":{"companyBranchId":2,"name":"SANARA S S SILVA","birthDate":"08/10/1997","sex":"F","email":"contato.sanara@gmail.com","document":"05978434573","isForeigner":false,"phones":[{"type":"cellphone","number":"(11)94816-7240"}],"address":{"address":"RUA CAMINHO DO ENGENHO","number":"279","complement":"CS 6","district":"FERREIRA","city":"SAO PAULO","state":"SP","postalCode":"05524-000"},"financeResponsible":{"name":"SANARA S S SILVA","document":"05978434573","email":"contato.sanara@gmail.com","phone":"(11)94816-7240","active":true},"planData":{"companyBranchId":2,"planId":620,"consultantId":11650531,"promotionId":0,"startDate":"2020-07-31","dueDate":"2020-07-31","cupom":"","nrParcelasPagamento":12},"card":{"number":"5162920463223711","name":"SANARA S S SILVA","valid":"10/2028","cvv":"960","bandeira":2},"dcc":{"conta":"","contaCorrenteDV":"","agencia":"","agenciaDV":"","banco":""}}}
+
+
+2021-01-12 23:16:04
+{"customer":{"companyBranchId":26,"name":"WALDILECIA SILVA AGUIAR","birthDate":"10/01/1976","sex":"F","email":"waldeleciaaguiar@gmail.com","document":"27533526821","isForeigner":false,"phones":[{"type":"cellphone","number":"(11)95868-2608"}],"address":{"address":"RUA ABOLICAO","number":"114","complement":"AP 61","district":"BELA VISTA","city":"SAO PAULO","state":"SP","postalCode":"01319-010"},"financeResponsible":{"name":"WALDILECIA SILVA AGUIAR","document":"27533526821","email":"waldeleciaaguiar@gmail.com","phone":"(11)95868-2608","active":true},"planData":{"companyBranchId":26,"planId":621,"consultantId":11650531,"promotionId":0,"startDate":"2020-07-31","dueDate":"2020-07-31","cupom":"","nrParcelasPagamento":12},"card":{"number":"4590770287098061","name":"waldilecia s aguiar","valid":"11/2028","cvv":"203","bandeira":1},"dcc":{"conta":"","contaCorrenteDV":"","agencia":"","agenciaDV":"","banco":""}}}
+
+
+2021-01-13 01:10:40
+{"customer":{"companyBranchId":10,"name":"RAUL CONSOLO PERIS","birthDate":"21/07/1980","sex":"M","email":"raulperis@adv.oabsp.org.br","document":"21965704867","isForeigner":false,"phones":[{"type":"cellphone","number":"(14)99709-5079"}],"address":{"address":"RUA PRIMEIRO DE AGOSTO","number":"467","complement":"502_E ","district":"CENTRO","city":"BAURU","state":"SP","postalCode":"17010-011"},"financeResponsible":{"name":"RAUL CONSOLO PERIS","document":"21965704867","email":"raulperis@adv.oabsp.org.br","phone":"(14)99709-5079","active":true},"planData":{"companyBranchId":10,"planId":620,"consultantId":11650531,"promotionId":0,"startDate":"2020-07-31","dueDate":"2020-07-31","cupom":"","nrParcelasPagamento":12},"card":{"number":"4303650002525473","name":"raul cônsolo peris","valid":"09/2025","cvv":"869","bandeira":1},"dcc":{"conta":"","contaCorrenteDV":"","agencia":"","agenciaDV":"","banco":""}}}
+
+
+2021-01-13 10:45:01
+{"customer":{"companyBranchId":27,"name":"BRENO SANTOS REZENDE","birthDate":"31/07/1997","sex":"M","email":"brenoo.rezende@gmail.com","document":"47021168861","isForeigner":false,"phones":[{"type":"cellphone","number":"(11)94646-8290"}],"address":{"address":"AVENIDA CORREGO DO JACU","number":"289","complement":"CASA","district":"ITAQUERA","city":"SAO PAULO","state":"SP","postalCode":"08215-070"},"financeResponsible":{"name":"BRENO SANTOS REZENDE","document":"47021168861","email":"brenoo.rezende@gmail.com","phone":"(11)94646-8290","active":true},"planData":{"companyBranchId":27,"planId":620,"consultantId":11650531,"promotionId":0,"startDate":"2020-07-31","dueDate":"2020-07-31","cupom":"","nrParcelasPagamento":12},"card":{"number":"5454309190669015","name":"Maryanne M Pereira","valid":"12/2027","cvv":"658","bandeira":2},"dcc":{"conta":"","contaCorrenteDV":"","agencia":"","agenciaDV":"","banco":""}}}
+
+
+2021-01-13 13:23:38
+{"customer":{"companyBranchId":23,"name":"LUIZ PAULO JAVORNIK","birthDate":"03/01/1991","sex":"M","email":"luizpaulo00@hotmail.com","document":"07162240976","isForeigner":false,"phones":[{"type":"cellphone","number":"(11)95145-5591"}],"address":{"address":"RUA GONCALVES DIAS","number":"370","complement":"AP 81","district":"CENTRO","city":"SAO BERNARDO DO CAMPO","state":"SP","postalCode":"09715-160"},"financeResponsible":{"name":"LUIZ PAULO JAVORNIK","document":"07162240976","email":"luizpaulo00@hotmail.com","phone":"(11)95145-5591","active":true},"planData":{"companyBranchId":23,"planId":621,"consultantId":11650531,"promotionId":0,"startDate":"2020-07-31","dueDate":"2020-07-31","cupom":"","nrParcelasPagamento":12},"card":{"number":"5460560343140344","name":"LUIZ PAULO JAVORNIK","valid":"09/2026","cvv":"157","bandeira":2},"dcc":{"conta":"","contaCorrenteDV":"","agencia":"","agenciaDV":"","banco":""}}}
+
+
+2021-01-13 13:39:13
+{"customer":{"companyBranchId":42,"name":"PAULA CAMILA TRENCH","birthDate":"08/06/1982","sex":"F","email":"paulatrench@gmail.com","document":"30540139874","isForeigner":false,"phones":[{"type":"cellphone","number":"(14)98232-6802"}],"address":{"address":"RUA JOAO BECCA","number":"466","complement":"","district":"CONJUNTO HABITACIONAL AGUA BRANCA","city":"AVARE","state":"SP","postalCode":"18700-480"},"financeResponsible":{"name":"PAULA CAMILA TRENCH","document":"30540139874","email":"paulatrench@gmail.com","phone":"(14)98232-6802","active":true},"planData":{"companyBranchId":42,"planId":620,"consultantId":11650531,"promotionId":0,"startDate":"2020-07-31","dueDate":"2020-07-31","cupom":"","nrParcelasPagamento":12},"card":{"number":"4806320443054986","name":"PAULA C TRENCH","valid":"09/2023","cvv":"267","bandeira":1},"dcc":{"conta":"","contaCorrenteDV":"","agencia":"","agenciaDV":"","banco":""}}}
+
+
+2021-01-13 14:33:57
+{"customer":{"isForeigner":false,"companyBranchId":17,"planData":{"consultantId":11650531,"promotionId":0,"startDate":"2020-07-31","dueDate":"2020-07-31","cupom":"","nrParcelasPagamento":12,"companyBranchId":17,"planId":620},"name":"BRUNNA CAFARELLA NOGUEIRA","email":"brunnacafarella@hotmail.com","document":"48218051899","sex":"F","birthDate":"10/03/1998","phones":[{"type":"cellphone","number":"(13)99114-9782"}],"financeResponsible":{"active":true,"name":"BRUNNA CAFARELLA NOGUEIRA","document":"48218051899","email":"brunnacafarella@hotmail.com","phone":"(13)99114-9782"},"address":{"address":"ALAMEDA CAMPINAS","number":"1521","complement":"AP 82","district":"JARDIM PAULISTA","city":"SAO PAULO","state":"SP","postalCode":"01404-002"},"card":{"number":"5232841843066297","name":"BRUNNA C NOGUEIRA","valid":"12/2026","cvv":"837","bandeira":2},"dcc":{"conta":"","contaCorrenteDV":"","agencia":"","agenciaDV":"","banco":""}}}
+
+
+2021-01-14 00:35:10
+{"customer":{"companyBranchId":30,"name":"ALINE DE LIMA SILVA ","birthDate":"26/03/1995","sex":"F","email":"aline_lima78@hotmail.com","document":"44277625819","isForeigner":false,"phones":[{"type":"cellphone","number":"(11)97014-8372"}],"address":{"address":"RUA GIUSEPPINA COMINO","number":"381","complement":"CASA 1","district":"JARDIM RECORD","city":"TABOAO DA SERRA","state":"SP","postalCode":"06783-090"},"financeResponsible":{"name":"ALINE DE LIMA SILVA ","document":"44277625819","email":"aline_lima78@hotmail.com","phone":"(11)97014-8372","active":true},"planData":{"companyBranchId":30,"planId":620,"consultantId":11650531,"promotionId":0,"startDate":"2020-07-31","dueDate":"2020-07-31","cupom":"","nrParcelasPagamento":12},"card":{"number":"4218480715701029","name":"Aline de Lima","valid":"01/2028","cvv":"812","bandeira":1},"dcc":{"conta":"","contaCorrenteDV":"","agencia":"","agenciaDV":"","banco":""}}}
+
+
+2021-01-14 04:14:32
+{"customer":{"companyBranchId":37,"name":"DIEGO GOMES","birthDate":"18/02/1993","sex":"M","email":"digo.gomes.g7@gmail.com","document":"43369280884","isForeigner":false,"phones":[{"type":"cellphone","number":"(11)95341-8769"}],"address":{"address":"RUA ANTONIO FRANCISCO SARZEDO","number":"6","complement":"","district":"CONJUNTO RESIDENCIAL PRESTES MAIA","city":"SAO PAULO","state":"SP","postalCode":"08490-250"},"financeResponsible":{"name":"DIEGO GOMES","document":"43369280884","email":"digo.gomes.g7@gmail.com","phone":"(11)95341-8769","active":true},"planData":{"companyBranchId":37,"planId":620,"consultantId":11650531,"promotionId":0,"startDate":"2020-07-31","dueDate":"2020-07-31","cupom":"","nrParcelasPagamento":12},"card":{"number":"4350870032213112","name":"DIEGO GOMES SILVA","valid":"10/2024","cvv":"841","bandeira":1},"dcc":{"conta":"","contaCorrenteDV":"","agencia":"","agenciaDV":"","banco":""}}}
+
+
+2021-01-14 11:10:57
+{"customer":{"companyBranchId":6,"name":"RAFAEL FERREIRA MORAES ROVARON","birthDate":"31/03/1989","sex":"M","email":"rafael.rvrepresentacao@gmail.com","document":"36388368867","isForeigner":false,"phones":[{"type":"cellphone","number":"(11)98773-8093"}],"address":{"address":"AVENIDA FRANCISCO RODRIGUES FILHO","number":"1930","complement":"TORRE 3 AP 66","district":"VILA MOGILAR","city":"MOGI DAS CRUZES","state":"SP","postalCode":"08773-380"},"financeResponsible":{"name":"RAFAEL FERREIRA MORAES ROVARON","document":"36388368867","email":"rafael.rvrepresentacao@gmail.com","phone":"(11)98773-8093","active":true},"planData":{"companyBranchId":6,"planId":621,"consultantId":11650531,"promotionId":0,"startDate":"2020-07-31","dueDate":"2020-07-31","cupom":"","nrParcelasPagamento":12},"card":{"number":"5162925457130780","name":"Rafael f m rovaron ","valid":"05/2028","cvv":"622","bandeira":2},"dcc":{"conta":"","contaCorrenteDV":"","agencia":"","agenciaDV":"","banco":""}}}
+
+
+2021-01-14 11:25:38
+{"customer":{"companyBranchId":6,"name":"LETICIA CRISTINA FERNANDES SANTOS","birthDate":"23/03/2000","sex":"F","email":"leticiaponntel1@gmail.com","document":"48796019859","isForeigner":false,"phones":[{"type":"cellphone","number":"(11)99293-9123"}],"address":{"address":"ESTRADA DO ITAPETI 100","number":"100","complement":"QUADRA 9 LOTE 20, CONDOMINIO ARUA ECOPARK ","district":"PARQUE RESIDENCIAL ITAPETI","city":"MOGI DAS CRUZES","state":"SP","postalCode":"08771-920"},"financeResponsible":{"name":"LETICIA CRISTINA FERNANDES SANTOS","document":"235.027.158-74","email":"leticiaponntel1@gmail.com","phone":"(11)99293-9123","active":true},"planData":{"companyBranchId":6,"planId":620,"consultantId":11650531,"promotionId":0,"startDate":"2020-07-31","dueDate":"2020-07-31","cupom":"","nrParcelasPagamento":12},"card":{"number":"5117810022695416","name":"Alderi T Souza FH","valid":"11/2025","cvv":"874","bandeira":2},"dcc":{"conta":"","contaCorrenteDV":"","agencia":"","agenciaDV":"","banco":""}}}
+
+
+2021-01-14 12:44:25
+{"customer":{"companyBranchId":21,"name":"RAFAELA MELO RESENDE ","birthDate":"21/02/1994","sex":"F","email":"rafaelameloresende@gmail.com","document":"08106005607","isForeigner":false,"phones":[{"type":"cellphone","number":"(14)99639-8476"}],"address":{"address":"RUA HOSUKE UCHIDA","number":"88","complement":"AP 32","district":"FRAGATA","city":"MARILIA","state":"SP","postalCode":"17519-222"},"financeResponsible":{"name":"RAFAELA MELO RESENDE ","document":"753.481.366-20","email":"rafaelameloresende@gmail.com","phone":"(14)99639-8476","active":true},"planData":{"companyBranchId":21,"planId":620,"consultantId":11650531,"promotionId":0,"startDate":"2020-07-31","dueDate":"2020-07-31","cupom":"","nrParcelasPagamento":12},"card":{"number":"4984424498343031","name":"Neiva o Resende ","valid":"01/2025","cvv":"200","bandeira":1},"dcc":{"conta":"","contaCorrenteDV":"","agencia":"","agenciaDV":"","banco":""}}}
+
+
+2021-01-14 17:09:48
+{"customer":{"companyBranchId":32,"name":"DIELSON JOSE DA COSTA","birthDate":"21/12/1989","sex":"M","email":"dielson.familiacosta@gmail.com","document":"36357643882","isForeigner":false,"phones":[{"type":"cellphone","number":"(11)98193-1032"}],"address":{"address":"RUA TADDEO GADDI","number":"15","complement":"CASA BRANCA 3 ANDARES","district":"JARDIM IMBE","city":"SAO PAULO","state":"SP","postalCode":"05863-270"},"financeResponsible":{"name":"DIELSON JOSE DA COSTA","document":"36357643882","email":"dielson.familiacosta@gmail.com","phone":"(11)98193-1032","active":true},"planData":{"companyBranchId":32,"planId":620,"consultantId":11650531,"promotionId":0,"startDate":"2020-07-31","dueDate":"2020-07-31","cupom":"","nrParcelasPagamento":12},"card":{"number":"5234210811371774","name":"Dielson j costa","valid":"11/2026","cvv":"450","bandeira":2},"dcc":{"conta":"","contaCorrenteDV":"","agencia":"","agenciaDV":"","banco":""}}}

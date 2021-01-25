@@ -667,6 +667,7 @@ function incluirLeadTelevendas($client, $lead) {
 		'operacao_id' => "1",
 		'campanha_id' => "1",
 		'lista_id' => "26",
+		// 'lista_id' => "30",
 		'contato_codigo' => clean($lead['cpf']),		
 		'contato_cpf' => $lead['cpf'],
 		'contato_nome' => $lead['name'],
@@ -675,6 +676,7 @@ function incluirLeadTelevendas($client, $lead) {
 		'contato_idade' => calcularIdade($lead['birthDate']),
 		'contato_plano' => $lead['plano'],
 		'contato_unidade' => $lead['unidade'],
+		'chamada_datahora_agendamento' => dataAgendada(),
 	];
 	
 	echo json_encode($queryLead);
@@ -760,7 +762,44 @@ function clean($string) {
  
     return $idade;
 }
+ 
+function dataAgendada(){
+    $minutes_to_add = 5;
+	$hour_to_remove = 3;
+	
+	$time = new DateTime("now", new DateTimeZone('UTC'));	
+	$time->sub(new DateInterval('PT' . $hour_to_remove . 'H'));
+	$time->add(new DateInterval('PT' . $minutes_to_add . 'M'));
 
+	$stamp = $time->format('d/m/Y H:i:s');	
+ 
+    return $stamp;
+}
+
+
+function incluirVenda($client, $dataSend) {	
+	
+	$response = $client->request(
+		'POST',
+		'https://admin.justfit.com.br/app.justfit/api/LoadPersonalOnline/CheckoutJust',
+		[			
+			'json' => $dataSend,
+			'on_stats' => function (TransferStats $stats) use (&$url) {
+		        $url = $stats->getEffectiveUri();
+		    }
+		]
+	);
+
+	writeLog($url);	
+	
+
+	$obj = json_decode($response->getBody());	
+	$resp = $response->getBody();
+	
+	echo $resp;
+
+	return $obj;
+}
  
 
 ?>

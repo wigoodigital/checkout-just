@@ -755,7 +755,7 @@ export default function SectionPayment(props) {
                     </button>
 
 
-                    <button className={classes.btnCard} style={{ backgroundColor: thirdCardColor, color: thirdCardTextColor, marginLeft: 10, marginRight: 10, display: "none" }} onClick={() => { setFirstCardColor("#F2F2F2"); setFirstCardTextColor('#484848'); setSecondCardColor('#F2F2F2'); setSecondCardTextColor('#484848'); setThirdCardColor("#484848"); setThirdCardTextColor('#FFF'); setDisplayDebit('block'); setDisplayPayment('none'); }}>
+                    <button className={classes.btnCard} style={{ backgroundColor: thirdCardColor, color: thirdCardTextColor, marginLeft: 10, marginRight: 10 }} onClick={() => { setFirstCardColor("#F2F2F2"); setFirstCardTextColor('#484848'); setSecondCardColor('#F2F2F2'); setSecondCardTextColor('#484848'); setThirdCardColor("#484848"); setThirdCardTextColor('#FFF'); setDisplayDebit('block'); setDisplayPayment('none'); }}>
                       <span style={{ backgroundColor: thirdCardTextColor }}></span>
                       <svg width="31" height="31" viewBox="0 0 31 31" fill="none" style={{ marginRight: 15 }} xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0)">
@@ -868,7 +868,7 @@ export default function SectionPayment(props) {
                               <input type='checkbox' name="acceptTermsCredit" ref={registerCredit}></input>
                               <span className={classes.checkmarkT}  ></span>
                             </label>                            
-                            <h2>Li e aceito o <a href="https://justfit.com.br/wp-content/uploads/2020/12/REGULAMENTO-INTERNO-2020.pdf" target="_blank">regulamento interno</a>, o <a href="https://justfit.com.br/wp-content/uploads/2020/06/TERMO-DE-RESPONSABILIDADE-ALUNOS-PREVEN%C3%87%C3%95ES-E-ORIENTA%C3%87%C3%95ES-COVID-19.pdf" target="_blank">termo de responsabilidade</a> e o termo de adesão (<a href="https://justfit.com.br/wp-content/uploads/2020/12/TERMO-DE-MATRICULA-PLANO-JUST-PROMO-VERAO.pdf" target="_blank">JUST</a> ou <a href="https://justfit.com.br/wp-content/uploads/2020/12/TERMO-DE-MATRICULA-PLANO-FIT-PLUS-PROMO-VERAO.pdf" target="_blank">FIT PLUS</a>)</h2>
+                            <h2>Li e aceito o <a href="https://justfit.com.br/wp-content/uploads/2020/12/REGULAMENTO-INTERNO-2020.pdf" target="_blank">regulamento interno</a>, o <a href="https://justfit.com.br/wp-content/uploads/2020/06/TERMO-DE-RESPONSABILIDADE-ALUNOS-PREVEN%C3%87%C3%95ES-E-ORIENTA%C3%87%C3%95ES-COVID-19.pdf" target="_blank">termo de responsabilidade</a> e o termo de adesão (<a href="https://justfit.com.br/checkout/termos/Termo_de_Matricula_Plano_Just.pdf" target="_blank">JUST</a> ou <a href="https://justfit.com.br/checkout/termos/Termo_de_Matricula_Plano_Fit_Plus.pdf" target="_blank">FIT PLUS</a>)</h2>
                           </div>
                           { errorsCredit.acceptTermsCredit && (                      
                             <span><ErrorOutlineIcon/><label>{errorsCredit.acceptTermsCredit.message}</label></span>                      

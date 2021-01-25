@@ -19,15 +19,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'PUT
 	// return false;
 
 
-	// $servername = "localhost";
-	// $username = "jflinux_user";
-	// $password = "2309sl#ul32@";
-	// $dbname = "justfitdb_linux";
+	$servername = "localhost";
+	$username = "jflinux_user";
+	$password = "2309sl#ul32@";
+	$dbname = "justfitdb_linux";
 
-	$servername = "162.241.61.224";
-	$username = "clicou84_admin_cp";
-	$password = "cp@189723";
-	$dbname = "clicou84_checkout_justfit";
+	// $servername = "162.241.61.224";
+	// $username = "clicou84_admin_cp";
+	// $password = "cp@189723";
+	// $dbname = "clicou84_checkout_justfit"; 
 
 
 	// Create connection
@@ -72,6 +72,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'PUT
 	} else {
 		$finalizado = 0;
 	}
+	
+	if($lead['pendenciaCpf']){
+		$pendenciaCpf = 1;
+	} else {
+		$pendenciaCpf = 0;
+	}
+	if($lead['pendenciaEmail']){
+		$pendenciaEmail = 1;
+	} else {
+		$pendenciaEmail = 0;
+	}
+
 
 	// $createAt = getdate(); //date	
 	// $updateAt = getdate(); //date	
@@ -86,11 +98,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'PUT
 
 		if ($result->num_rows > 0) {
 			$sql = "UPDATE identificacao_checkout
-    		SET nomecompleto = '{$nomecompleto}', cpf = '{$cpf}', data_nasc = '{$data_nasc}', email = '{$email}', sexo = '{$sexo}', celular = '{$celular}', unidade = '{$unidade}', plano = '{$plano}', optPhone = '{$optPhone}', optEmail = '{$optEmail}',   finalizadoVenda = '{$finalizado}', updateAt = now()  WHERE cpf = '{$cpf}' " ;
+    		SET nomecompleto = '{$nomecompleto}', cpf = '{$cpf}', data_nasc = '{$data_nasc}', email = '{$email}', sexo = '{$sexo}', celular = '{$celular}', unidade = '{$unidade}', plano = '{$plano}', optPhone = '{$optPhone}', optEmail = '{$optEmail}',   finalizadoVenda = '{$finalizado}', pendenciaCpf = '{$pendenciaCpf}', pendenciaEmail = '{$pendenciaEmail}', updateAt = now()  WHERE cpf = '{$cpf}' " ;
 
 		} else {
-			$sql = "INSERT INTO identificacao_checkout (nomecompleto, cpf, data_nasc, email, sexo, celular, unidade, plano, optPhone, optEmail, finalizadoVenda, createAt) 
-			VALUES ('{$nomecompleto}', '{$cpf}', '{$data_nasc}', '{$email}', '{$sexo}', '{$celular}', '{$unidade}', '{$plano}', '{$optPhone}', '{$optEmail}', '{$finalizado}', now())";
+			$sql = "INSERT INTO identificacao_checkout (nomecompleto, cpf, data_nasc, email, sexo, celular, unidade, plano, optPhone, optEmail, finalizadoVenda, pendenciaCpf, pendenciaEmail, createAt) 
+			VALUES ('{$nomecompleto}', '{$cpf}', '{$data_nasc}', '{$email}', '{$sexo}', '{$celular}', '{$unidade}', '{$plano}', '{$optPhone}', '{$optEmail}', '{$finalizado}', '{$pendenciaCpf}', '{$pendenciaEmail}', now())";
 		}
 
 		

@@ -57,7 +57,7 @@ import TagManager from 'react-gtm-module';
 const formatValueParcela = (value) => {
   let returnValue =  new String(value).replace(",", ".")
   let returnDecimal = parseFloat(returnValue).toFixed(2);      
-  return  parseFloat(returnDecimal);    
+  return returnDecimal;    
 }
 
 function dataAtualFormatada(){
@@ -177,9 +177,10 @@ export default function SectionFinish(props) {
         'plano': {
           "codigo": props.plans[props.activePlan].codigoPlano,
           "nome": props.plans[props.activePlan].descricao.includes("FIT") ? "Plano Fit Plus" : "Plano Just",
-          "preco-mat": props.plans[props.activePlan].valorMatricula,
+          "preco-mat": formatValueParcela(props.plans[props.activePlan].valorMatricula),
           "preco-pp": formatValueParcela(props.plans[props.activePlan].parcelas[0].valor),				
-          "preco-anuidade": props.plans[props.activePlan].valorAnuidade,
+          // "preco-anuidade": props.plans[props.activePlan].valorAnuidade,
+          "preco-anuidade": props.plans[props.activePlan].parcelasAnuidade[0].valor,
           "data-matricula": dataAtualFormatada()
         },
         'unidade': {
